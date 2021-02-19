@@ -6,6 +6,9 @@ import {connect} from 'react-redux'
 import SideBarAdmin from './SideBarAdmin'
 import SideBarVendor from './SideBarVendor'
 import SideBarOperation from './SideBarOperation'
+import SideBarInitiation from './SideBarInitiation'
+import SideBarCRM from './SideBarCRM'
+
 const Main = ({isAuthenticated,role}) =>{
     // (isAuthenticated)?(<div><SideBar/></div>):(<div><Navbar/></div>)
     if(isAuthenticated){
@@ -17,6 +20,10 @@ const Main = ({isAuthenticated,role}) =>{
             return <div><SideBarVendor/></div>
         }else if(role=="operation") {
             return <div><SideBarOperation/></div>
+        }else if(role=="initiation") {
+            return <div><SideBarInitiation/></div>
+        }else if(role=="CRM") {
+            return <div><SideBarCRM/></div>
         }
     } else{
         return(<div><Navbar/></div>)
