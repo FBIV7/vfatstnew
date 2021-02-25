@@ -158,6 +158,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
               name="aadharCard"
               type="text"
               placeholder=""
+              
               onChange={(e) => onChange(e)}
             />
           </div>
