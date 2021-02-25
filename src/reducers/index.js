@@ -5,6 +5,8 @@ import report from './report'
 import admin from './admin'
 import vendor from './vendor'
 import operation from './operation'
+import CRM from './CRM'
+import initiation from './initiation'
 
 export default combineReducers({
    auth,
@@ -12,5 +14,7 @@ export default combineReducers({
    report,
    admin,
    vendor,
-   operation
+   operation,
+   CRM,
+   initiation
 });
