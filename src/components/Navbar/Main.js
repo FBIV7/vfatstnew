@@ -8,6 +8,7 @@ import SideBarVendor from './SideBarVendor'
 import SideBarOperation from './SideBarOperation'
 import SideBarInitiation from './SideBarInitiation'
 import SideBarCRM from './SideBarCRM'
+import SideBarAddressTL from './SideBarAddressTL'
 
 const Main = ({isAuthenticated,role}) =>{
     // (isAuthenticated)?(<div><SideBar/></div>):(<div><Navbar/></div>)
@@ -24,6 +25,8 @@ const Main = ({isAuthenticated,role}) =>{
             return <div><SideBarInitiation/></div>
         }else if(role=="CRM") {
             return <div><SideBarCRM/></div>
+        }else if(role=="addressTL") {
+            return <div><SideBarAddressTL/></div>
         }
     } else{
         return(<div><Navbar/></div>)

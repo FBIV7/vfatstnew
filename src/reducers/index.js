@@ -7,6 +7,7 @@ import vendor from './vendor'
 import operation from './operation'
 import CRM from './CRM'
 import initiation from './initiation'
+import addressTL from './addressTL'
 
 export default combineReducers({
    auth,
@@ -16,5 +17,6 @@ export default combineReducers({
    vendor,
    operation,
    CRM,
-   initiation
+   initiation,
+   addressTL
 });
