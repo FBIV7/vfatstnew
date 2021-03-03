@@ -5,8 +5,8 @@ import { addressSubmit } from "../../actions/initiation";
 const Address = ({ addressSubmit, caseId, reportId, index }) => {
   const [formData, setFormData] = useState({
     caseID: caseId,
-    parentReportID: `${reportId}edu-${index}`,
-    ReportID: reportId,
+    parentReportID: reportId,
+    ReportID: `${reportId}add-${Math.floor(Math.random() * 100)}`,
     name: "",
     mobile: "",
     alternateMobile: "",

@@ -13,6 +13,7 @@ import GetAllOperation from "../AdminRoute/GetAllOperation";
 import Price from "../AdminRoute/Price";
 import CreateClient from "../AdminRoute/CreateClient";
 import Test from "../AdminRoute/Test";
+import CreateVendor from "../AdminRoute/CreateVendor";
 
 const SideBarAdmin = ({ logout }) => {
   const [client, setClient] = useState(false);
@@ -175,7 +176,7 @@ const SideBarAdmin = ({ logout }) => {
               <div>
                 <li>
                   <Link
-                    to="/createclient"
+                    to="/createvendor"
                     className="flex items-center space-x-3 text-gray-700 p-1 rounded-md font-small hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
                   >
                     <span className="text-gray-600">
@@ -432,6 +433,11 @@ const SideBarAdmin = ({ logout }) => {
                 exact
                 path="/createclient"
                 component={CreateClient}
+              />
+                <PrivateRoute
+                exact
+                path="/createvendor"
+                component={CreateVendor}
               />
               <PrivateRoute exact path="/test" component={Test} />
               <PrivateRoute

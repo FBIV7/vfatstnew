@@ -47,25 +47,25 @@ export const getOperation = () => async (dispatch) => {
   }
 };
 
-//getVendor
-export const getVendor = () => async (dispatch) => {
-  try {
-    const res = await axios.get(
-      "http://localhost:5000/api/v1/operation/getallvendor"
-    );
-    // console.log(res.data.client)
-    dispatch({
-      type: GET_VENDOR,
-      payload: res.data.vendor,
-    });
-  } catch (err) {
-    //   dispatch({
-    //     type: PROFILE_ERROR,
-    //     payload: { msg: err.response.statusText, status: err.response.status }
-    //   });
-    console.error(err);
-  }
-};
+// //getVendor
+// export const getVendor = () => async (dispatch) => {
+//   try {
+//     const res = await axios.get(
+//       "http://localhost:5000/api/v1/operation/getallvendor"
+//     );
+//     // console.log(res.data.client)
+//     dispatch({
+//       type: GET_VENDOR,
+//       payload: res.data.vendor,
+//     });
+//   } catch (err) {
+//     //   dispatch({
+//     //     type: PROFILE_ERROR,
+//     //     payload: { msg: err.response.statusText, status: err.response.status }
+//     //   });
+//     console.error(err);
+//   }
+// };
 
 export const getAllReport = () => async (dispatch) => {
   try {
@@ -155,6 +155,60 @@ export const createClient = (formData) => async (dispatch) => {
     );
 
     dispatch(getClient());
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getVendor = (user_id) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:5000/api/v1/vendor/get`
+    );
+    dispatch({
+      type: GET_VENDOR,
+      payload: res.data.vendor,
+    });
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const createVendor = (formData) => async (dispatch) => {
+  const body = JSON.stringify(formData);
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/v1/vendor/add",
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res);
+
+    dispatch(getVendor());
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const addPrice = (formData) => async (dispatch) => {
+  const body = JSON.stringify(formData);
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/v1/vendor/addprice",
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res);
+
+    // dispatch(getVendor());
   } catch (err) {
     console.log(err);
   }

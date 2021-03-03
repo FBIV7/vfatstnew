@@ -1,41 +1,44 @@
-import React,{useEffect} from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAddressTL } from "../../actions/addressTL";
-const AllCases = ({getAddressTL,address}) => {
+import { getAddressTL, getAddressTeam, Assign } from "../../actions/addressTL";
+const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [formData, setFormData] = React.useState({
-    employee_id:"",
-    vendor_id:""
-});
-    var count = 1;
+    operationID: "",
+    caseID: "",
+  });
+  const { operationID, caseID } = formData;
+  var count = 1;
 
-    const onClick = (e) => {
-
+  const onClick = (e) => {
+    setFormData({
+      ...formData,
+      caseID: e._id,
+    });
     //     setDisplay(null)
-      setShowModal(true);
+    setShowModal(true);
     //   setDisplay(e);
-  
-    };
-  
-    const onSubmit = async e =>{
-      
-    //     e.preventDefault();
-    //   //   console.log(formData);
-    //     assignVendor(formData)
-    //     setShowModal(false)
-    }
+  };
 
-    // if(address){
-    //     console.log(address);
-    // }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(formData);
+    Assign(formData);
+    setShowModal(false);
+  };
 
-useEffect(() => {
-    getAddressTL()
-}, [])
-    return (
-        <div>
-            <table class="table-fixed text-left w-full   ">
+  // if(address){
+  //     console.log(address);
+  // }
+
+  useEffect(() => {
+    getAddressTL();
+    getAddressTeam();
+  }, []);
+  return (
+    <div>
+      <table class="table-fixed text-left w-full   ">
         <thead className=" bg-gray-200 text-gray-600 flex text-white w-full">
           <tr class="flex w-full mb-4">
             <th className="w-1/6 flex justify-center">S.No</th>
@@ -44,7 +47,7 @@ useEffect(() => {
             <th class="w-1/6 flex justify-center ...">Name</th>
             <th class="w-1/6 flex justify-center ...">Mobile</th>
             <th class="w-1/6 flex justify-center ...">Email</th>
-           
+
             <th class="w-1/6 flex justify-center ..."></th>
           </tr>
         </thead>
@@ -72,15 +75,11 @@ useEffect(() => {
                   </td> */}
                   <td className="w-1/5 flex justify-center">
                     {" "}
-                    {e.ReportID
-                      ? e.ReportID
-                      : "N/A"}{" "}
+                    {e.ReportID ? e.ReportID : "N/A"}{" "}
                   </td>
                   <td className="w-1/5 flex justify-center">
                     {" "}
-                    {e.name
-                      ? e.name
-                      : "N/A"}
+                    {e.name ? e.name : "N/A"}
                   </td>
                   <td className="w-1/5 flex justify-center">
                     {" "}
@@ -113,7 +112,6 @@ useEffect(() => {
         </tbody>
       </table>
 
-
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -122,7 +120,7 @@ useEffect(() => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                  <h3 className="text-3xl font-semibold">Assign Vendor</h3>
+                  <h3 className="text-3xl font-semibold">Assign Operation</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -133,39 +131,34 @@ useEffect(() => {
                   </button>
                 </div>
                 {/*body*/}
-                <form class="mt-7 " 
-                onSubmit={(e) => onSubmit(e)}
-                >
+                <form class="mt-7 " onSubmit={(e) => onSubmit(e)}>
                   <div className="relative p-6 flex-auto">
-                      {/* <label> {display.} </label> */}
+                    {/* <label> {display.} </label> */}
                     <div className=" block gap-1  md:flex">
+                      <label> Vendor </label>
 
-                        <label> Vendor </label>
-                     
                       <select
                         id="check"
                         name="check"
                         class=""
-                       onChange={(e) =>
-                         setFormData({
-                           ...formData,
-                           vendor_id: document.getElementById("check").value,
-                         })
-                       }
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            operationID: document.getElementById("check").value,
+                          })
+                        }
                       >
-                                <option value="">select vendor</option>
+                        <option value="">select Team</option>
 
-                          {/* {vendor && vendor.map(e => {
-                              return(
-                                <option key={e.id} value={e.id}>{e.name}</option>
-
-                              )
-                          })} */}
-                        
+                        {team &&
+                          team.map((e) => {
+                            return (
+                              <option key={e.id} value={e._id}>
+                                {e.name}
+                              </option>
+                            );
+                          })}
                       </select>
-                      
-
-                      
                     </div>
 
                     {/* <button
@@ -202,16 +195,22 @@ useEffect(() => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-
-        </div>
-    )
-}
+    </div>
+  );
+};
 
 AllCases.propTypes = {
-getAddressTL:PropTypes.func.isRequired,
-}
-const mapStateToProps = state =>({
-    address : state.addressTL.address
-})
+  getAddressTL: PropTypes.func.isRequired,
+  getAddressTeam: PropTypes.func.isRequired,
+  Assign: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  address: state.addressTL.address,
+  team: state.addressTL.team,
+});
 
-export default connect(mapStateToProps,{getAddressTL})(AllCases)
+export default connect(mapStateToProps, {
+  getAddressTL,
+  getAddressTeam,
+  Assign,
+})(AllCases);

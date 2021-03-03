@@ -1,13 +1,13 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { referenceSubmit } from "../../actions/initiation";
 
-const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
+const Reference = ({ referenceSubmit, caseId, reportId, index }) => {
   const [formData, setFormData] = useState({
     caseID: caseId,
-    parentReportID: `${reportId}edu-${index}`,
-    ReportID: reportId,
+    parentReportID:reportId,
+    ReportID:  `${reportId}ref-${Math.floor(Math.random() * 100)}`,
     name: "",
     mobile: "",
     alternateMobile: "",
@@ -58,7 +58,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
+    console.log(formData);
     referenceSubmit(formData);
   };
   return (
@@ -80,10 +80,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
         </div>
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Mobile
             </label>
             <input
@@ -95,10 +92,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Alternate Mobile
             </label>
             <input
@@ -158,7 +152,6 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
               name="aadharCard"
               type="text"
               placeholder=""
-              
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -189,10 +182,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Material Status
             </label>
             <input
@@ -217,18 +207,12 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
           </div>
         </div>
         <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-          <label
-            className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-            
-          >
+          <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
             Referance
           </label>
         </div>
         <div className="md:w-full flex px-3 mb-6 md:mb-0">
-          <label
-            className="flex uppercase w-1/3  text-grey-darker text-xs font-bold mb-2"
-            
-          >
+          <label className="flex uppercase w-1/3  text-grey-darker text-xs font-bold mb-2">
             Referance Name
           </label>
           <input
@@ -254,10 +238,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Desigination
             </label>
             <input
@@ -270,10 +251,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Reference ID
             </label>
             <input
@@ -288,10 +266,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
         </div>
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Mobile
             </label>
             <input
@@ -304,10 +279,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Alternate Mobile
             </label>
             <input
@@ -320,10 +292,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Period Applicant
             </label>
             <input
@@ -338,10 +307,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
         </div>
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
-              
-            >
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               Realtion Applicant
             </label>
             <input
@@ -367,7 +333,7 @@ const Reference = ({ referenceSubmit,caseId, reportId, index }) => {
 };
 
 Reference.propTypes = {
-    referenceSubmit:PropTypes.func.isRequired,
+  referenceSubmit: PropTypes.func.isRequired,
 };
 
-export default connect(null,{referenceSubmit})(Reference);
+export default connect(null, { referenceSubmit })(Reference);
