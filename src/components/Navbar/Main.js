@@ -9,6 +9,7 @@ import SideBarOperation from './SideBarOperation'
 import SideBarInitiation from './SideBarInitiation'
 import SideBarCRM from './SideBarCRM'
 import SideBarAddressTL from './SideBarAddressTL'
+import SideBarClientRegistration from './SideBarClientRegistration'
 
 const Main = ({isAuthenticated,role}) =>{
     // (isAuthenticated)?(<div><SideBar/></div>):(<div><Navbar/></div>)
@@ -27,6 +28,8 @@ const Main = ({isAuthenticated,role}) =>{
             return <div><SideBarCRM/></div>
         }else if(role=="addressTL") {
             return <div><SideBarAddressTL/></div>
+        }else if(role=="clientRegistration") {
+            return <div><SideBarClientRegistration/></div>
         }
     } else{
         return(<div><Navbar/></div>)

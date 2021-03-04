@@ -5,7 +5,7 @@ import {
   GET_OPERATION,
   CREATE_PRICE,
   PRICE_ERROR,
-  GET_PRICE
+  GET_PRICE,
 } from "../actions/types";
 
 const initialState = {
@@ -44,13 +44,12 @@ export default function (state = initialState, action) {
         operation: payload,
         loading: false,
       };
-      case GET_PRICE:
-        return{
-          ...state,
-          price:payload,
-          loading:false
-        }
-      
+    case GET_PRICE:
+      return {
+        ...state,
+        price: payload,
+        loading: false,
+      };
 
     default:
       return state;
