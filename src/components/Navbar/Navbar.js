@@ -111,7 +111,7 @@ const Navbar = ({ fixed }) => {
                         <Link to="/services/company">Company Verification</Link>
                       </a>
 
-                      <a
+                      {/* <a
                         href=""
                         className="text-sm py-2 px-4 font-normal block w-full whitespace-no-wrap bg-transparent "
                         onClick={(e) => e.preventDefault()}
@@ -142,7 +142,7 @@ const Navbar = ({ fixed }) => {
                         <Link to="/services/bridegroom">
                           Bride/Groom Verification
                         </Link>
-                      </a>
+                      </a> */}
                     </div>
                   </div>
                 </div>

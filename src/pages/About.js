@@ -18,7 +18,7 @@ const About = () => {
         </div>
         <div className="about text-center m-22 col-span-3">
           <div className="about-text">
-            <p>
+            {/* <p>
               VFAST is a fastest evolving verification product by FBIV Infocomm
               Pvt Ltd in India. We provide a compliant & robust background
               verification process and specialize in helping organizations of
@@ -27,17 +27,19 @@ const About = () => {
               with hiring as we equip our clients for making the best hire
               decisions and help them build successful relationships with their
               applicants based on trust and safety.
-            </p>
+            </p> */}
             <p></p>
             <div className="text-center m-4 ">
-              <h3>Why Choose Us?</h3>
+              {/* <h3>Why Choose Us?</h3> */}
               <div className="list-style">
                 <div className="col-lg-6 col-sm-6 col-xs-12">
                   <ul className="aboutLi">
                     <li className="fontServ">TRUST</li>
+                    <p>We use a combination of human and machine-based resources to build trust among our customers.</p>
                     <li className="fontServ">TECHNOLOGY</li>
+                    <p>Our verification process is totally technology based, we use The latest technologies for the complete process and generate an authentic report</p>
                     <li className="fontServ">EVIDENCE</li>
-                    <li className="fontServ"> RELIABILITY</li>
+                    <p>In our system, you can access all the supporting documents collected during the course of screening as per your requirement and convenience.</p>
                   </ul>
                 </div>
               </div>

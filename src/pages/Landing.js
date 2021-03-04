@@ -3,12 +3,12 @@ import React from "react";
 const Landing = () => {
   return (
     <div>
-      <div className="flex justify-center text-3xl section-title font-serif md:text-5xl">
+      {/* <div className="flex justify-center text-3xl section-title font-serif md:text-5xl">
         <h1 className="flex justify-center font" style={{ marginTop: "50px" }}>
           WHAT OUR CLIENTS SAY
         </h1>
-      </div>
-      <div className="verification md:grid grid-cols-3 gap-4 m-8">
+      </div> */}
+      {/* <div className="verification md:grid grid-cols-3 gap-4 m-8">
         <div className="testimonial">
           <div className="testimonial-image">
             <img src="assets/testimonials/01.png" alt="PHTO" />
@@ -78,9 +78,9 @@ const Landing = () => {
             <div className="testimonial-meta font-serif">Shreya Das</div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div style={{ backgroundColor: "#fcfcfc" }}>
+      {/* <div style={{ backgroundColor: "#fcfcfc" }}>
         <div className="flex justify-center text-3xl section-title font-serif md:text-5xl">
           <h1 className="flex justify-center font" style={{ marginTop: "50px" }}>
             MEET THE TEAM
@@ -128,16 +128,39 @@ const Landing = () => {
             </div>
           </div>
         </div>
+      </div> */}
+      <div className="verificationStyle">
+        <div className="flex justify-center text-3xl section-title font-serif md:text-5xl">
+          <h1 className="flex justify-center font" style={{ marginTop: "20px" }}>
+          WHAT MAKES US UNIQUE IN VERIFICATION INDUSTRY?
+
+        </h1>
+        </div>
+
+        <div className="about-text">
+          <p class="text-black-700 text-center px-4 py-2 m-2">
+          Our innovative and on-demand solutions put you in the driver’s seat, providing you with the features and services vital to proficiently and effectively manage your background screening program and make smarter decisions fast.
+
+</p>
+<li>56% of employers say the leading benefit of background checks is better quality of hire.</li>
+<li>84% of employers report finding misrepresentations on a resume or job application.</li>
+<li>74% of employers say background screening uncovered issues that wouldn’t have been caught otherwise.</li>
+
+          <p></p>
+
+        </div>
+        <br />
       </div>
 
-      <div className=" block justify-center sm:flex md:m-20">
+      <div className=" block justify-center sm:flex md:m-10">
+
         <div
           className="h-100 m-5 sm:h-auto sm:w-48 flex-none bg-cover rounded-t sm:rounded-t-none sm:rounded-l text-center overflow-hidden"
           title="Woman holding a mug"
         >
           <img src="assets/team/amarjeet.jpg" alt="imgAm" />
         </div>
-        <div className="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+        <div className="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-2 flex flex-col justify-between leading-normal">
           <div className="mb-8">
             <div className="text-black font-bold font-serif text-xl mb-2">MD PROFILE</div>
             <p className="text-grey-darker fontServ text-base border-l-4 border-gray-500 pl-4 mb-6  rounded">
@@ -162,7 +185,9 @@ const Landing = () => {
             </p>
           </div>
         </div>
+
       </div>
+
     </div>
   );
 };
