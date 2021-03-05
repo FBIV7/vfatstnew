@@ -24,6 +24,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
     e.preventDefault();
     console.log(formData);
     addPrice(formData);
+    setShowModal(false);
   };
 
   useEffect(() => {
@@ -48,7 +49,11 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
           {!(vendor === null) &&
             vendor.map((e) => {
               return (
-                <tr className="flex w-full " key={e._id}  onClick={(f) => setDisplay(e)}>
+                <tr
+                  className="flex w-full "
+                  key={e._id}
+                  onClick={(f) => setDisplay(e)}
+                >
                   <td className="mx-auto">{e.name}</td>
                   <td className="mx-auto"> {e.aggrement ? "yes" : "No"} </td>
                   <td className="mx-auto"> {e.startDate} </td>
@@ -165,7 +170,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
-{display === null ? (
+      {display === null ? (
         ""
       ) : (
         <div className="mt-10 block bg-grey-100 border-t border-gray-400 ">
@@ -177,7 +182,6 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                 <th class="mx-auto ..."> Location</th>
                 <th class="mx-auto ...">Area </th>
                 <th class="mx-auto ...">Cost</th>
-        
               </tr>
             </thead>
             <tbody
@@ -198,7 +202,6 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
           </table>
         </div>
       )}
-
     </div>
   );
 };
