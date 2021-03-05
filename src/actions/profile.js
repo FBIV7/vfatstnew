@@ -15,7 +15,7 @@ import {
   // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
     try {
-        const res = await axios.get("http://localhost:5000/api/v1/auth/me");
+        const res = await axios.get("http://15.207.67.66:5000/api/v1/auth/me");
         console.log(res)
       dispatch({
         type: GET_PROFILE,
@@ -33,7 +33,7 @@ export const getCurrentProfile = () => async (dispatch) => {
       const body = JSON.stringify(formData);
       try {
         const res = await axios.post(
-            "http://localhost:5000/api/v1/client/contactdetail",
+            "http://15.207.67.66:5000/api/v1/client/contactdetail",
             body,
             {
               headers: {
@@ -60,7 +60,7 @@ export const getCurrentProfile = () => async (dispatch) => {
     console.log(body);
     try {
       const res = await axios.post(
-          "http://localhost:5000/api/v1/client/businessprofile",
+          "http://15.207.67.66:5000/api/v1/client/businessprofile",
           body,
           {
             headers: {
@@ -84,7 +84,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const updateImage = (formData) => async (dispatch) =>{
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/client/updateimage",
+      "http://15.207.67.66:5000/api/v1/client/updateimage",
       formData,
       {
         headers: {
@@ -103,7 +103,7 @@ export const updateImage = (formData) => async (dispatch) =>{
 
 export const getPricing = ( ) => async (dispatch) =>{
   try {
-    const res = await axios.get('http://localhost:5000/api/v1/client/getallpricing')
+    const res = await axios.get('http://15.207.67.66:5000/api/v1/client/getallpricing')
     console.log(res);
     dispatch({
       type:GET_PRICING,

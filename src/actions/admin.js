@@ -12,7 +12,7 @@ import axios from "axios";
 // getClient
 export const getClient = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/admin/getclient");
+    const res = await axios.get("http://15.207.67.66:5000/api/v1/admin/getclient");
     // console.log(res.data.client)
     dispatch({
       type: GET_CLIENT,
@@ -31,7 +31,7 @@ export const getClient = () => async (dispatch) => {
 export const getOperation = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/admin/getoperation"
+      "http://15.207.67.66:5000/api/v1/admin/getoperation"
     );
     // console.log(res.data.client)
     dispatch({
@@ -51,7 +51,7 @@ export const getOperation = () => async (dispatch) => {
 // export const getVendor = () => async (dispatch) => {
 //   try {
 //     const res = await axios.get(
-//       "http://localhost:5000/api/v1/operation/getallvendor"
+//       "http://15.207.67.66:5000/api/v1/operation/getallvendor"
 //     );
 //     // console.log(res.data.client)
 //     dispatch({
@@ -69,7 +69,7 @@ export const getOperation = () => async (dispatch) => {
 
 export const getAllReport = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/report/get");
+    const res = await axios.get("http://15.207.67.66:5000/api/v1/report/get");
     dispatch({
       type: GET_ALLREPORT,
       payload: res.data.employee,
@@ -83,7 +83,7 @@ export const createPrice = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/admin/setprice",
+      "http://15.207.67.66:5000/api/v1/admin/setprice",
       body,
       {
         headers: {
@@ -107,7 +107,7 @@ export const createPrice = (formData) => async (dispatch) => {
 export const getPrice = (user_id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/admin/getprice/${user_id}`
+      `http://15.207.67.66:5000/api/v1/admin/getprice/${user_id}`
     );
     dispatch({
       type: GET_PRICE,
@@ -121,7 +121,7 @@ export const getPrice = (user_id) => async (dispatch) => {
 export const approve = (id) => async (dispatch) => {
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/v1/admin/approve/${id}`
+      `http://15.207.67.66:5000/api/v1/admin/approve/${id}`
     );
     dispatch(getClient());
   } catch (err) {
@@ -132,7 +132,7 @@ export const approve = (id) => async (dispatch) => {
 export const decline = (id) => async (dispatch) => {
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/v1/admin/decline/${id}`
+      `http://15.207.67.66:5000/api/v1/admin/decline/${id}`
     );
     dispatch(getClient());
   } catch (err) {
@@ -145,7 +145,7 @@ export const createClient = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/admin/createclient",
+      "http://15.207.67.66:5000/api/v1/admin/createclient",
       body,
       {
         headers: {
@@ -163,7 +163,7 @@ export const createClient = (formData) => async (dispatch) => {
 export const getVendor = (user_id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/vendor/get`
+      `http://15.207.67.66:5000/api/v1/vendor/get`
     );
     dispatch({
       type: GET_VENDOR,
@@ -179,7 +179,7 @@ export const createVendor = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/vendor/add",
+      "http://15.207.67.66:5000/api/v1/vendor/add",
       body,
       {
         headers: {
@@ -198,7 +198,7 @@ export const addPrice = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/vendor/addprice",
+      "http://15.207.67.66:5000/api/v1/vendor/addprice",
       body,
       {
         headers: {

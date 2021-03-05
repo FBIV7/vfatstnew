@@ -5,7 +5,7 @@ import { ADD_PACKAGE, GET_PACKAGE, ADD_CASE } from "./types.js";
 export const getPackage = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/package/getpackage"
+      "http://15.207.67.66:5000/api/v1/package/getpackage"
     );
     dispatch({
       type: GET_PACKAGE,
@@ -21,7 +21,7 @@ export const addPackage = (formdata) => async (dispatch) => {
   const body = JSON.stringify(formdata);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/package/add",
+      "http://15.207.67.66:5000/api/v1/package/add",
       body,
       {
         headers: {
@@ -44,7 +44,7 @@ export const addCase = (formdata) => async (dispatch) => {
   const body = JSON.stringify(formdata);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/case/register",
+      "http://15.207.67.66:5000/api/v1/case/register",
       body,
       {
         headers: {
