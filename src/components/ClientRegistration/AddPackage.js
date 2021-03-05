@@ -9,32 +9,40 @@ const AddPackage = ({ client, getClient, addPackage }) => {
 
   const [formData, setFormData] = useState({
     id: "",
+    subBU: "",
     name: "",
     educationCheck: "",
+    educationCost: 0,
     addressCheck: "",
     criminalCheck: "",
     drugCheck: "",
     referanceCheck: "",
+    referanceCost:0,
     cost: "",
   });
   const {
     name,
+    subBU,
     educationCheck,
+    educationCost,
     addressCheck,
     criminalCheck,
     drugCheck,
     referanceCheck,
+    referanceCost,
     cost,
     id,
   } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    // setFormData({ ...formData, cost: educationCost });
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     addPackage(formData);
-    setShowModal(false)
+    setShowModal(false);
   };
   const onClick = (e) => {
     // setDisplay(e);
@@ -114,17 +122,47 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                 </div>
                 {/*body*/}
                 <form class="mt-7 " onSubmit={(e) => onSubmit(e)}>
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      id="name"
+                      type="text"
+                      className=" h-8 px-2 border rounded border-grey-400"
+                      name="name"
+                      value={display && display.name}
+                      placeholder="Package Name"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <select
+                      id="subBU"
+                      name="subBU"
+                      class=""
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          subBU: document.getElementById("subBU").value,
+                        })
+                      }
+                    >
+                      <option value="">Select subBU</option>
+                      <option value="BPO">BPO</option>
+                      <option value="IT">IT</option>
+                      <option value="ITES">ITES</option>
+                      <option value="OU">OU</option>
+                    </select>
+                  </div>
                   <div className="flex flex-col mt-4">
                     <input
                       id="name"
                       type="text"
                       className="flex-grow h-8 px-2 border rounded border-grey-400"
                       name="name"
-                      placeholder="Name"
+                      placeholder="Package Name"
                       onChange={(e) => onChange(e)}
                     />
                   </div>
-                  <div className="flex flex-col mt-4">
+
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    
                     <input
                       id="educationCheck"
                       type="number"
@@ -133,14 +171,30 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       placeholder="Education Check"
                       onChange={(e) => onChange(e)}
                     />
+                    <input
+                      id="educationCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="educationCost"
+                      placeholder="Education cost"
+                      onChange={(e) => onChange(e)}
+                    />
                   </div>
-                  <div className="flex flex-col mt-4">
+                  <div className="grid grid-cols-2 gap-4 mt-4">
                     <input
                       id="referanceCheck"
                       type="number"
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
                       name="referanceCheck"
                       placeholder="Referance Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                     <input
+                      id="referanceCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="referanceCost"
+                      placeholder="Referance Cost"
                       onChange={(e) => onChange(e)}
                     />
                   </div>
@@ -180,8 +234,9 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       type="number"
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
                       name="cost"
+                      value={(Number(educationCost) +Number(referanceCost))}
                       placeholder="Cost"
-                      onChange={(e) => onChange(e)}
+                      // onChange={(e) => onChange(e)}
                     />
                   </div>
                   {/*footer*/}
@@ -214,8 +269,7 @@ const AddPackage = ({ client, getClient, addPackage }) => {
         ""
       ) : (
         <div className="mt-10 block bg-grey-100 border-t border-gray-400 ">
-         
-<div> Client Name:- {display.name}</div>
+          <div> Client Name:- {display.name}</div>
           <table class="table-fixed text-left w-full ">
             <thead className="bg-black flex text-white w-full">
               <tr class="flex w-full mb-4">
