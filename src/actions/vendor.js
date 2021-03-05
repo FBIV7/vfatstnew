@@ -6,7 +6,7 @@ import { VENDORPROFILE_ERROR, CREATEVENDOR_PROFILE,CREATEVENDOR_BUSINESS } from 
   // Get current users profile
   export const getVendorProfile = () => async (dispatch) => {
     try {
-        const res = await axios.get("http://localhost:5000/api/v1/auth/me");
+        const res = await axios.get("http://15.207.67.66:5000/api/v1/auth/me");
         console.log(res)
       dispatch({
         type: CREATEVENDOR_PROFILE,
@@ -24,7 +24,7 @@ export const createVendorProfile = (formData, history) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/vendor/contactdetail",
+      "http://15.207.67.66:5000/api/v1/vendor/contactdetail",
       body,
       {
         headers: {
@@ -51,7 +51,7 @@ export const createVendorBusiness = ({companyDetail, Address,statutarydetails,ba
   console.log(body);
   try {
     const res = await axios.post(
-        "http://localhost:5000/api/v1/vendor/businessdetail",
+        "http://15.207.67.66:5000/api/v1/vendor/businessdetail",
         body,
         {
           headers: {
@@ -76,7 +76,7 @@ export const createVendorBusiness = ({companyDetail, Address,statutarydetails,ba
 export const updateVendorImage = (formData) => async (dispatch) =>{
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/vendor/updateimage",
+      "http://15.207.67.66:5000/api/v1/vendor/updateimage",
       formData,
       {
         headers: {

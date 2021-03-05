@@ -11,7 +11,7 @@ import axios from "axios";
 export const getemployeeunderverification = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/operation/getallemployee?status=Under verification"
+      "http://15.207.67.66:5000/api/v1/operation/getallemployee?status=Under verification"
     );
     dispatch({
       type: GET_EMPLOYEEUNDERVERIFICATION,
@@ -25,7 +25,7 @@ export const getemployeeunderverification = () => async (dispatch) => {
 export const getemployeeassignvendor = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/operation/getallemployee?status=Assign vendor"
+      "http://15.207.67.66:5000/api/v1/operation/getallemployee?status=Assign vendor"
     );
     dispatch({
       type: GET_EMPLOYEEASSIGNVENDOR,
@@ -39,7 +39,7 @@ export const getemployeeassignvendor = () => async (dispatch) => {
 export const getemployeeaudit = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/operation/getallemployee?status=wait for confirmation"
+      "http://15.207.67.66:5000/api/v1/operation/getallemployee?status=wait for confirmation"
     );
     dispatch({
       type: GET_EMPLOYEEAUDIT,
@@ -53,7 +53,7 @@ export const getemployeeaudit = () => async (dispatch) => {
 export const notDoAble = (id) => async (dispatch) => {
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/v1/operation/notdoable/${id}`
+      `http://15.207.67.66:5000/api/v1/operation/notdoable/${id}`
     );
     // dispatch({
     //   type: GET_EMPLOYEEASSIGNVENDOR,
@@ -69,7 +69,7 @@ export const notDoAble = (id) => async (dispatch) => {
 export const getVendorByState = (state) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/operation/getallvendor?state=${state}`
+      `http://15.207.67.66:5000/api/v1/operation/getallvendor?state=${state}`
     );
     dispatch({
       type: GET_VENDORBYSTATE,
@@ -85,7 +85,7 @@ export const assignVendor = (formdata) => async (dispatch) => {
   const { employee_id, vendor_id } = formdata;
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/v1/operation/assignvendor/?employee_id=${employee_id}&vendor_id=${vendor_id}`
+      `http://15.207.67.66:5000/api/v1/operation/assignvendor/?employee_id=${employee_id}&vendor_id=${vendor_id}`
     );
     dispatch(getemployeeunderverification());
     dispatch(getemployeeassignvendor());
@@ -99,7 +99,7 @@ export const verified = (id) => async (dispatch) => {
  
   try {
     const res = await axios.put(
-      `http://localhost:5000/api/v1/operation/verifier?employee_id=${id}`
+      `http://15.207.67.66:5000/api/v1/operation/verifier?employee_id=${id}`
     );
     dispatch(getemployeeunderverification());
     dispatch(getemployeeassignvendor());

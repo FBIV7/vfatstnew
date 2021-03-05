@@ -4,7 +4,7 @@ import { ADDRESS_SUCCESS, ADDRESS_FAIL, GET_REPORT } from "./types";
 
 export const getReport = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/report/getuserreport");
+    const res = await axios.get("http://15.207.67.66:5000/api/v1/report/getuserreport");
     console.log(res.data.report);
     dispatch({
       type: GET_REPORT,
@@ -20,7 +20,7 @@ export const getReport = () => async (dispatch) => {
 export const uploadAddressCheck = (file) => async (dispatch) => {
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/report/address",
+      "http://15.207.67.66:5000/api/v1/report/address",
       file,
       {
         headers: {
