@@ -48,7 +48,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
           {!(vendor === null) &&
             vendor.map((e) => {
               return (
-                <tr className="flex w-full " key={e._id}>
+                <tr className="flex w-full " key={e._id}  onClick={(f) => setDisplay(e)}>
                   <td className="mx-auto">{e.name}</td>
                   <td className="mx-auto"> {e.aggrement ? "yes" : "No"} </td>
                   <td className="mx-auto"> {e.startDate} </td>
@@ -114,6 +114,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                         <option>Select</option>
                         <option value="Rural">Rural</option>
                         <option value="Urban">Urban</option>
+                        <option value="City">City</option>
                       </select>
 
                       <input
@@ -164,6 +165,40 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
+{display === null ? (
+        ""
+      ) : (
+        <div className="mt-10 block bg-grey-100 border-t border-gray-400 ">
+          <div> Vendor Name:- {display.name}</div>
+          <div>Price</div>
+          <table class="table-fixed text-left w-full ">
+            <thead className="bg-black flex text-white w-full">
+              <tr class="flex w-full mb-4">
+                <th class="mx-auto ..."> Location</th>
+                <th class="mx-auto ...">Area </th>
+                <th class="mx-auto ...">Cost</th>
+        
+              </tr>
+            </thead>
+            <tbody
+              className="flex flex-col items-center  overflow-y-scroll w-full "
+              style={{ height: "50vh" }}
+            >
+              {display.price &&
+                display.price.map((e) => {
+                  return (
+                    <tr className="flex w-full " key={e._id}>
+                      <td className="mx-auto">{e.locationName}</td>
+                      <td className="mx-auto"> {e.areaType} </td>
+                      <td className="mx-auto"> {e.cost} </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
     </div>
   );
 };

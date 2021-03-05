@@ -77,7 +77,7 @@ const SideBarAdmin = ({ logout }) => {
                 <span>Dashboard</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <div className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                 <span className="text-gray-600">
                   <svg
@@ -97,7 +97,7 @@ const SideBarAdmin = ({ logout }) => {
                 </span>
                 <span onClick={(e) => setClient(!client)}>Client</span>
               </div>
-            </li>
+            </li> */}
             {client && (
               <div>
                 <li>
@@ -225,7 +225,7 @@ const SideBarAdmin = ({ logout }) => {
               </div>
             )}
 
-            <li>
+            {/* <li>
               <div className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline">
                 <span className="text-gray-600">
                   <svg
@@ -245,7 +245,7 @@ const SideBarAdmin = ({ logout }) => {
                 </span>
                 <span onClick={(e) => setOperation(!operation)}>Operation</span>
               </div>
-            </li>
+            </li> */}
             {operation && (
               <div>
                 <li>
@@ -299,7 +299,7 @@ const SideBarAdmin = ({ logout }) => {
               </div>
             )}
 
-            <li>
+            {/* <li>
               <Link
                 to="/price"
                 className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
@@ -322,8 +322,8 @@ const SideBarAdmin = ({ logout }) => {
                 </span>
                 <span>Add Price</span>
               </Link>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link
                 to="/adminstatus"
                 className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
@@ -344,7 +344,7 @@ const SideBarAdmin = ({ logout }) => {
                 </span>
                 <span>Status</span>
               </Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link
                 to="/status"
@@ -368,7 +368,7 @@ const SideBarAdmin = ({ logout }) => {
               </Link>
             </li> */}
 
-            <li>
+            {/* <li>
               <Link
                 to="/changepassword"
                 className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
@@ -391,7 +391,7 @@ const SideBarAdmin = ({ logout }) => {
                 </span>
                 <span>Change password</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <a
                 href="/"

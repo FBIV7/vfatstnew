@@ -208,7 +208,7 @@ export const addPrice = (formData) => async (dispatch) => {
     );
     console.log(res);
 
-    // dispatch(getVendor());
+    dispatch(getVendor());
   } catch (err) {
     console.log(err);
   }
