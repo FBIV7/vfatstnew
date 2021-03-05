@@ -69,16 +69,16 @@ const CreateVendor = ({ createVendor }) => {
                   type="radio"
                   name="answer"
                   onChange={handleChange}
-                  value="yes"
-                  checked={agreement === "yes"}
+                  value="Yes"
+                  checked={agreement === "Yes"}
                 />{" "}
                 Yes
                 <input
                   type="radio"
                   name="answer"
                   onChange={handleChange}
-                  value="no"
-                  checked={agreement === "no"}
+                  value="No"
+                  checked={agreement === "No"}
                 />{" "}
                 Not
               </div>

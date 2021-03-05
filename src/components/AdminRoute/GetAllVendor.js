@@ -55,7 +55,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                   onClick={(f) => setDisplay(e)}
                 >
                   <td className="mx-auto">{e.name}</td>
-                  <td className="mx-auto"> {e.aggrement} </td>
+                  <td className="mx-auto"> {e.agreement} </td>
                   <td className="mx-auto"> {e.startDate} </td>
                   <td className="mx-auto"> {e.endDate} </td>
                   <td className="mx-auto">

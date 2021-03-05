@@ -12,7 +12,9 @@ import axios from "axios";
 // getClient
 export const getClient = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://15.207.67.66:5000/api/v1/admin/getclient");
+    const res = await axios.get(
+      "http://15.207.67.66:5000/api/v1/admin/getclient"
+    );
     // console.log(res.data.client)
     dispatch({
       type: GET_CLIENT,
@@ -162,14 +164,11 @@ export const createClient = (formData) => async (dispatch) => {
 
 export const getVendor = (user_id) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `http://15.207.67.66:5000/api/v1/vendor/get`
-    );
+    const res = await axios.get(`http://15.207.67.66:5000/api/v1/vendor/get`);
     dispatch({
       type: GET_VENDOR,
       payload: res.data.vendor,
     });
-
   } catch (err) {
     console.error(err);
   }
