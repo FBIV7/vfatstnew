@@ -32,7 +32,7 @@ const FillData = ({getinitiationCases,cases}) => {
             }} key={e}>
         <tr className='flex w-full' >
           <th className="w-1/5 flex justify-center...">{e.reportId}</th>
-          <th className="w-1/5 flex justify-center...">{e.clientName}</th>
+          <th className="w-1/5 flex justify-center...">{e.clientName.name}</th>
           <th className="w-1/5 flex justify-center...">{e.candidateName}</th>
           <th className="w-1/5 flex justify-center..."><Moment format="YYYY/MM/DD" >{e.date}</Moment></th>
         

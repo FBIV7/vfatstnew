@@ -106,13 +106,13 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
             </div>
             <div className="flex flex-col mt-4">
               <select
-                id="check"
+                id="checks"
                 name="check"
                 class=""
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    pack: document.getElementById("check").value,
+                    pack: document.getElementById("checks").value,
                     reportId: report,
                   })
                 }

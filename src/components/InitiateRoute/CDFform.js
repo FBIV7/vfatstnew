@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getPackagebyID, getCasebyID } from "../../actions/initiation";
@@ -9,8 +9,16 @@ import Employment from "./Employment";
 import Reference from "./Reference";
 
 const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
+  const [packages, setPackages] = useState(null);
+
+  console.log(packages);
   useEffect(() => {
-    getPackagebyID(location.state.pack);
+    var pack = location.state.clientName.package.filter((e) => {
+      return e._id === location.state.pack;
+    });
+
+    pack.map((e) => setPackages(e));
+    // getPackagebyID(location.state.pack);
     getCasebyID(location.state._id);
   }, []);
   return (
@@ -19,18 +27,19 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
         <div> caseId : {location.state.reportId} </div>
         <div>
           {" "}
-          <span>Client Name : {location.state.clientName}</span>{" "}
+          <span>Client Name : {location.state.clientName.name}</span>{" "}
         </div>
         <div>Candidate Name : {location.state.candidateName}</div>
       </div>
       <div className="grid grid-cols-3 gap-3 mt-10">
-        <div>Package selected : {pack && pack.name}</div>
+        <div>Package selected : {packages && packages.name}</div>
       </div>
       Education form
-      {pack &&
-        pack.educationCheck &&
+      {packages &&
+        packages.educationCheck &&
         _.times(
-          pack.educationCheck - (cases ? cases.educationSubmit : 0),
+          packages.educationCheck -
+            (cases ? cases.educationSubmit : 0),
           (i, index) => {
             return (
               <div key={index}>
@@ -46,10 +55,11 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
         )}
       Address Form
       <div>
-        {pack &&
-          pack.addressCheck &&
+        {packages &&
+          packages.addressCheck &&
           _.times(
-            pack.addressCheck - (cases ? cases.addressSubmit : 0),
+            packages.addressCheck -
+              (cases ? cases.addressSubmit : 0),
             (i, index) => {
               return (
                 <div key={index}>
@@ -65,10 +75,11 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       </div>
       <div>
         Employment Form
-        {pack &&
-          pack.employmentCheck &&
+        {packages &&
+          packages.employmentCheck &&
           _.times(
-            pack.employmentCheck - (cases ? cases.employmentSubmit : 0),
+            packages.employmentCheck -
+              (cases ? cases.employmentSubmit : 0),
             (i, index) => {
               return (
                 <div key={index}>
@@ -84,10 +95,11 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       </div>
       <div>
         Reference Form
-        {pack &&
-          pack.referenceCheck &&
+        {packages &&
+          packages.referenceCheck &&
           _.times(
-            pack.referenceCheck - (cases ? cases.referenceSubmit : 0),
+            packages.referenceCheck -
+              (cases ? cases.referenceSubmit : 0),
             (i, index) => {
               return (
                 <div key={index}>
