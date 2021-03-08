@@ -1,11 +1,11 @@
 import axios from "axios";
-import { ADD_PACKAGE, GET_PACKAGE, ADD_CASE } from "./types.js";
+import { ADD_PACKAGE, GET_PACKAGE, ADD_CASE,GETS_CLIENTS } from "./types.js";
 
 //GET PACKAGE
 export const getPackage = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://15.207.67.66:5000/api/v1/package/getpackage"
+      "http://localhost:5000/api/v1/package/getpackage"
     );
     dispatch({
       type: GET_PACKAGE,
@@ -21,7 +21,7 @@ export const addPackage = (formdata) => async (dispatch) => {
   const body = JSON.stringify(formdata);
   try {
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/package/add",
+      "http://localhost:5000/api/v1/package/add",
       body,
       {
         headers: {
@@ -44,7 +44,7 @@ export const addCase = (formdata) => async (dispatch) => {
   const body = JSON.stringify(formdata);
   try {
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/case/register",
+      "http://localhost:5000/api/v1/case/register",
       body,
       {
         headers: {
@@ -58,5 +58,19 @@ export const addCase = (formdata) => async (dispatch) => {
     });
   } catch (err) {
     console.log(err);
+  }
+};
+export const getClient = () => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:5000/api/v1/client/getclients`
+    );
+    dispatch({
+      type: GETS_CLIENTS,
+      payload: res.data.client,
+    });
+
+  } catch (err) {
+    console.error(err);
   }
 };

@@ -5,7 +5,7 @@ import { GET_CASE, GET_PACKAGEBYID, GET_CASEBYID } from "./types.js";
 export const getinitiationCases = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://15.207.67.66:5000/api/v1/case/getCases?status=initiation"
+      "http://localhost:5000/api/v1/case/getCases?status=initiation"
     );
     dispatch({
       type: GET_CASE,
@@ -20,7 +20,7 @@ export const getinitiationCases = () => async (dispatch) => {
 export const getPackagebyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://15.207.67.66:5000/api/v1/package/getpackagebyID/${id}`
+      `http://localhost:5000/api/v1/package/getpackagebyID/${id}`
     );
     dispatch({
       type: GET_PACKAGEBYID,
@@ -36,7 +36,7 @@ export const getPackagebyID = (id) => async (dispatch) => {
 export const getCasebyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://15.207.67.66:5000/api/v1/case/getcasesbyid/${id}`
+      `http://localhost:5000/api/v1/case/getcasesbyid/${id}`
     );
     dispatch({
       type: GET_CASEBYID,
@@ -53,7 +53,7 @@ export const educationSubmit = (formData) => async (dispatch) => {
     const body = JSON.stringify(formData);
 
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/form/education",
+      "http://localhost:5000/api/v1/form/education",
       body,
       {
         headers: {
@@ -72,7 +72,7 @@ export const addressSubmit = (formData) => async (dispatch) => {
     const body = JSON.stringify(formData);
 
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/form/address",
+      "http://localhost:5000/api/v1/form/address",
       body,
       {
         headers: {
@@ -92,7 +92,7 @@ export const employmentSubmit = (formData) => async (dispatch) => {
     const body = JSON.stringify(formData);
 
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/form/employment",
+      "http://localhost:5000/api/v1/form/employment",
       body,
       {
         headers: {
@@ -112,7 +112,7 @@ export const referenceSubmit = (formData) => async (dispatch) => {
     const body = JSON.stringify(formData);
 
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/form/reference",
+      "http://localhost:5000/api/v1/form/reference",
       body,
       {
         headers: {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getClient, addPackage } from "../../actions/clientRegistration";
 
-const AddPackage = ({ client, getClient, addPackage }) => {
+const AddPackage = ({ client, getClient, addPackage, CRM }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [display, setDisplay] = useState(null);
 
@@ -14,11 +14,14 @@ const AddPackage = ({ client, getClient, addPackage }) => {
     educationCheck: "",
     educationCost: 0,
     addressCheck: "",
+    addressCost: 0,
     criminalCheck: "",
+    criminalCost: 0,
     drugCheck: "",
+    drugCost: 0,
     referanceCheck: "",
-    referanceCost:0,
-    cost: "",
+    referanceCost: 0,
+    cost: 0,
   });
   const {
     name,
@@ -26,8 +29,11 @@ const AddPackage = ({ client, getClient, addPackage }) => {
     educationCheck,
     educationCost,
     addressCheck,
+    addressCost,
     criminalCheck,
+    criminalCost,
     drugCheck,
+    drugCost,
     referanceCheck,
     referanceCost,
     cost,
@@ -36,22 +42,42 @@ const AddPackage = ({ client, getClient, addPackage }) => {
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // setFormData({ ...formData, cost: educationCost });
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     addPackage(formData);
+
+    console.log(formData);
     setShowModal(false);
   };
   const onClick = (e) => {
     // setDisplay(e);
-    setFormData({ ...formData, id: e._id });
+
+    setFormData({ ...formData, id: e._id ,
+    cost:0,
+  educationCost:0,
+  addressCost:0,
+  drugCost:0,
+  referanceCost:0,
+  criminalCost:0
+  });
     setShowModal(true);
   };
   useEffect(() => {
     getClient();
   }, []);
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      cost:
+        Number(educationCost) +
+        Number(referanceCost) +
+        Number(addressCost) +
+        Number(criminalCost) +
+        Number(drugCost),
+    });
+  }, [educationCost, addressCost, referanceCost, drugCost, criminalCost]);
   return (
     <div>
       <table class="table-fixed text-left w-full ">
@@ -121,7 +147,7 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                   </button>
                 </div>
                 {/*body*/}
-                <form class="mt-7 " onSubmit={(e) => onSubmit(e)}>
+                <form id="myForm" class="mt-7 " onSubmit={(e) => onSubmit(e)}>
                   <div className="grid grid-cols-2 gap-4">
                     <input
                       id="name"
@@ -162,7 +188,6 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mt-4">
-                    
                     <input
                       id="educationCheck"
                       type="number"
@@ -177,7 +202,9 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
                       name="educationCost"
                       placeholder="Education cost"
-                      onChange={(e) => onChange(e)}
+                      onChange={(e) => {
+                        onChange(e);
+                      }}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4 mt-4">
@@ -189,7 +216,7 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       placeholder="Referance Check"
                       onChange={(e) => onChange(e)}
                     />
-                     <input
+                    <input
                       id="referanceCost"
                       type="number"
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
@@ -198,7 +225,7 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       onChange={(e) => onChange(e)}
                     />
                   </div>
-                  <div className="flex flex-col mt-4">
+                  <div className="grid grid-cols-2 gap-4 mt-4">
                     <input
                       id="drugCheck"
                       type="number"
@@ -207,8 +234,16 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       placeholder="Drug Check"
                       onChange={(e) => onChange(e)}
                     />
+                    <input
+                      id="drugCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="drugCost"
+                      placeholder="Drug Cost"
+                      onChange={(e) => onChange(e)}
+                    />
                   </div>
-                  <div className="flex flex-col mt-4">
+                  <div className="grid grid-cols-2 gap-4 mt-4">
                     <input
                       id="addressCheck"
                       type="number"
@@ -217,14 +252,30 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       placeholder="Address Check"
                       onChange={(e) => onChange(e)}
                     />
+                    <input
+                      id="addressCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="addressCost"
+                      placeholder="Address Cost"
+                      onChange={(e) => onChange(e)}
+                    />
                   </div>
-                  <div className="flex flex-col mt-4">
+                  <div className="grid grid-cols-2 gap-4 mt-4">
                     <input
                       id="criminalCheck"
                       type="number"
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
                       name="criminalCheck"
                       placeholder="Criminal Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="criminalCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalCost"
+                      placeholder="Criminal Cost"
                       onChange={(e) => onChange(e)}
                     />
                   </div>
@@ -234,9 +285,9 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       type="number"
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
                       name="cost"
-                      value={(Number(educationCost) +Number(referanceCost))}
+                      value={cost}
                       placeholder="Cost"
-                      // onChange={(e) => onChange(e)}
+                      // onChange={(e) =>  setFormData({ ...formData, cost: document.getElementById("cost").value })}
                     />
                   </div>
                   {/*footer*/}
@@ -253,6 +304,7 @@ const AddPackage = ({ client, getClient, addPackage }) => {
                       className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                       type="submit"
                       style={{ transition: "all .15s ease" }}
+                     
                     >
                       Save
                     </button>
@@ -312,6 +364,7 @@ AddPackage.propTypes = {
 };
 const mapStateToProps = (state) => ({
   client: state.clientRegistration.client,
+  CRM: state.clientRegistration.CRM,
 });
 
 export default connect(mapStateToProps, { getClient, addPackage })(AddPackage);

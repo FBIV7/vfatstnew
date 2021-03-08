@@ -1,7 +1,8 @@
-import { ADD_PACKAGE, GET_PACKAGE } from "../actions/types.js";
+import { ADD_PACKAGE, GET_PACKAGE ,GETS_CLIENTS} from "../actions/types.js";
 
 const initialState = {
   package: null,
+  client:null
 };
 
 export default function (state = initialState, action) {
@@ -13,6 +14,11 @@ export default function (state = initialState, action) {
         ...state,
         package: payload.package,
       };
+      case GETS_CLIENTS:
+        return{
+          ...state,
+          client:payload
+        }
     default:
       return state;
   }

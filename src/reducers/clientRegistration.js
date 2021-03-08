@@ -1,7 +1,8 @@
-import { GETS_CLIENT } from "../actions/types";
+import { GETS_CLIENT, GETS_CRM } from "../actions/types";
 
 const initialState = {
   client: null,
+  CRM: null,
 };
 
 export default function (state = initialState, action) {
@@ -11,6 +12,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         client: payload,
+      };
+    case GETS_CRM:
+      return {
+        ...state,
+        CRM: payload,
       };
 
     default:

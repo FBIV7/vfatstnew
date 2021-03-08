@@ -13,7 +13,7 @@ import axios from "axios";
 export const getClient = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://15.207.67.66:5000/api/v1/admin/getclient"
+      "http://localhost:5000/api/v1/admin/getclient"
     );
     // console.log(res.data.client)
     dispatch({
@@ -33,7 +33,7 @@ export const getClient = () => async (dispatch) => {
 export const getOperation = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://15.207.67.66:5000/api/v1/admin/getoperation"
+      "http://localhost:5000/api/v1/admin/getoperation"
     );
     // console.log(res.data.client)
     dispatch({
@@ -53,7 +53,7 @@ export const getOperation = () => async (dispatch) => {
 // export const getVendor = () => async (dispatch) => {
 //   try {
 //     const res = await axios.get(
-//       "http://15.207.67.66:5000/api/v1/operation/getallvendor"
+//       "http://localhost:5000/api/v1/operation/getallvendor"
 //     );
 //     // console.log(res.data.client)
 //     dispatch({
@@ -71,7 +71,7 @@ export const getOperation = () => async (dispatch) => {
 
 export const getAllReport = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://15.207.67.66:5000/api/v1/report/get");
+    const res = await axios.get("http://localhost:5000/api/v1/report/get");
     dispatch({
       type: GET_ALLREPORT,
       payload: res.data.employee,
@@ -85,7 +85,7 @@ export const createPrice = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/admin/setprice",
+      "http://localhost:5000/api/v1/admin/setprice",
       body,
       {
         headers: {
@@ -109,7 +109,7 @@ export const createPrice = (formData) => async (dispatch) => {
 export const getPrice = (user_id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://15.207.67.66:5000/api/v1/admin/getprice/${user_id}`
+      `http://localhost:5000/api/v1/admin/getprice/${user_id}`
     );
     dispatch({
       type: GET_PRICE,
@@ -123,7 +123,7 @@ export const getPrice = (user_id) => async (dispatch) => {
 export const approve = (id) => async (dispatch) => {
   try {
     const res = await axios.put(
-      `http://15.207.67.66:5000/api/v1/admin/approve/${id}`
+      `http://localhost:5000/api/v1/admin/approve/${id}`
     );
     dispatch(getClient());
   } catch (err) {
@@ -134,7 +134,7 @@ export const approve = (id) => async (dispatch) => {
 export const decline = (id) => async (dispatch) => {
   try {
     const res = await axios.put(
-      `http://15.207.67.66:5000/api/v1/admin/decline/${id}`
+      `http://localhost:5000/api/v1/admin/decline/${id}`
     );
     dispatch(getClient());
   } catch (err) {
@@ -147,7 +147,7 @@ export const createClient = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/admin/createclient",
+      "http://localhost:5000/api/v1/admin/createclient",
       body,
       {
         headers: {
@@ -164,7 +164,7 @@ export const createClient = (formData) => async (dispatch) => {
 
 export const getVendor = (user_id) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://15.207.67.66:5000/api/v1/vendor/get`);
+    const res = await axios.get(`http://localhost:5000/api/v1/vendor/get`);
     dispatch({
       type: GET_VENDOR,
       payload: res.data.vendor,
@@ -178,7 +178,7 @@ export const createVendor = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/vendor/add",
+      "http://localhost:5000/api/v1/vendor/add",
       body,
       {
         headers: {
@@ -197,7 +197,7 @@ export const addPrice = (formData) => async (dispatch) => {
   const body = JSON.stringify(formData);
   try {
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/vendor/addprice",
+      "http://localhost:5000/api/v1/vendor/addprice",
       body,
       {
         headers: {

@@ -5,7 +5,7 @@ import { GET_ADDRESSTL, GET_ADDRESSTEAM } from "./types.js";
 export const getAddressTL = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://15.207.67.66:5000/api/v1/form/address/TL"
+      "http://localhost:5000/api/v1/form/address/TL"
     );
     dispatch({
       type: GET_ADDRESSTL,
@@ -19,7 +19,7 @@ export const getAddressTL = () => async (dispatch) => {
 // get
 export const getAddressTeam = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://15.207.67.66:5000/api/v1/auth/address");
+    const res = await axios.get("http://localhost:5000/api/v1/auth/address");
     dispatch({
       type: GET_ADDRESSTEAM,
       payload: res.data.user,
@@ -33,7 +33,7 @@ export const Assign = (formData) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
     const res = await axios.post(
-      "http://15.207.67.66:5000/api/v1/case/addressbyid",
+      "http://localhost:5000/api/v1/case/addressbyid",
       body,
       {
         headers: {

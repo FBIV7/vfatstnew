@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import PropTypes from "prop-types";
-import { createClient } from "../../actions/clientRegistration";
+import { createClient , getCrm} from "../../actions/clientRegistration";
 import { connect } from "react-redux";
-const Registration = ({ createClient }) => {
+const Registration = ({ createClient,CRM ,getCrm}) => {
   const [formData, setFormData] = useState({
     name: "",
     agreement: "",
     startDate: "",
     endDate: "",
+    CRM:""
   });
-  let { name, agreement, startDate, endDate } = formData;
+  let { name, agreement, startDate, endDate ,operationID} = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -22,6 +23,9 @@ const Registration = ({ createClient }) => {
     console.log(formData);
     createClient(formData);
   };
+  useEffect(() => {
+    getCrm()
+  }, [])
   return (
     <div class="flex flex-col h-screen bg-gray-100">
       <div class="grid place-items-center  my-20 sm:my-auto">
@@ -111,6 +115,30 @@ const Registration = ({ createClient }) => {
                 onChange={(e) => onChange(e)}
               />
             </div>
+            <div className="block w-full mx-auto">
+            <select
+                        id="check"
+                        name="check"
+                        class=""
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            CRM: document.getElementById("check").value,
+                          })
+                        }
+                      >
+                        <option value="">select Team</option>
+
+                        {CRM &&
+                          CRM.map((e) => {
+                            return (
+                              <option key={e._id} value={e._id}>
+                                {e.name}
+                              </option>
+                            );
+                          })}
+                      </select>
+                      </div>
             <button
               type="submit"
               class="w-full py-3 mt-10 bg-gray-800 rounded-sm
@@ -128,6 +156,11 @@ const Registration = ({ createClient }) => {
 
 Registration.propTypes = {
   createClient: PropTypes.func.isRequired,
+  getCrm:PropTypes.func.isRequired,
 };
+const mapStateToProps = state =>({
+  CRM: state.clientRegistration.CRM,
+  
+})
 
-export default connect(null, { createClient })(Registration);
+export default connect(mapStateToProps, { createClient , getCrm})(Registration);

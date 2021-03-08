@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { addCase, getPackage } from "../../actions/CRM";
+import { addCase, getPackage, getClient } from "../../actions/CRM";
 
-const Registration = ({ packages, addCase, getPackage }) => {
+const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
   const [formData, setFormData] = useState({
     clientName: "",
     candidateName: "",
     pack: "",
     reportId: "",
   });
+  const [packagess, setPackage] = useState(null);
   const { clientName, candidateName, pack, reportId } = formData;
 
   const date = new Date();
@@ -22,7 +23,23 @@ const Registration = ({ packages, addCase, getPackage }) => {
     date.getFullYear();
 
   //   console.log(report);
+  const onHandle = (e) => {
+    setFormData({
+      ...formData,
+      clientName: document.getElementById("check").value,
+      reportId: report,
+    });
+    let data = client.filter((g) => {
+      return g._id === document.getElementById("check").value;
+    });
+    data.map((e) => {
+      setPackage(e.package)
+    });
+    
 
+   
+
+  };
   const onChange = (e) => {
     setFormData({
       ...formData,
@@ -38,6 +55,7 @@ const Registration = ({ packages, addCase, getPackage }) => {
   };
   useEffect(() => {
     getPackage();
+    getClient();
   }, []);
   return (
     <div class="flex flex-col h-screen bg-gray-100">
@@ -56,14 +74,25 @@ const Registration = ({ packages, addCase, getPackage }) => {
             onSubmit={(e) => onSubmit(e)}
           >
             <div className="flex flex-col mt-4">
-              <input
-                id="clientName"
-                type="text"
-                className="flex-grow h-8 px-2 border rounded border-grey-400"
-                name="clientName"
-                placeholder="Client Name"
-                onChange={(e) => onChange(e)}
-              />
+              <select
+                id="check"
+                name="check"
+                class=""
+                onChange={(f) => {
+                  onHandle(f);
+                }}
+              >
+                <option value="">select Client</option>
+
+                {client &&
+                  client.map((e) => {
+                    return (
+                      <option key={e._id} value={e._id}>
+                        {e.name}
+                      </option>
+                    );
+                  })}
+              </select>
             </div>
             <div className="flex flex-col mt-4">
               <input
@@ -90,8 +119,9 @@ const Registration = ({ packages, addCase, getPackage }) => {
               >
                 <option value="">select package</option>
 
-                {packages &&
-                  packages.map((e) => {
+                {packagess &&
+                
+                  packagess.map((e) => {
                     return (
                       <option key={e._id} value={e._id}>
                         {e.name}
@@ -119,8 +149,12 @@ const Registration = ({ packages, addCase, getPackage }) => {
 Registration.propTypes = {
   addCase: PropTypes.func.isRequired,
   getPackage: PropTypes.func.isRequired,
+  getClient: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   packages: state.CRM.package,
+  client: state.CRM.client,
 });
-export default connect(mapStateToProps, { addCase, getPackage })(Registration);
+export default connect(mapStateToProps, { addCase, getPackage, getClient })(
+  Registration
+);
