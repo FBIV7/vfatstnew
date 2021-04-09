@@ -12,7 +12,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "../../utils/routing/PrivateRoute";
 import AssignVendor from "../OperationRoute/AssignVendor";
 import AddressCheckInProcess from "../OperationRoute/AddressCheckInProcess";
-import { Audiotrack } from "@material-ui/icons";
 import AddressAudit from "../OperationRoute/AddressAudit";
 
 const SideBarOperation = ({

@@ -7,19 +7,25 @@ import Education from "./Education";
 import Address from "./Address";
 import Employment from "./Employment";
 import Reference from "./Reference";
+import BlueCollarReferance from "./BlueCollarReferance";
+import axios from "axios";
 
 const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
   const [packages, setPackages] = useState(null);
 
-  console.log(packages);
+  console.log(cases);
+
+ 
   useEffect(() => {
     var pack = location.state.clientName.package.filter((e) => {
       return e._id === location.state.pack;
     });
 
+
+
     pack.map((e) => setPackages(e));
     // getPackagebyID(location.state.pack);
-    getCasebyID(location.state._id);
+    // getCasebyID(location.state._id);
   }, []);
   return (
     <div>
@@ -32,14 +38,27 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
         <div>Candidate Name : {location.state.candidateName}</div>
       </div>
       <div className="grid grid-cols-3 gap-3 mt-10">
+        <button class="bg-grey-light hover:bg-grey text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center">
+          <svg
+            class="w-4 h-4 mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+          </svg>
+          <span>
+            <a href={location.state.document} download="">Download</a>
+          </span>
+        </button>
+      </div>
+      <div className="grid grid-cols-3 gap-3 mt-10">
         <div>Package selected : {packages && packages.name}</div>
       </div>
       Education form
       {packages &&
         packages.educationCheck &&
         _.times(
-          packages.educationCheck -
-            (cases ? cases.educationSubmit : 0),
+          packages.educationCheck - (cases ? cases.educationSubmit : 0),
           (i, index) => {
             return (
               <div key={index}>
@@ -58,8 +77,7 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
         {packages &&
           packages.addressCheck &&
           _.times(
-            packages.addressCheck -
-              (cases ? cases.addressSubmit : 0),
+            packages.addressCheck - (cases ? cases.addressSubmit : 0),
             (i, index) => {
               return (
                 <div key={index}>
@@ -78,8 +96,7 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
         {packages &&
           packages.employmentCheck &&
           _.times(
-            packages.employmentCheck -
-              (cases ? cases.employmentSubmit : 0),
+            packages.employmentCheck - (cases ? cases.employmentSubmit : 0),
             (i, index) => {
               return (
                 <div key={index}>
@@ -96,10 +113,9 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       <div>
         Reference Form
         {packages &&
-          packages.referenceCheck &&
+          packages.referanceCheck &&
           _.times(
-            packages.referenceCheck -
-              (cases ? cases.referenceSubmit : 0),
+            packages.referanceCheck - (cases ? cases.referenceSubmit : 0),
             (i, index) => {
               return (
                 <div key={index}>
@@ -108,6 +124,22 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
                     reportId={location.state.reportId}
                     index={index}
                   ></Reference>
+                </div>
+              );
+            }
+          )}
+        {packages &&
+          packages.blueCollarReferanceCheck &&
+          _.times(
+            packages.blueCollarReferanceCheck -
+              (cases ? cases.blueCollarReferenceSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <BlueCollarReferance
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
                 </div>
               );
             }

@@ -23,6 +23,7 @@ import PrivateRoute from "./routing/PrivateRoute";
 import { connect } from "react-redux";
 import ResetPassword from "../components/auth/ResetPassword";
 import Form from "../components/VendorRoute/Form";
+import Alert from "../components/auth/Alert";
 const Routers = ({ isAuthenticated }) => {
   const history = useHistory();
 
@@ -30,14 +31,21 @@ const Routers = ({ isAuthenticated }) => {
   return (
     <Router>
       <Fragment>
-        {history.location.pathname.startsWith("/public") ? (<div>
-          <Route path="/public/resetpassword/:token" component={ResetPassword} />
-          <Route path="/public/updatebyvendor/:id" component={Form} />
+        {history.location.pathname.startsWith("/public") ? (
+          <div>
+            <Route
+              path="/public/resetpassword/:token"
+              component={ResetPassword}
+            />
+            <Route path="/public/updatebyvendor/:id" component={Form} />
           </div>
         ) : (
           <Fragment>
+            <Alert />
+
             <Main />
             {!isAuthenticated && <Route exact path="/" component={Wrapper} />}
+
             <Switch>
               <Route exact path="/about" component={Aboutpage} />
               <Route exact path="/contact" component={ContactPage} />

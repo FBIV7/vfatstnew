@@ -2,24 +2,25 @@ import React, { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-  addressSubmit,
-  addressInsuff,
-  getAddressbyID,
+  BCReferenceSubmit,
+  BCReferenceInsuff,
+  getBluecollarbyID,
 } from "../../actions/initiation";
-const Address = ({
-  addressSubmit,
+const BlueCollarReferance = ({
   caseId,
+  BCReferenceSubmit,
+  BCReferenceInsuff,
   reportId,
-  index,
-  addressInsuff,
-  getAddressbyID,
-  address,
+  getBluecollarbyID,
+  bluecollar,
   repID
 }) => {
+  const [showModal, setShowModal] = React.useState(false);
+
   const [formData, setFormData] = useState({
     caseID: caseId,
     parentReportID: reportId,
-    ReportID: `${reportId}add-${Math.floor(Math.random() * 100)}`,
+    ReportID: `${reportId}ref-${Math.floor(Math.random() * 100)}`,
     name: "",
     mobile: "",
     alternateMobile: "",
@@ -31,17 +32,13 @@ const Address = ({
     DOB: "",
     maritialStatus: "",
     nationality: "",
-    street: "",
-    pincode: "",
-    city: "",
-    state: "",
-    from: "",
-    to: "",
-    landmark: "",
+    referenceName: "",
+    referenceMobile: "",
+    referenceAlternateMobile: "",
+    periodApplicant: "",
+    relationApplicant: "",
     remark: "",
   });
-  const [showModal, setShowModal] = React.useState(false);
-  const [documents, setDocument] = useState(null);
   const {
     caseID,
     parentReportID,
@@ -52,20 +49,17 @@ const Address = ({
     email,
     fatherName,
     motherName,
-    aadharCard,
     passport,
+    aadharCard,
     DOB,
     maritialStatus,
     nationality,
-    street,
-    pincode,
-    city,
-    state,
-    from,
-    to,
-    landmark,
+    referenceName,
+    referenceMobile,
+    referenceAlternateMobile,
+    periodApplicant,
+    relationApplicant,
     remark,
-
   } = formData;
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -73,64 +67,56 @@ const Address = ({
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    addressSubmit(formData, documents);
+    BCReferenceSubmit(formData);
   };
   const onSubmitinsuff = (e) => {
     e.preventDefault();
     console.log(formData);
-    addressInsuff(formData);
+    BCReferenceInsuff(formData);
     setShowModal(false);
   };
   useEffect(() => {
     if (repID) {
-      getAddressbyID(repID);
+      getBluecollarbyID(repID);
     }
   }, []);
   useEffect(() => {
     setFormData({
-      name: address && address.name ? address.name : "",
-      caseID: address && address.caseID ? address.caseID : caseId,
+      name: bluecollar && bluecollar.name ? bluecollar.name : "",
+      caseID: bluecollar && bluecollar.caseID ? bluecollar.caseID : caseId,
       parentReportID:
-        address && address.parentReportID
-          ? address.parentReportID
+        bluecollar && bluecollar.parentReportID
+          ? bluecollar.parentReportID
           : reportId,
       ReportID:
-        address && address.ReportID
-          ? address.ReportID
+        bluecollar && bluecollar.ReportID
+          ? bluecollar.ReportID
           : `${reportId}edu-${Math.floor(Math.random() * 100)}`,
-      mobile: address && address.mobile ? address.mobile : "",
+      mobile: bluecollar && bluecollar.mobile ? bluecollar.mobile : "",
       alternateMobile:
-        address && address.alternateMobile ? address.alternateMobile : "",
-      email: address && address.email ? address.email : "",
-      motherName: address && address.motherName ? address.motherName : "",
-      fatherName: address && address.fatherName ? address.fatherName : "",
-      aadharCard: address && address.aadharCard ? address.aadharCard : "",
-      passport: address && address.passport ? address.passport : "",
-      DOB: address && address.DOB ? address.DOB : "",
+        bluecollar && bluecollar.alternateMobile ? bluecollar.alternateMobile : "",
+      email: bluecollar && bluecollar.email ? bluecollar.email : "",
+      motherName: bluecollar && bluecollar.motherName ? bluecollar.motherName : "",
+      fatherName: bluecollar && bluecollar.fatherName ? bluecollar.fatherName : "",
+      aadharCard: bluecollar && bluecollar.aadharCard ? bluecollar.aadharCard : "",
+      passport: bluecollar && bluecollar.passport ? bluecollar.passport : "",
+      DOB: bluecollar && bluecollar.DOB ? bluecollar.DOB : "",
       maritialStatus:
-        address && address.maritialStatus ? address.maritialStatus : "",
+        bluecollar && bluecollar.maritialStatus ? bluecollar.maritialStatus : "",
       nationality:
-        address && address.nationality ? address.nationality : "",
-      street:
-        address && address.street ? address.street : "",
-      pincode:
-        address && address.pincode ? address.pincode : "",
-      city: address && address.city ? address.city : "",
-      state:
-        address && address.state ? address.state : "",
-      from:
-        address && address.from ? address.from : "",
-      to:
-        address && address.to ? address.to : "",
-      landmark:
-        address && address.landmark
-          ? address.landmark
-          : "",
-      remark: address && address.remark ? address.remark : "",
-      
-      isnew: false,
+        bluecollar && bluecollar.nationality ? bluecollar.nationality : "",
+      referenceName:
+        bluecollar && bluecollar.referenceName ? bluecollar.referenceName : "",
+      referenceMobile:
+        bluecollar && bluecollar.referenceMobile ? bluecollar.referenceMobile : "",
+      referenceAlternateMobile: bluecollar && bluecollar.referenceAlternateMobile ? bluecollar.referenceAlternateMobile : "",
+      relationApplicant:
+        bluecollar && bluecollar.relationApplicant ? bluecollar.relationApplicant : "",
+      remark:
+        bluecollar && bluecollar.remark ? bluecollar.remark : "",
+          isnew: false,
     });
-  }, [address]);
+  }, [bluecollar]);
   return (
     <div className="bg-gray-300 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
       <form onSubmit={(e) => onSubmit(e)}>
@@ -200,7 +186,7 @@ const Address = ({
               name="motherName"
               type="text"
               placeholder=""
-              value={motherName}
+              value ={motherName}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -246,7 +232,6 @@ const Address = ({
             />
           </div>
         </div>
-
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
@@ -288,66 +273,66 @@ const Address = ({
             />
           </div>
         </div>
-        <div className="border-2 border-fuchsia-900 w-full flex m-auto "></div>
-
+        <div className="border-2 border-white-900 w-full flex m-auto "></div>
         <div className="md:w-1/3 px-3 mb-6 md:mb-0">
           <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-            Address
+            Referance
           </label>
         </div>
         <div className="md:w-full flex px-3 mb-6 md:mb-0">
           <label className="flex uppercase w-1/3  text-grey-darker text-xs font-bold mb-2">
-            Street No
+            Referance Name
           </label>
           <input
             className="appearance-none w-2/3 bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
             type="text"
-            name="street"
+            name="referenceName"
             placeholder=""
-            value={street}
+            value={referenceName}
             onChange={(e) => onChange(e)}
           />
         </div>
+
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              City
+              Mobile
             </label>
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               id=""
-              name="city"
               type="text"
+              name="referenceMobile"
+              value={referenceMobile}
               placeholder=""
-              value={city}
               onChange={(e) => onChange(e)}
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              PinCode
+              Alternate Mobile
             </label>
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               id=""
-              name="pincode"
+              name="referenceAlternateMobile"
               type="text"
               placeholder=""
-              value={pincode}
+              value={referenceAlternateMobile}
               onChange={(e) => onChange(e)}
             />
           </div>
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              State
+              Period Applicant
             </label>
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
+              name="periodApplicant"
               id=""
-              name="state"
               type="text"
               placeholder=""
-              value={state}
+              value={periodApplicant}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -355,63 +340,20 @@ const Address = ({
         <div className="-mx-3 md:flex mb-6">
           <div className="md:w-1/3 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              LandMark
+              Realtion Applicant
             </label>
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               id=""
-              type="text"
-              name="landmark"
-              placeholder=""
-              value={landmark}
-              onChange={(e) => onChange(e)}
-            />
-          </div>
-          <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              Start Date
-            </label>
-            <input
-              className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
-              id=""
-              name="from"
+              name="relationApplicant"
+              value={relationApplicant}
               type="text"
               placeholder=""
-              value={from}
-              onChange={(e) => onChange(e)}
-            />
-          </div>
-          <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              End Date
-            </label>
-            <input
-              className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
-              name="universityLocation"
-              id=""
-              type="text"
-              name="to"
-              placeholder=""
-              value={to}
               onChange={(e) => onChange(e)}
             />
           </div>
         </div>
-        <div className="-mx-3 md:flex mb-6">
-          <div className="md:w-1/3 px-3 mb-6 md:mb-0">
-            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-              Document
-            </label>
-            <input
-              className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
-              id=""
-              name="documents"
-              type="file"
-              placeholder=""
-              onChange={(e) => setDocument(e.target.files[0])}
-            />
-          </div>
-        </div>
+
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           type="submit"
@@ -489,19 +431,18 @@ const Address = ({
   );
 };
 
-Address.propTypes = {
-  addressSubmit: PropTypes.func.isRequired,
-  addressInsuff: PropTypes.func.isRequired,
-  getAddressbyID: PropTypes.func.isRequired,
+BlueCollarReferance.propTypes = {
+  BCReferenceSubmit: PropTypes.func.isRequired,
+  BCReferenceInsuff: PropTypes.func.isRequired,
+  getBluecollarbyID: PropTypes.func.isRequired,
 };
-
 const mapStateToProps = (state) => ({
-  address: state.initiation.address,
+  bluecollar: state.initiation.bluecollar,
   repID: state.initiation.reportID,
 });
 
 export default connect(mapStateToProps, {
-  addressSubmit,
-  addressInsuff,
-  getAddressbyID,
-})(Address);
+  BCReferenceSubmit,
+  BCReferenceInsuff,
+  getBluecollarbyID,
+})(BlueCollarReferance);

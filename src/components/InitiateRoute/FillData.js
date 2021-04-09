@@ -13,11 +13,13 @@ const FillData = ({getinitiationCases,cases}) => {
     return (
         <table className="table-fixed w-full">
         <thead>
-        <tr className="flex w-full">
+        <tr className="flex w-full ">
           <th className="w-1/5 flex justify-center...">CaseId</th>
           <th className="w-1/5 flex justify-center...">Client Name</th>
           <th className="w-1/5 flex justify-center...">Candidate</th>
           <th className="w-1/5 flex justify-center...">Date</th>
+          <th className="w-1/5 flex justify-center...">TAT</th>
+          <th className="w-1/5 flex justify-center...">Expire on</th>
        
         </tr>
         
@@ -35,6 +37,8 @@ const FillData = ({getinitiationCases,cases}) => {
           <th className="w-1/5 flex justify-center...">{e.clientName.name}</th>
           <th className="w-1/5 flex justify-center...">{e.candidateName}</th>
           <th className="w-1/5 flex justify-center..."><Moment format="YYYY/MM/DD" >{e.date}</Moment></th>
+          <th className="w-1/5 flex justify-center...">{e.caseTAT}</th>
+          <th className="w-1/5 flex justify-center..."><Moment format="YYYY/MM/DD" >{e.expireDate}</Moment></th>
         
         </tr>
         </Link>

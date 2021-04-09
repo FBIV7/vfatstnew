@@ -10,9 +10,29 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
     candidateName: "",
     pack: "",
     reportId: "",
+    educationTAT: "",
+    addressTAT: "",
+    criminalTAT: "",
+    drugTAT: "",
+    referanceTAT: "",
+    blueCollarReferanceTAT: "",
+    documents: "",
   });
+  // const [documents, setDocument] = useState(null);
   const [packagess, setPackage] = useState(null);
-  const { clientName, candidateName, pack, reportId } = formData;
+  const {
+    criminalTAT,
+    educationTAT,
+    drugTAT,
+    referanceTAT,
+    clientName,
+    candidateName,
+    pack,
+    reportId,
+    addressTAT,
+    blueCollarReferanceTAT,
+    documents,
+  } = formData;
 
   const date = new Date();
   var report =
@@ -33,12 +53,8 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
       return g._id === document.getElementById("check").value;
     });
     data.map((e) => {
-      setPackage(e.package)
+      setPackage(e.package);
     });
-    
-
-   
-
   };
   const onChange = (e) => {
     setFormData({
@@ -49,12 +65,32 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    // console.log(formData);
-    addCase(formData);
+    // const data = new FormData();
+    // data.append("formData", formData);
+    // // Data.append("formData", formData);
+    console.log(formData);
+    addCase(formData, documents);
   };
   useEffect(() => {
-    getPackage();
+    if (packagess) {
+      packagess.map((e) => {
+        if (e._id === document.getElementById("checks").value) {
+          setFormData({
+            ...formData,
+            educationTAT: e && e.educationTAT ? e.educationTAT : 0,
+            addressTAT: e && e.addressTAT ? e.addressTAT : 0,
+            criminalTAT: e && e.criminalTAT ? e.criminalTAT : 0,
+            drugTAT: e && e.drugTAT ? e.drugTAT : 0,
+            referanceTAT: e && e.referanceTAT ? e.referanceTAT : 0,
+            blueCollarReferanceTAT:
+              e && e.blueCollarReferanceTAT ? e.blueCollarReferanceTAT : 0,
+          });
+        }
+      });
+    }
+  }, [pack]);
+  useEffect(() => {
+    //getPackage();
     getClient();
   }, []);
   return (
@@ -107,7 +143,7 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
             <div className="flex flex-col mt-4">
               <select
                 id="checks"
-                name="check"
+                name="checks"
                 class=""
                 onChange={(e) =>
                   setFormData({
@@ -120,7 +156,6 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
                 <option value="">select package</option>
 
                 {packagess &&
-                
                   packagess.map((e) => {
                     return (
                       <option key={e._id} value={e._id}>
@@ -129,6 +164,15 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
                     );
                   })}
               </select>
+            </div>
+            <div className="flex flex-col mt-4">
+              <input
+                type="file"
+                name="documents"
+                onChange={(e) =>
+                  setFormData({ ...formData, documents: e.target.files[0] })
+                }
+              ></input>
             </div>
 
             <div className="flex flex-col mt-8">

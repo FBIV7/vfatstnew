@@ -6,21 +6,28 @@ import { getClient, addPackage } from "../../actions/clientRegistration";
 const AddPackage = ({ client, getClient, addPackage, CRM }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [display, setDisplay] = useState(null);
-
   const [formData, setFormData] = useState({
     id: "",
     subBU: "",
     name: "",
     educationCheck: "",
     educationCost: 0,
+    educationTAT: 0,
     addressCheck: "",
     addressCost: 0,
+    addressTAT: 0,
     criminalCheck: "",
     criminalCost: 0,
+    criminalTAT: 0,
     drugCheck: "",
     drugCost: 0,
+    drugTAT: 0,
     referanceCheck: "",
     referanceCost: 0,
+    referanceTAT: 0,
+    blueCollarReferanceCheck: "",
+    blueCollarReferanceCost: "",
+    blueCollarReferanceTAT: "",
     cost: 0,
   });
   const {
@@ -28,14 +35,22 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
     subBU,
     educationCheck,
     educationCost,
+    educationTAT,
     addressCheck,
     addressCost,
+    addressTAT,
     criminalCheck,
     criminalCost,
+    criminalTAT,
     drugCheck,
     drugCost,
+    drugTAT,
     referanceCheck,
     referanceCost,
+    referanceTAT,
+    blueCollarReferanceCheck,
+    blueCollarReferanceCost,
+    blueCollarReferanceTAT,
     cost,
     id,
   } = formData;
@@ -54,14 +69,17 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
   const onClick = (e) => {
     // setDisplay(e);
 
-    setFormData({ ...formData, id: e._id ,
-    cost:0,
-  educationCost:0,
-  addressCost:0,
-  drugCost:0,
-  referanceCost:0,
-  criminalCost:0
-  });
+    setFormData({
+      ...formData,
+      id: e._id,
+      cost: 0,
+      educationCost: 0,
+      addressCost: 0,
+      drugCost: 0,
+      referanceCost: 0,
+      criminalCost: 0,
+      blueCollarReferanceCost: 0,
+    });
     setShowModal(true);
   };
   useEffect(() => {
@@ -75,9 +93,17 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
         Number(referanceCost) +
         Number(addressCost) +
         Number(criminalCost) +
-        Number(drugCost),
+        Number(drugCost) +
+        Number(blueCollarReferanceCost),
     });
-  }, [educationCost, addressCost, referanceCost, drugCost, criminalCost]);
+  }, [
+    educationCost,
+    addressCost,
+    referanceCost,
+    drugCost,
+    criminalCost,
+    blueCollarReferanceCost,
+  ]);
   return (
     <div>
       <table class="table-fixed text-left w-full ">
@@ -88,7 +114,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
             <th class="mx-auto ...">Start Date</th>
             <th class="mx-auto ...">End Date</th>
             <th class="mx-auto ...">Add Package</th>
-            <th class="mx-auto ...">Add Pricing</th>
+            {/* <th class="mx-auto ...">Add Pricing</th> */}
           </tr>
         </thead>
         <tbody
@@ -113,7 +139,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       Add Package
                     </button>{" "}
                   </td>
-                  <td className="mx-auto">
+                  {/* <td className="mx-auto">
                     {" "}
                     <button
                       className=""
@@ -121,7 +147,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                     >
                       Add Pricing
                     </button>{" "}
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}
@@ -187,7 +213,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
                       id="educationCheck"
                       type="number"
@@ -206,8 +232,18 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                         onChange(e);
                       }}
                     />
+                    <input
+                      id="educationTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="educationTAT"
+                      placeholder="Education TAT"
+                      onChange={(e) => {
+                        onChange(e);
+                      }}
+                    />
                   </div>
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
                       id="referanceCheck"
                       type="number"
@@ -224,8 +260,16 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       placeholder="Referance Cost"
                       onChange={(e) => onChange(e)}
                     />
+                    <input
+                      id="referanceTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="referanceTAT"
+                      placeholder="Referance TAT"
+                      onChange={(e) => onChange(e)}
+                    />
                   </div>
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
                       id="drugCheck"
                       type="number"
@@ -242,8 +286,16 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       placeholder="Drug Cost"
                       onChange={(e) => onChange(e)}
                     />
+                    <input
+                      id="drugTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="drugTAT"
+                      placeholder="Drug TAT"
+                      onChange={(e) => onChange(e)}
+                    />
                   </div>
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
                       id="addressCheck"
                       type="number"
@@ -260,8 +312,16 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       placeholder="Address Cost"
                       onChange={(e) => onChange(e)}
                     />
+                    <input
+                      id="addressTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="addressTAT"
+                      placeholder="Address TAT"
+                      onChange={(e) => onChange(e)}
+                    />
                   </div>
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
                       id="criminalCheck"
                       type="number"
@@ -276,6 +336,40 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
                       name="criminalCost"
                       placeholder="Criminal Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="criminalTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalTAT"
+                      placeholder="Criminal TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="blueCollarReferanceCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="blueCollarReferanceCheck"
+                      placeholder="Blue Collar Referance Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="blueCollarReferanceCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="blueCollarReferanceCost"
+                      placeholder="Blue Collar Referance Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="blueCollarReferanceTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="blueCollarReferanceTAT"
+                      placeholder="Blue Collar Referance TAT"
                       onChange={(e) => onChange(e)}
                     />
                   </div>
@@ -304,7 +398,6 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                       type="submit"
                       style={{ transition: "all .15s ease" }}
-                     
                     >
                       Save
                     </button>
@@ -330,6 +423,8 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                 <th class="mx-auto ...">Address</th>
                 <th class="mx-auto ...">Drug</th>
                 <th class="mx-auto ...">Criminal</th>
+                <th class="mx-auto ...">Referance</th>
+                <th class="mx-auto ..."> Blue C. Ref</th>
                 <th class="mx-auto ...">Cost</th>
               </tr>
             </thead>
@@ -346,6 +441,8 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       <td className="mx-auto"> {e.addressCheck} </td>
                       <td className="mx-auto"> {e.drugCheck} </td>
                       <td className="mx-auto"> {e.criminalCheck} </td>
+                      <td className="mx-auto"> {e.referanceCheck} </td>
+                      <td className="mx-auto"> {e.blueCollarReferanceCheck} </td>
                       <td className="mx-auto"> {e.cost} </td>
                     </tr>
                   );

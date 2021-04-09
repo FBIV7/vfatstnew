@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 import { register } from "../../actions/auth";
 import { Link } from "react-router-dom";
+import { setAlert } from "../../actions/alert";
 import Membership from "../../pages/Membership";
 import Footer from "../../pages/Footer";
 
-
-
-const Register = ({ register, isAuthenticated }) => {
+const Register = ({ register, isAuthenticated, setAlert }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,14 +16,17 @@ const Register = ({ register, isAuthenticated }) => {
     confirmpassword: "",
   });
 
-
   const { name, email, password, confirmpassword } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    register({ name, email, password, confirmpassword });
+    if (password !== confirmpassword) {
+      setAlert("password not match");
+    } else {
+      register({ name, email, password, confirmpassword });
+    }
   };
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
@@ -134,7 +136,10 @@ const Register = ({ register, isAuthenticated }) => {
             </div>
           </div>
           <div className="hidden md:block md:w-1/2 rounded-r-lg ">
-            <img src="/assets/signup.png" style={{ width: "360px", marginTop: "auto" }}></img>
+            <img
+              src="/assets/signup.png"
+              style={{ width: "360px", marginTop: "auto" }}
+            ></img>
           </div>
         </div>
       </div>
@@ -146,9 +151,10 @@ const Register = ({ register, isAuthenticated }) => {
 
 Register.propTypes = {
   register: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-})
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, setAlert })(Register);

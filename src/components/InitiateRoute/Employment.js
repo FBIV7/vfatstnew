@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { employmentSubmit } from "../../actions/initiation";
+import { employmentSubmit,employmentInsuff } from "../../actions/initiation";
 
-const Employment = ({ employmentSubmit, caseId, reportId, index }) => {
+const Employment = ({ employmentSubmit, caseId, reportId, index,employmentInsuff }) => {
   const [formData, setFormData] = useState({
     caseID: caseId,
     parentReportID: reportId ,
@@ -36,6 +36,8 @@ const Employment = ({ employmentSubmit, caseId, reportId, index }) => {
     superviorEmail: "",
     superviorMobile: "",
   });
+  const [showModal, setShowModal] = React.useState(false);
+
   const {
     caseID,
     parentReportID,
@@ -76,6 +78,12 @@ const Employment = ({ employmentSubmit, caseId, reportId, index }) => {
     e.preventDefault();
     // console.log(formData);
     employmentSubmit(formData);
+  };
+  const onSubmitinsuff = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    employmentInsuff(formData);
+    setShowModal(false)
   };
   return (
     <div className="bg-gray-300 shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
@@ -231,6 +239,7 @@ const Employment = ({ employmentSubmit, caseId, reportId, index }) => {
             />
           </div>
         </div>
+        <div className="border-2 border-white-900 w-full flex m-auto "></div>
         <div className="md:w-1/3 px-3 mb-6 md:mb-0">
           <label
             className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"
@@ -507,13 +516,80 @@ const Employment = ({ employmentSubmit, caseId, reportId, index }) => {
         >
           Save
         </button>
+        <button
+          className="bg-red-500 ml-3 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          onClick={(e) => setShowModal(true)}
+          type="button"
+        >
+          Insufficent
+        </button>
       </form>
+      {showModal ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-1/2 my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                  <h3 className="text-3xl font-semibold">Insufficent</h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <form
+                  id="myForm"
+                  class="mt-7 "
+                  onSubmit={(e) => onSubmitinsuff(e)}
+                >
+                  <div className="flex flex-col mt-4 mb-4">
+                    <input
+                      id="remark"
+                      type="text"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="remark"
+                      placeholder="Remark"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+                  {/*footer*/}
+                  <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                    <button
+                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                      type="button"
+                      style={{ transition: "all .15s ease" }}
+                      onClick={() => setShowModal(false)}
+                    >
+                      Close
+                    </button>
+                    <button
+                      className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                      type="submit"
+                      style={{ transition: "all .15s ease" }}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
     </div>
   );
 };
 
 Employment.propTypes = {
   employmentSubmit: PropTypes.func.isRequired,
+  employmentInsuff:PropTypes.func.isRequired,
 };
 
-export default connect(null, { employmentSubmit })(Employment);
+export default connect(null, { employmentSubmit,employmentInsuff })(Employment);
