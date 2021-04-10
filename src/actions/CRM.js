@@ -7,12 +7,13 @@ import {
   GET_INSUFF,
 } from "./types.js";
 import { setAlert } from "./alert";
+import {apiurl} from "./constant"
 
 //GET PACKAGE
 export const getPackage = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      "http://localhost:5000/api/v1/package/getpackage"
+      `${apiurl}api/v1/package/getpackage`
     );
     dispatch({
       type: GET_PACKAGE,
@@ -28,7 +29,7 @@ export const addPackage = (formdata) => async (dispatch) => {
   const body = JSON.stringify(formdata);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/package/add",
+      `${apiurl}api/v1/package/add`,
       body,
       {
         headers: {
@@ -56,7 +57,7 @@ export const addCase = (formData, documents) => async (dispatch) => {
   console.log(data);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/case/register",
+      `${apiurl}api/v1/case/register`,
       body,
       {
         headers: {
@@ -65,7 +66,7 @@ export const addCase = (formData, documents) => async (dispatch) => {
       }
     );
     const res1 = await axios.post(
-      `http://localhost:5000/api/v1/case/updatedocument/${res.data.cases._id}`,
+      `${apiurl}api/v1/case/updatedocument/${res.data.cases._id}`,
       data,
       {
         headers: {
@@ -85,7 +86,7 @@ export const addCase = (formData, documents) => async (dispatch) => {
 export const getClient = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/client/getclients`
+      `${apiurl}api/v1/client/getclients`
     );
     dispatch({
       type: GETS_CLIENTS,
@@ -99,7 +100,7 @@ export const getClient = () => async (dispatch) => {
 export const getInsuff = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/case/getallinsuff`
+      `${apiurl}api/v1/case/getallinsuff`
     );
     dispatch({
       type: GET_INSUFF,
@@ -113,7 +114,7 @@ export const getInsuff = () => async (dispatch) => {
 export const clearEducationInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/v1/case/insuffeducationclear`,
+      `${apiurl}api/v1/case/insuffeducationclear`,
       formData,
       {
         headers: {
@@ -131,7 +132,7 @@ export const clearEducationInsuff = (formData) => async (dispatch) => {
 export const clearAddressInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/v1/case/insuffaddressclear`,
+      `${apiurl}api/v1/case/insuffaddressclear`,
       formData,
       {
         headers: {
@@ -149,7 +150,7 @@ export const clearAddressInsuff = (formData) => async (dispatch) => {
 export const clearReferanceInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/v1/case/insuffreferanceclear`,
+      `${apiurl}api/v1/case/insuffreferanceclear`,
       formData,
       {
         headers: {
@@ -167,7 +168,7 @@ export const clearReferanceInsuff = (formData) => async (dispatch) => {
 export const clearBluecollarInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/v1/case/insuffbluecollarclear`,
+      `${apiurl}api/v1/case/insuffbluecollarclear`,
       formData,
       {
         headers: {

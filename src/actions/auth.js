@@ -9,7 +9,7 @@ import {
   REGISTER_SUCCESS,
   CLEAR_PROFILE,
 } from "./types.js";
-
+import {apiurl} from "./constant"
 import setAuthToken from "../utils/setAuthToken";
 
 //loadUser
@@ -19,7 +19,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/auth/me");
+    const res = await axios.get(`${apiurl}api/v1/auth/me`);
     // console.log(res.data);
     dispatch({
       type: USER_LOADED,
@@ -37,7 +37,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   console.log(body);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/auth/login",
+      `${apiurl}api/v1/auth/login`,
       body,
       {
         headers: {
@@ -68,7 +68,7 @@ export const register = ({ name, email, password, confirmpassword }) => async (
   console.log(body);
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/v1/auth/register",
+      `${apiurl}api/v1/auth/register`,
       body,
       {
         headers: {
@@ -93,7 +93,7 @@ export const register = ({ name, email, password, confirmpassword }) => async (
 
 export const logout = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/v1/auth/logout");
+    const res = await axios.get(`${apiurl}api/v1/auth/logout`);
     dispatch({
       type: CLEAR_PROFILE,
     });
@@ -111,7 +111,7 @@ export const updatePassword = ({ currentPassword, newPassword }) => async (
   const body = JSON.stringify({ currentPassword, newPassword });
   try {
     const res = await axios.put(
-      "http://localhost:5000/api/v1/auth/updatepassword",
+      `${apiurl}api/v1/auth/updatepassword`,
       body,
       {
         headers: {
@@ -147,7 +147,7 @@ export const forgotPassword = ({ email }) => async (dispatch) => {
   const body = JSON.stringify({ email });
   try {
     const res = await axios.post(
-      `http://localhost:5000/api/v1/auth/forgotpassword`,
+      `${apiurl}api/v1/auth/forgotpassword`,
       body,
       {
         headers: {
