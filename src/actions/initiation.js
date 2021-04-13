@@ -7,11 +7,11 @@ import {
   GETINSUFF_CLEAR,
   ADDRESSBY_ID,
   REFERANCEBY_ID,
-  BLUECOLLARBY_ID
+  BLUECOLLARBY_ID,
+  CLEAR_REPORTID
 } from "./types.js";
-import {apiurl} from "./constant"
+import { apiurl } from "./constant";
 import { setAlert } from "./alert";
-
 
 //GET initiation cases
 export const getinitiationCases = () => async (dispatch) => {
@@ -31,9 +31,7 @@ export const getinitiationCases = () => async (dispatch) => {
 // get package by id
 export const getPackagebyID = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `${apiurl}api/v1/package/getpackagebyID/${id}`
-    );
+    const res = await axios.get(`${apiurl}api/v1/package/getpackagebyID/${id}`);
     dispatch({
       type: GET_PACKAGEBYID,
       payload: res.data.package,
@@ -47,9 +45,7 @@ export const getPackagebyID = (id) => async (dispatch) => {
 // get cases by id
 export const getCasebyID = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `${apiurl}api/v1/case/getcasesbyid/${id}`
-    );
+    const res = await axios.get(`${apiurl}api/v1/case/getcasesbyid/${id}`);
     dispatch({
       type: GET_CASEBYID,
       payload: res.data.cases,
@@ -64,17 +60,13 @@ export const educationSubmit = (formData, documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
     var data = new FormData();
-    data.append("form",body);
-    data.append("documents",documents)
-    const res = await axios.post(
-      `${apiurl}api/v1/form/education`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    data.append("form", body);
+    data.append("documents", documents);
+    const res = await axios.post(`${apiurl}api/v1/form/education`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(setAlert("Education form Submitted"));
 
     dispatch(getCasebyID(formData.caseID));
@@ -83,21 +75,17 @@ export const educationSubmit = (formData, documents) => async (dispatch) => {
     console.log(err);
   }
 };
-export const addressSubmit = (formData,documents) => async (dispatch) => {
+export const addressSubmit = (formData, documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
     var data = new FormData();
-    data.append("form",body);
-    data.append("documents",documents)
-    const res = await axios.post(
-      `${apiurl}api/v1/form/address`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    data.append("form", body);
+    data.append("documents", documents);
+    const res = await axios.post(`${apiurl}api/v1/form/address`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(setAlert("Address Form Submitted"));
 
     dispatch(getCasebyID(formData.caseID));
@@ -111,15 +99,11 @@ export const employmentSubmit = (formData) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post(
-      `${apiurl}api/v1/form/employment`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.post(`${apiurl}api/v1/form/employment`, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(setAlert("Employment Submitted"));
 
     dispatch(getCasebyID(formData.caseID));
@@ -129,19 +113,18 @@ export const employmentSubmit = (formData) => async (dispatch) => {
   }
 };
 
-export const referenceSubmit = (formData) => async (dispatch) => {
+export const referenceSubmit = (formData, documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
+    var data = new FormData();
+    data.append("form", body);
+    data.append("documents", documents);
 
-    const res = await axios.post(
-      `${apiurl}api/v1/form/reference`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.post(`${apiurl}api/v1/form/reference`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(setAlert("Referance form submitted"));
 
     dispatch(getCasebyID(formData.caseID));
@@ -149,17 +132,18 @@ export const referenceSubmit = (formData) => async (dispatch) => {
   } catch (err) {
     console.log(err);
     dispatch(setAlert("error"));
-
   }
 };
 
-export const BCReferenceSubmit = (formData) => async (dispatch) => {
+export const BCReferenceSubmit = (formData, documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
-
+    var data = new FormData();
+    data.append("form", body);
+    data.append("documents", documents);
     const res = await axios.post(
       `${apiurl}api/v1/form/bluecollarreference`,
-      body,
+      data,
       {
         headers: {
           "Content-Type": "application/json",
@@ -195,19 +179,17 @@ export const BCReferenceInsuff = (formData) => async (dispatch) => {
   }
 };
 
-export const educationInsuff = (formData) => async (dispatch) => {
+export const educationInsuff = (formData,documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
-
-    const res = await axios.post(
-      `${apiurl}api/v1/form/educationinsuff`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    var data = new FormData();
+    data.append("form", body);
+    data.append("documents", documents);
+    const res = await axios.post(`${apiurl}api/v1/form/educationinsuff`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(getCasebyID(formData.caseID));
     console.log(res);
   } catch (err) {
@@ -219,15 +201,11 @@ export const addressInsuff = (formData) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post(
-      `${apiurl}api/v1/form/addressinsuff`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.post(`${apiurl}api/v1/form/addressinsuff`, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(getCasebyID(formData.caseID));
     console.log(res);
   } catch (err) {
@@ -259,15 +237,11 @@ export const referanceInsuff = (formData) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post(
-      `${apiurl}api/v1/form/referanceinsuff`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.post(`${apiurl}api/v1/form/referanceinsuff`, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     dispatch(getCasebyID(formData.caseID));
     console.log(res);
   } catch (err) {
@@ -352,6 +326,74 @@ export const getInsuffClear = () => async (dispatch) => {
 
 export const educationUpdate = (formData, history) => async (dispatch) => {
   try {
+    const res = await axios.post( `${apiurl}api/v1/form/educationupdate`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    )
+    dispatch({type:CLEAR_REPORTID})
+    dispatch(setAlert("Education form Updated"));
     history.push("/insuffclear");
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
+
+export const addressUpdate = (formData, history) => async (dispatch) => {
+  try {
+    const res = await axios.post( `${apiurl}api/v1/form/addressupdate`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    )
+    dispatch({type:CLEAR_REPORTID})
+    dispatch(setAlert("Address form Updated"));
+    history.push("/insuffclear");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const referanceUpdate = (formData,history) => async (dispatch) =>{
+  try {
+    const res = await axios.post( `${apiurl}api/v1/form/referanceupdate`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    )
+    dispatch({type:CLEAR_REPORTID})
+    dispatch(setAlert("Referance form Updated"));
+    history.push("/insuffclear");
+  } catch (err) {
+    console.log(err);
+  }
+
+}
+
+export const BCreferanceUpdate = (formData,history) => async (dispatch) =>{
+  try {
+    const res = await axios.post( `${apiurl}api/v1/form/BCreferanceupdate`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    )
+    dispatch({type:CLEAR_REPORTID})
+    dispatch(setAlert("BLUE COLLAR Referance form Updated"));
+    history.push("/insuffclear");
+  } catch (err) {
+    console.log(err);
+  }
+
+}

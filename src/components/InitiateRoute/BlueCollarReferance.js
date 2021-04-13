@@ -1,10 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   BCReferenceSubmit,
   BCReferenceInsuff,
   getBluecollarbyID,
+  BCreferanceUpdate,
 } from "../../actions/initiation";
 const BlueCollarReferance = ({
   caseId,
@@ -13,7 +15,9 @@ const BlueCollarReferance = ({
   reportId,
   getBluecollarbyID,
   bluecollar,
-  repID
+  repID,
+  BCreferanceUpdate,
+  history,
 }) => {
   const [showModal, setShowModal] = React.useState(false);
 
@@ -38,7 +42,9 @@ const BlueCollarReferance = ({
     periodApplicant: "",
     relationApplicant: "",
     remark: "",
+    isnew: true,
   });
+  const [documents, setDocument] = useState(null);
   const {
     caseID,
     parentReportID,
@@ -60,14 +66,23 @@ const BlueCollarReferance = ({
     periodApplicant,
     relationApplicant,
     remark,
+    isnew,
   } = formData;
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    BCReferenceSubmit(formData);
+    console.log(formData, documents);
+    if (isnew === true) {
+      BCReferenceSubmit(formData, documents);
+    } else if (isnew === false) {
+      const body = JSON.stringify(formData);
+      var data = new FormData();
+      data.append("form", body);
+      data.append("documents", documents);
+      BCreferanceUpdate(data, history);
+    }
   };
   const onSubmitinsuff = (e) => {
     e.preventDefault();
@@ -94,27 +109,40 @@ const BlueCollarReferance = ({
           : `${reportId}edu-${Math.floor(Math.random() * 100)}`,
       mobile: bluecollar && bluecollar.mobile ? bluecollar.mobile : "",
       alternateMobile:
-        bluecollar && bluecollar.alternateMobile ? bluecollar.alternateMobile : "",
+        bluecollar && bluecollar.alternateMobile
+          ? bluecollar.alternateMobile
+          : "",
       email: bluecollar && bluecollar.email ? bluecollar.email : "",
-      motherName: bluecollar && bluecollar.motherName ? bluecollar.motherName : "",
-      fatherName: bluecollar && bluecollar.fatherName ? bluecollar.fatherName : "",
-      aadharCard: bluecollar && bluecollar.aadharCard ? bluecollar.aadharCard : "",
+      motherName:
+        bluecollar && bluecollar.motherName ? bluecollar.motherName : "",
+      fatherName:
+        bluecollar && bluecollar.fatherName ? bluecollar.fatherName : "",
+      aadharCard:
+        bluecollar && bluecollar.aadharCard ? bluecollar.aadharCard : "",
       passport: bluecollar && bluecollar.passport ? bluecollar.passport : "",
       DOB: bluecollar && bluecollar.DOB ? bluecollar.DOB : "",
       maritialStatus:
-        bluecollar && bluecollar.maritialStatus ? bluecollar.maritialStatus : "",
+        bluecollar && bluecollar.maritialStatus
+          ? bluecollar.maritialStatus
+          : "",
       nationality:
         bluecollar && bluecollar.nationality ? bluecollar.nationality : "",
       referenceName:
         bluecollar && bluecollar.referenceName ? bluecollar.referenceName : "",
       referenceMobile:
-        bluecollar && bluecollar.referenceMobile ? bluecollar.referenceMobile : "",
-      referenceAlternateMobile: bluecollar && bluecollar.referenceAlternateMobile ? bluecollar.referenceAlternateMobile : "",
+        bluecollar && bluecollar.referenceMobile
+          ? bluecollar.referenceMobile
+          : "",
+      referenceAlternateMobile:
+        bluecollar && bluecollar.referenceAlternateMobile
+          ? bluecollar.referenceAlternateMobile
+          : "",
       relationApplicant:
-        bluecollar && bluecollar.relationApplicant ? bluecollar.relationApplicant : "",
-      remark:
-        bluecollar && bluecollar.remark ? bluecollar.remark : "",
-          isnew: false,
+        bluecollar && bluecollar.relationApplicant
+          ? bluecollar.relationApplicant
+          : "",
+      remark: bluecollar && bluecollar.remark ? bluecollar.remark : "",
+      isnew: bluecollar ? false : true,
     });
   }, [bluecollar]);
   return (
@@ -186,7 +214,7 @@ const BlueCollarReferance = ({
               name="motherName"
               type="text"
               placeholder=""
-              value ={motherName}
+              value={motherName}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -353,6 +381,21 @@ const BlueCollarReferance = ({
             />
           </div>
         </div>
+        <div className="-mx-3 md:flex mb-6">
+          <div className="md:w-1/3 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
+              Document
+            </label>
+            <input
+              className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
+              id=""
+              name="documents"
+              type="file"
+              placeholder=""
+              onChange={(e) => setDocument(e.target.files[0])}
+            />
+          </div>
+        </div>
 
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -435,6 +478,7 @@ BlueCollarReferance.propTypes = {
   BCReferenceSubmit: PropTypes.func.isRequired,
   BCReferenceInsuff: PropTypes.func.isRequired,
   getBluecollarbyID: PropTypes.func.isRequired,
+  BCreferanceUpdate: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   bluecollar: state.initiation.bluecollar,
@@ -445,4 +489,5 @@ export default connect(mapStateToProps, {
   BCReferenceSubmit,
   BCReferenceInsuff,
   getBluecollarbyID,
-})(BlueCollarReferance);
+  BCreferanceUpdate,
+})(withRouter(BlueCollarReferance));

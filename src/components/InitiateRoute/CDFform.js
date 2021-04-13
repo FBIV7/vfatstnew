@@ -128,6 +128,7 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
               );
             }
           )}
+          <div>BC referance</div>
         {packages &&
           packages.blueCollarReferanceCheck &&
           _.times(

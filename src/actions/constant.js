@@ -1,1 +1,1 @@
-export const apiurl = "http://15.207.67.66:5000/"
+export const apiurl = "http://localhost:5000/"

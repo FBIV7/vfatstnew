@@ -1,16 +1,17 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { createClient , getCrm} from "../../actions/clientRegistration";
+import { createClient, getCrm } from "../../actions/clientRegistration";
 import { connect } from "react-redux";
-const Registration = ({ createClient,CRM ,getCrm}) => {
+const Registration = ({ createClient, CRM, getCrm }) => {
   const [formData, setFormData] = useState({
     name: "",
     agreement: "",
     startDate: "",
     endDate: "",
-    CRM:""
+    CRM: "",
   });
-  let { name, agreement, startDate, endDate ,operationID} = formData;
+  const { d, setD } = useState(new Date(Date.now()).toLocaleDateString());
+  let { name, agreement, startDate, endDate, operationID } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -24,8 +25,8 @@ const Registration = ({ createClient,CRM ,getCrm}) => {
     createClient(formData);
   };
   useEffect(() => {
-    getCrm()
-  }, [])
+    getCrm();
+  }, []);
   return (
     <div class="flex flex-col h-screen bg-gray-100">
       <div class="grid place-items-center  my-20 sm:my-auto">
@@ -88,6 +89,11 @@ const Registration = ({ createClient,CRM ,getCrm}) => {
                 id="startDate"
                 type="date"
                 name="startDate"
+                min={new Date().getFullYear() + '-'+String(new Date().getMonth() + 1).padStart(2, '0') +'-'+String(new Date().getDate()).padStart(2, '0')}
+              //  min="2021-04-12"
+                // min={`${new Date(Date.now()).getFullYear()}-${String(new Date(
+                //   Date.now()
+                // ).getMonth()).padStart(2, '0')}-${new Date(Date.now()).getDate()}`}
                 placeholder="Start Date"
                 class="w-1/2 ml-10 py-3 px-1 mt-1 mb-4
                                 text-gray-800 appearance-none 
@@ -106,6 +112,7 @@ const Registration = ({ createClient,CRM ,getCrm}) => {
                 id="endDate"
                 type="date"
                 name="endDate"
+                min={new Date().getFullYear() + '-'+String(new Date().getMonth() + 1).padStart(2, '0') +'-'+String(new Date().getDate()).padStart(2, '0')}
                 placeholder="End Date"
                 class="w-1/2 ml-10 py-3 px-1 mt-1 mb-4
                                 text-gray-800 appearance-none 
@@ -116,29 +123,29 @@ const Registration = ({ createClient,CRM ,getCrm}) => {
               />
             </div>
             <div className="block w-full mx-auto">
-            <select
-                        id="check"
-                        name="check"
-                        class=""
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            CRM: document.getElementById("check").value,
-                          })
-                        }
-                      >
-                        <option value="">select Team</option>
+              <select
+                id="check"
+                name="check"
+                class=""
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    CRM: document.getElementById("check").value,
+                  })
+                }
+              >
+                <option value="">select Team</option>
 
-                        {CRM &&
-                          CRM.map((e) => {
-                            return (
-                              <option key={e._id} value={e._id}>
-                                {e.name}
-                              </option>
-                            );
-                          })}
-                      </select>
-                      </div>
+                {CRM &&
+                  CRM.map((e) => {
+                    return (
+                      <option key={e._id} value={e._id}>
+                        {e.name}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
             <button
               type="submit"
               class="w-full py-3 mt-10 bg-gray-800 rounded-sm
@@ -156,11 +163,10 @@ const Registration = ({ createClient,CRM ,getCrm}) => {
 
 Registration.propTypes = {
   createClient: PropTypes.func.isRequired,
-  getCrm:PropTypes.func.isRequired,
+  getCrm: PropTypes.func.isRequired,
 };
-const mapStateToProps = state =>({
+const mapStateToProps = (state) => ({
   CRM: state.clientRegistration.CRM,
-  
-})
+});
 
-export default connect(mapStateToProps, { createClient , getCrm})(Registration);
+export default connect(mapStateToProps, { createClient, getCrm })(Registration);

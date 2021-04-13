@@ -1,10 +1,12 @@
 import React, { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   addressSubmit,
   addressInsuff,
   getAddressbyID,
+  addressUpdate
 } from "../../actions/initiation";
 const Address = ({
   addressSubmit,
@@ -14,7 +16,9 @@ const Address = ({
   addressInsuff,
   getAddressbyID,
   address,
-  repID
+  repID,
+  history,
+  addressUpdate
 }) => {
   const [formData, setFormData] = useState({
     caseID: caseId,
@@ -39,6 +43,7 @@ const Address = ({
     to: "",
     landmark: "",
     remark: "",
+    isnew:true
   });
   const [showModal, setShowModal] = React.useState(false);
   const [documents, setDocument] = useState(null);
@@ -65,15 +70,22 @@ const Address = ({
     to,
     landmark,
     remark,
-
+    isnew
   } = formData;
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    if (isnew === true) {
     addressSubmit(formData, documents);
+    } else if (isnew ===false){
+      const body = JSON.stringify(formData);
+      var data = new FormData();
+      data.append("form", body);
+      data.append("documents", documents);
+      addressUpdate(data, history);
+    }
   };
   const onSubmitinsuff = (e) => {
     e.preventDefault();
@@ -128,7 +140,7 @@ const Address = ({
           : "",
       remark: address && address.remark ? address.remark : "",
       
-      isnew: false,
+      isnew: address ? false :true,
     });
   }, [address]);
   return (
@@ -493,6 +505,7 @@ Address.propTypes = {
   addressSubmit: PropTypes.func.isRequired,
   addressInsuff: PropTypes.func.isRequired,
   getAddressbyID: PropTypes.func.isRequired,
+  addressUpdate:PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -504,4 +517,5 @@ export default connect(mapStateToProps, {
   addressSubmit,
   addressInsuff,
   getAddressbyID,
-})(Address);
+  addressUpdate
+})(withRouter(Address));

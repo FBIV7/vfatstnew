@@ -46,7 +46,7 @@ const Education = ({
     universityLocation: " ",
     startDate: "",
     endDate: "",
-    registartionNumber: "",
+    registrationNumber: "",
     yearOfPassing: "",
     grade: "",
     remark: "",
@@ -77,7 +77,7 @@ const Education = ({
     universityLocation,
     startDate,
     endDate,
-    registartionNumber,
+    registrationNumber,
     yearOfPassing,
     grade,
     remark,
@@ -86,16 +86,25 @@ const Education = ({
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  console.log(isnew);
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData, documents);
+    if (isnew === true) {
+      console.log(formData, documents);
 
-    educationSubmit(formData, documents);
+      educationSubmit(formData, documents);
+    } else if (isnew === false) {
+      const body = JSON.stringify(formData);
+      var data = new FormData();
+      data.append("form", body);
+      data.append("documents", documents);
+      educationUpdate(data, history);
+    }
   };
   const onSubmitinsuff = (e) => {
     e.preventDefault();
     console.log(formData);
-    educationInsuff(formData);
+    educationInsuff(formData, documents);
     setShowModal(false);
   };
   useEffect(() => {
@@ -145,14 +154,14 @@ const Education = ({
           : "",
       startDate: education && education.startDate ? education.startDate : "",
       endDate: education && education.endDate ? education.endDate : "",
-      registartionNumber:
-        education && education.registartionNumber
-          ? education.registartionNumber
+      registrationNumber:
+        education && education.registrationNumber
+          ? education.registrationNumber
           : "",
       yearOfPassing:
         education && education.yearOfPassing ? education.yearOfPassing : "",
       grade: education && education.grade ? education.grade : "",
-      isnew: false,
+      isnew: education ? false : true,
     });
   }, [education]);
   return (
@@ -457,8 +466,8 @@ const Education = ({
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               id=""
-              name="registartionNumber"
-              value={registartionNumber}
+              name="registrationNumber"
+              value={registrationNumber}
               type="text"
               placeholder=""
               onChange={(e) => onChange(e)}

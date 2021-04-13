@@ -8,6 +8,7 @@ import {
   ADDRESSBY_ID,
   REFERANCEBY_ID,
   BLUECOLLARBY_ID,
+  CLEAR_REPORTID,
 } from "../actions/types.js";
 
 const initialState = {
@@ -50,24 +51,28 @@ export default function (state = initialState, action) {
         ...state,
         education: payload,
         loading: false,
+        reportID: null,
       };
     case ADDRESSBY_ID:
       return {
         ...state,
         address: payload,
         loading: false,
+        reportID: null,
       };
     case REFERANCEBY_ID:
       return {
         ...state,
         referance: payload,
         loading: false,
+        reportID: null,
       };
     case BLUECOLLARBY_ID:
       return {
         ...state,
         bluecollar: payload,
         loading: false,
+        reportID: null,
       };
     case GETINSUFF_CLEAR:
       return {
@@ -80,6 +85,16 @@ export default function (state = initialState, action) {
         ...state,
         reportID: payload,
       };
+    case CLEAR_REPORTID:
+      return {
+        ...state,
+        reportID: null,
+        education: null,
+        referance: null,
+        bluecollar: null,
+        address: null,
+      };
+
     default:
       return state;
   }

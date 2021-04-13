@@ -5,7 +5,9 @@ import {
   referenceSubmit,
   referanceInsuff,
   getReferancebyID,
+  referanceUpdate
 } from "../../actions/initiation";
+import { withRouter } from "react-router-dom";
 
 const Reference = ({
   referenceSubmit,
@@ -15,6 +17,8 @@ const Reference = ({
   referanceInsuff,
   getReferancebyID,
   referance,
+  referanceUpdate,
+  history,
   repID,
 }) => {
   const [formData, setFormData] = useState({
@@ -39,9 +43,12 @@ const Reference = ({
     referenceMobile: "",
     referenceAlternateMobile: "",
     periodApplicant: "",
-    realtionApllicant: "",
+    relationApplicant: "",
+    remark: "",
+    isnew: true,
   });
   const [showModal, setShowModal] = React.useState(false);
+  const [documents, setDocument] = useState(null);
 
   const {
     caseID,
@@ -65,7 +72,9 @@ const Reference = ({
     referenceMobile,
     referenceAlternateMobile,
     periodApplicant,
-    realtionApllicant,
+    relationApplicant,
+    remark,
+    isnew
   } = formData;
 
   const onChange = (e) => {
@@ -73,8 +82,16 @@ const Reference = ({
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    referenceSubmit(formData);
+    console.log(formData,documents);
+    if(isnew === true){
+    referenceSubmit(formData,documents);
+    } else if (isnew === false){
+      const body = JSON.stringify(formData);
+      var data = new FormData();
+      data.append("form", body);
+      data.append("documents", documents);
+      referanceUpdate(data, history);
+    }
   };
   const onSubmitinsuff = (e) => {
     e.preventDefault();
@@ -130,11 +147,11 @@ const Reference = ({
           : "",
       periodApplicant:
         referance && referance.periodApplicant ? referance.periodApplicant : "",
-      realtionApllicant:
-        referance && referance.realtionApllicant
-          ? referance.realtionApllicant
+      relationApplicant:
+        referance && referance.relationApplicant
+          ? referance.relationApplicant
           : "",
-      isnew: false,
+          isnew: referance ? false : true,
     });
   }, [referance]);
   return (
@@ -165,6 +182,7 @@ const Reference = ({
               name="mobile"
               type="text"
               placeholder=""
+              value={mobile}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -176,6 +194,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="alternateMobile"
               type="text"
+              value={alternateMobile}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -188,6 +207,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="email"
               type="text"
+              value={email}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -203,6 +223,7 @@ const Reference = ({
               name="motherName"
               type="text"
               placeholder=""
+              value={motherName}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -215,6 +236,7 @@ const Reference = ({
               name="fatherName"
               type="text"
               placeholder=""
+              value={fatherName}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -228,6 +250,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="aadharCard"
               type="text"
+              value={aadharCard}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -239,6 +262,7 @@ const Reference = ({
             <input
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="passport"
+              value={passport}
               type="text"
               placeholder=""
               onChange={(e) => onChange(e)}
@@ -254,6 +278,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="DOB"
               type="text"
+              value={DOB}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -266,6 +291,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="maritialStatus"
               type="text"
+              vlaue={maritialStatus}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -278,6 +304,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="nationality"
               type="text"
+              value={nationality}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -298,6 +325,7 @@ const Reference = ({
             type="text"
             name="referenceName"
             placeholder=""
+            value={referenceName}
             onChange={(e) => onChange(e)}
           />
         </div>
@@ -311,6 +339,7 @@ const Reference = ({
               id=""
               name="organisationName"
               type="text"
+              value={organisationName}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -324,6 +353,7 @@ const Reference = ({
               id=""
               name="desigination"
               type="text"
+              value={desigination}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -337,6 +367,7 @@ const Reference = ({
               id=""
               name="referenceID"
               type="text"
+              value={referenceID}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -352,6 +383,7 @@ const Reference = ({
               id=""
               type="text"
               name="referenceMobile"
+              value={referenceMobile}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -365,6 +397,7 @@ const Reference = ({
               id=""
               name="referenceAlternateMobile"
               type="text"
+              value={referenceAlternateMobile}
               placeholder=""
               onChange={(e) => onChange(e)}
             />
@@ -377,6 +410,7 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               name="periodApplicant"
               id=""
+              value={periodApplicant}
               type="text"
               placeholder=""
               onChange={(e) => onChange(e)}
@@ -392,9 +426,25 @@ const Reference = ({
               className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
               id=""
               name="relationApplicant"
+              value={relationApplicant}
               type="text"
               placeholder=""
               onChange={(e) => onChange(e)}
+            />
+          </div>
+        </div>
+        <div className="-mx-3 md:flex mb-6">
+          <div className="md:w-1/3 px-3 mb-6 md:mb-0">
+            <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
+              Document
+            </label>
+            <input
+              className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
+              id=""
+              name="documents"
+              type="file"
+              placeholder=""
+              onChange={(e) => setDocument(e.target.files[0])}
             />
           </div>
         </div>
@@ -480,6 +530,7 @@ Reference.propTypes = {
   referenceSubmit: PropTypes.func.isRequired,
   referanceInsuff: PropTypes.func.isRequired,
   getReferancebyID: PropTypes.func.isRequired,
+  referanceUpdate:PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   referance: state.initiation.referance,
@@ -490,4 +541,5 @@ export default connect(mapStateToProps, {
   referenceSubmit,
   referanceInsuff,
   getReferancebyID,
-})(Reference);
+  referanceUpdate
+})(withRouter(Reference));
