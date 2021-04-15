@@ -289,6 +289,69 @@ const InsuffClear = ({ getInsuffClear, data }) => {
                 </tr>
               );
             })}
+
+<strong className="flex justify-center"> Employment</strong>
+          {data &&
+            data.employment.map((e) => {
+              return (
+                <tr
+                  className={
+                    count % 2 === 0
+                      ? `flex w-full  bg-gray-100 `
+                      : `flex w-full  `
+                  }
+                  key={e._id}
+                >
+                  <Link
+                    to={{
+                      pathname: "/employment",
+                      state: e,
+                    }}
+                    className={
+                      count % 2 === 0
+                        ? `flex w-full  bg-gray-100 `
+                        : `flex w-full  `}
+                    onClick={(f) =>
+                      store.dispatch({
+                        type: SET_REPORTID,
+                        payload: e.ReportID,
+                      })
+                    }
+                    key={e}
+                  >
+                    <th className="w-1/5 flex justify-center">{count++}</th>
+                    <th className="w-1/5 flex justify-center">
+                      {e.caseID &&
+                      e.caseID.clientName &&
+                      e.caseID.clientName.name
+                        ? e.caseID.clientName.name
+                        : "N/A"}
+                    </th>
+                    <th className="w-1/5 flex justify-center">
+                      {" "}
+                      {e.name ? e.name : "N/A"}{" "}
+                    </th>
+                    <th className="w-1/5 flex justify-center">
+                      {" "}
+                      {e.TAT ? e.TAT : "N/A"}{" "}
+                    </th>
+                    <th className="w-1/5 flex justify-center">
+                      <Moment format="YYYY/MM/DD">
+                        {e.insuffRaisedOn ? e.insuffRaisedOn : "N/A"}
+                      </Moment>
+                    </th>
+                    <th className="w-1/5 flex justify-center">
+                      {e.insuffL1ClearRemark ? e.insuffL1ClearRemark : "N/A"}
+                    </th>
+                  </Link>
+                  <th className="w-1/5 flex justify-center">
+                    <a href={e.documents} download="">
+                      Download
+                    </a>
+                  </th>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>

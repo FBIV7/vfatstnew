@@ -9,6 +9,7 @@ import {
   REFERANCEBY_ID,
   BLUECOLLARBY_ID,
   CLEAR_REPORTID,
+  EMPLOYMENTBY_ID,
 } from "../actions/types.js";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   address: null,
   referance: null,
   bluecollar: null,
+  employment: null,
   loading: true,
   insuffclearL1: null,
   reportID: null,
@@ -33,6 +35,11 @@ export default function (state = initialState, action) {
         ...state,
         cases: payload,
         reportID: null,
+        employment:null,
+        education:null,
+        address:null,
+        bluecollar:null,
+        referance:null
       };
     case GET_PACKAGEBYID:
       return {
@@ -94,7 +101,12 @@ export default function (state = initialState, action) {
         bluecollar: null,
         address: null,
       };
-
+    case EMPLOYMENTBY_ID:
+      return {
+        ...state,
+        employment: payload,
+        reportID: null,
+      };
     default:
       return state;
   }

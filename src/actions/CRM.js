@@ -48,7 +48,7 @@ export const addPackage = (formdata) => async (dispatch) => {
 };
 
 //add registration
-export const addCase = (formData, documents) => async (dispatch) => {
+export const addCase = (formData, documents,history) => async (dispatch) => {
   const body = JSON.stringify(formData);
   let data = new FormData(); //formdata object
 
@@ -79,6 +79,7 @@ export const addCase = (formData, documents) => async (dispatch) => {
     dispatch({
       type: ADD_CASE,
     });
+    history.push("/registerCandidate")
   } catch (err) {
     console.log(err);
   }
@@ -176,6 +177,25 @@ export const clearBluecollarInsuff = (formData) => async (dispatch) => {
         },
       }
     );
+    dispatch(getInsuff());
+    console.log(res);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const clearEmploymentInsuff = (formData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${apiurl}api/v1/case/insuffemploymentclear`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    
     dispatch(getInsuff());
     console.log(res);
   } catch (err) {

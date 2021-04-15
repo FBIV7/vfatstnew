@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getClient, addPackage } from "../../actions/clientRegistration";
+import { withRouter } from "react-router-dom";
 
-const AddPackage = ({ client, getClient, addPackage, CRM }) => {
+const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
   const [showModal, setShowModal] = React.useState(false);
   const [display, setDisplay] = useState(null);
   const [formData, setFormData] = useState({
@@ -16,6 +17,9 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
     addressCheck: "",
     addressCost: 0,
     addressTAT: 0,
+    employmentCheck: "",
+    employmentCost: 0,
+    employmentTAT: 0,
     criminalCheck: "",
     criminalCost: 0,
     criminalTAT: 0,
@@ -42,6 +46,9 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
     criminalCheck,
     criminalCost,
     criminalTAT,
+    employmentCheck,
+    employmentCost,
+    employmentTAT,
     drugCheck,
     drugCost,
     drugTAT,
@@ -61,7 +68,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    addPackage(formData);
+    addPackage(formData,history);
 
     console.log(formData);
     setShowModal(false);
@@ -79,6 +86,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
       referanceCost: 0,
       criminalCost: 0,
       blueCollarReferanceCost: 0,
+      employmentCost:0
     });
     setShowModal(true);
   };
@@ -94,7 +102,8 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
         Number(addressCost) +
         Number(criminalCost) +
         Number(drugCost) +
-        Number(blueCollarReferanceCost),
+        Number(blueCollarReferanceCost)+
+        Number(employmentCost)
     });
   }, [
     educationCost,
@@ -103,6 +112,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
     drugCost,
     criminalCost,
     blueCollarReferanceCost,
+    employmentCost
   ]);
   return (
     <div>
@@ -271,6 +281,34 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                   </div>
                   <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
+                      id="employmentCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="employmentCheck"
+                      placeholder="Employment Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="employmentCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="employmentCost"
+                      placeholder="Employment Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="employmentTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="employmentTAT"
+                      placeholder="Employment TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
                       id="drugCheck"
                       type="number"
                       className="flex-grow h-8 px-2 rounded border border-grey-400"
@@ -425,6 +463,8 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                 <th class="mx-auto ...">Criminal</th>
                 <th class="mx-auto ...">Referance</th>
                 <th class="mx-auto ..."> Blue C. Ref</th>
+                <th class="mx-auto ..."> Employment</th>
+
                 <th class="mx-auto ...">Cost</th>
               </tr>
             </thead>
@@ -443,6 +483,8 @@ const AddPackage = ({ client, getClient, addPackage, CRM }) => {
                       <td className="mx-auto"> {e.criminalCheck} </td>
                       <td className="mx-auto"> {e.referanceCheck} </td>
                       <td className="mx-auto"> {e.blueCollarReferanceCheck} </td>
+                      <td className="mx-auto"> {e.employmentCheck &&e.employmentCheck} </td>
+
                       <td className="mx-auto"> {e.cost} </td>
                     </tr>
                   );
@@ -464,4 +506,4 @@ const mapStateToProps = (state) => ({
   CRM: state.clientRegistration.CRM,
 });
 
-export default connect(mapStateToProps, { getClient, addPackage })(AddPackage);
+export default connect(mapStateToProps, { getClient, addPackage })(withRouter(AddPackage));

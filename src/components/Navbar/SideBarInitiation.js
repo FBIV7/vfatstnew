@@ -12,6 +12,7 @@ import Education from "../InitiateRoute/Education";
 import Address from "../InitiateRoute/Address";
 import BlueCollarReferance from "../InitiateRoute/BlueCollarReferance";
 import Reference from "../InitiateRoute/Reference";
+import Employment from "../InitiateRoute/Employment";
 
 const SideBarInitiation = ({ logout }) => {
   return (
@@ -205,6 +206,7 @@ const SideBarInitiation = ({ logout }) => {
             <PrivateRoute exact path="/addresscdf" component={Address}/>
             <PrivateRoute exact path="/bluecollar" component={BlueCollarReferance} />
             <PrivateRoute exact path="/referance" component={Reference}/>
+            <PrivateRoute exact path="/employment" component={Employment}/>
           </Switch>
         </div>
       </div>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { addCase, getPackage, getClient } from "../../actions/CRM";
 
-const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
+const Registration = ({ packages, addCase, getPackage, getClient, client,history }) => {
   const [formData, setFormData] = useState({
     clientName: "",
     candidateName: "",
@@ -16,6 +17,7 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
     drugTAT: "",
     referanceTAT: "",
     blueCollarReferanceTAT: "",
+    employmentTAT:"",
     documents: "",
   });
   // const [documents, setDocument] = useState(null);
@@ -31,6 +33,7 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
     reportId,
     addressTAT,
     blueCollarReferanceTAT,
+    employmentTAT,
     documents,
   } = formData;
 
@@ -69,7 +72,7 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
     // data.append("formData", formData);
     // // Data.append("formData", formData);
     console.log(formData);
-    addCase(formData, documents);
+    addCase(formData, documents,history);
   };
   useEffect(() => {
     if (packagess) {
@@ -84,6 +87,7 @@ const Registration = ({ packages, addCase, getPackage, getClient, client }) => {
             referanceTAT: e && e.referanceTAT ? e.referanceTAT : 0,
             blueCollarReferanceTAT:
               e && e.blueCollarReferanceTAT ? e.blueCollarReferanceTAT : 0,
+              employmentTAT: e && e.employmentTAT ? e.employmentTAT :0
           });
         }
       });
@@ -200,5 +204,5 @@ const mapStateToProps = (state) => ({
   client: state.CRM.client,
 });
 export default connect(mapStateToProps, { addCase, getPackage, getClient })(
-  Registration
+  withRouter(Registration)
 );

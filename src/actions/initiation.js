@@ -8,7 +8,8 @@ import {
   ADDRESSBY_ID,
   REFERANCEBY_ID,
   BLUECOLLARBY_ID,
-  CLEAR_REPORTID
+  CLEAR_REPORTID,
+  EMPLOYMENTBY_ID
 } from "./types.js";
 import { apiurl } from "./constant";
 import { setAlert } from "./alert";
@@ -95,16 +96,18 @@ export const addressSubmit = (formData, documents) => async (dispatch) => {
   }
 };
 
-export const employmentSubmit = (formData) => async (dispatch) => {
+export const employmentSubmit = (formData,documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
-
-    const res = await axios.post(`${apiurl}api/v1/form/employment`, body, {
+    var data = new FormData();
+    data.append("form",body)
+    data.append("documents",documents)
+    const res = await axios.post(`${apiurl}api/v1/form/employment`, data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    dispatch(setAlert("Employment Submitted"));
+    dispatch(setAlert("Employment form Submitted"));
 
     dispatch(getCasebyID(formData.caseID));
     console.log(res);
@@ -213,13 +216,15 @@ export const addressInsuff = (formData) => async (dispatch) => {
   }
 };
 
-export const employmentInsuff = (formData) => async (dispatch) => {
+export const employmentInsuff = (formData,documents) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
-
+    var data = new FormData();
+    data.append("form",body)
+    data.append("documents",documents)
     const res = await axios.post(
       `${apiurl}api/v1/form/employmentinsuff`,
-      body,
+      data,
       {
         headers: {
           "Content-Type": "application/json",
@@ -310,6 +315,23 @@ export const getBluecollarbyID = (id) => async (dispatch) => {
   }
 };
 
+export const getEmploymentbyID = (id) => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `${apiurl}api/v1/form/getemployment/reportid?id=${id}`
+    );
+    dispatch({
+      type: EMPLOYMENTBY_ID,
+      payload: res.data.employment,
+    });
+    console.log(res);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+
 //get all insuff clear
 export const getInsuffClear = () => async (dispatch) => {
   try {
@@ -382,6 +404,25 @@ export const referanceUpdate = (formData,history) => async (dispatch) =>{
 export const BCreferanceUpdate = (formData,history) => async (dispatch) =>{
   try {
     const res = await axios.post( `${apiurl}api/v1/form/BCreferanceupdate`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    )
+    dispatch({type:CLEAR_REPORTID})
+    dispatch(setAlert("BLUE COLLAR Referance form Updated"));
+    history.push("/insuffclear");
+  } catch (err) {
+    console.log(err);
+  }
+
+}
+
+export const employmentUpdate = (formData,history) => async (dispatch) =>{
+  try {
+    const res = await axios.post( `${apiurl}api/v1/form/employmentupdate`,
     formData,
     {
       headers: {
