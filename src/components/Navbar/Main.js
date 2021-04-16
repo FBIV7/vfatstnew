@@ -9,6 +9,10 @@ import SideBarOperation from './SideBarOperation'
 import SideBarInitiation from './SideBarInitiation'
 import SideBarCRM from './SideBarCRM'
 import SideBarAddressTL from './SideBarAddressTL'
+import SideBarEducationTL from './SideBarEducationTL'
+import SideBarEmploymentTL from './SideBarEmploymentTL'
+import SideBarBluecollarTL from './SideBarBluecollarTL'
+import SideBarReferanceTL from './SideBarReferanceTL'
 import SideBarClientRegistration from './SideBarClientRegistration'
 
 const Main = ({isAuthenticated,role}) =>{
@@ -28,7 +32,16 @@ const Main = ({isAuthenticated,role}) =>{
             return <div><SideBarCRM/></div>
         }else if(role=="addressTL") {
             return <div><SideBarAddressTL/></div>
-        }else if(role=="clientRegistration") {
+        }else if(role=="educationTL") {
+            return <div><SideBarEducationTL/></div>
+        }else if(role=="employmentTL") {
+            return <div><SideBarEmploymentTL/></div>
+        }else if(role=="bluecollarTL") {
+            return <div><SideBarBluecollarTL/></div>
+        }else if(role=="referanceTL") {
+            return <div><SideBarReferanceTL/></div>
+        }
+        else if(role=="clientRegistration") {
             return <div><SideBarClientRegistration/></div>
         }
     } else{

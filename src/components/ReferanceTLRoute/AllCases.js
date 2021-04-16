@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from "react-redux";
-import { getAddressTL, getAddressTeam, Assign } from "../../actions/addressTL";
-const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
+import { getReferanceTL,getReferanceTeam,Assign } from "../../actions/referanceTL";
+
+const AllCases = ({ getReferanceTL,getReferanceTeam,referance,team,Assign}) => {
+  var count = 1;
   const [showModal, setShowModal] = React.useState(false);
   const [formData, setFormData] = React.useState({
     operationID: "",
     caseID: "",
   });
   const { operationID, caseID } = formData;
-  var count = 1;
 
   const onClick = (e) => {
     setFormData({
@@ -18,24 +19,20 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
     });
     setShowModal(true);
   };
-
+  
   const onSubmit = async (e) => {
     e.preventDefault();
      console.log(formData);
-   Assign(formData);
+  Assign(formData);
     setShowModal(false);
   };
 
-  // if(address){
-  //     console.log(address);
-  // }
-
   useEffect(() => {
-    getAddressTL();
-    getAddressTeam();
+    getReferanceTL();
+    getReferanceTeam();
   }, []);
-  return (
-    <div>
+    return (
+        <div>
       <table class="table-fixed text-left w-full   ">
         <thead className=" bg-gray-200 text-gray-600 flex text-white w-full">
           <tr class="flex w-full mb-4">
@@ -53,8 +50,8 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
           className="flex flex-col items-center  overflow-y-scroll w-full "
           style={{ height: "50vh" }}
         >
-          {address &&
-            address.map((e) => {
+          {referance &&
+            referance.map((e) => {
               return (
                 // <button className="flex  mx-auto w-full" onClick={(f) => onClick(e)}>
 
@@ -186,21 +183,18 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
         </>
       ) : null}
     </div>
-  );
-};
+    )
+}
 
 AllCases.propTypes = {
-  getAddressTL: PropTypes.func.isRequired,
-  getAddressTeam: PropTypes.func.isRequired,
-  Assign: PropTypes.func.isRequired,
-};
-const mapStateToProps = (state) => ({
-  address: state.addressTL.address,
-  team: state.addressTL.team,
-});
+getReferanceTL:PropTypes.func.isRequired,
+getReferanceTeam:PropTypes.func.isRequired,
+Assign:PropTypes.func.isRequired,
+}
 
-export default connect(mapStateToProps, {
-  getAddressTL,
-  getAddressTeam,
-  Assign,
-})(AllCases);
+const mapStateToProps = state =>({
+    referance: state.referanceTL.referance,
+  team: state.referanceTL.team,
+})
+
+export default connect(mapStateToProps,{ getReferanceTL,getReferanceTeam,Assign})(AllCases)

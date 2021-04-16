@@ -10,6 +10,10 @@ import initiation from "./initiation";
 import addressTL from "./addressTL";
 import clientRegistration from "./clientRegistration";
 import alert from "./alert";
+import referanceTL from "./referanceTL";
+import educationTL from "./educationTL";
+import employmentTL from "./employmentTL";
+import BCTL from "./BCTL";
 export default combineReducers({
   auth,
   profile,
@@ -22,4 +26,8 @@ export default combineReducers({
   addressTL,
   clientRegistration,
   alert,
+  referanceTL,
+  educationTL,
+  employmentTL,
+  BCTL
 });

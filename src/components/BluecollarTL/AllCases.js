@@ -1,41 +1,37 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React,{useEffect} from 'react'
+import PropTypes from 'prop-types'
 import { connect } from "react-redux";
-import { getAddressTL, getAddressTeam, Assign } from "../../actions/addressTL";
-const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
-  const [showModal, setShowModal] = React.useState(false);
-  const [formData, setFormData] = React.useState({
-    operationID: "",
-    caseID: "",
-  });
-  const { operationID, caseID } = formData;
-  var count = 1;
+import { getBCTL,getBCTeam,Assign } from "../../actions/BCTL";
 
-  const onClick = (e) => {
-    setFormData({
-      ...formData,
-      caseID: e._id,
+const AllCases = ({ getBCTL,getBCTeam ,bc,team,Assign}) => {
+    const [showModal, setShowModal] = React.useState(false);
+    const [formData, setFormData] = React.useState({
+      operationID: "",
+      caseID: "",
     });
-    setShowModal(true);
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-     console.log(formData);
-   Assign(formData);
-    setShowModal(false);
-  };
-
-  // if(address){
-  //     console.log(address);
-  // }
-
-  useEffect(() => {
-    getAddressTL();
-    getAddressTeam();
-  }, []);
-  return (
-    <div>
+    const { operationID, caseID } = formData;
+    var count = 1;
+  
+    const onClick = (e) => {
+      setFormData({
+        ...formData,
+        caseID: e._id,
+      });
+      setShowModal(true);
+    };
+  
+    const onSubmit = async (e) => {
+      e.preventDefault();
+       console.log(formData);
+    Assign(formData);
+      setShowModal(false);
+    };
+    useEffect(() => {
+        getBCTL();
+        getBCTeam();
+      }, []);
+    return (
+        <div>
       <table class="table-fixed text-left w-full   ">
         <thead className=" bg-gray-200 text-gray-600 flex text-white w-full">
           <tr class="flex w-full mb-4">
@@ -53,8 +49,8 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
           className="flex flex-col items-center  overflow-y-scroll w-full "
           style={{ height: "50vh" }}
         >
-          {address &&
-            address.map((e) => {
+          {bc &&
+            bc.map((e) => {
               return (
                 // <button className="flex  mx-auto w-full" onClick={(f) => onClick(e)}>
 
@@ -186,21 +182,18 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
         </>
       ) : null}
     </div>
-  );
-};
+    )
+}
 
 AllCases.propTypes = {
-  getAddressTL: PropTypes.func.isRequired,
-  getAddressTeam: PropTypes.func.isRequired,
-  Assign: PropTypes.func.isRequired,
-};
-const mapStateToProps = (state) => ({
-  address: state.addressTL.address,
-  team: state.addressTL.team,
-});
+getBCTL:PropTypes.func.isRequired,
+getBCTeam:PropTypes.func.isRequired,
+Assign:PropTypes.func.isRequired,
+}
 
-export default connect(mapStateToProps, {
-  getAddressTL,
-  getAddressTeam,
-  Assign,
-})(AllCases);
+const mapStateToProps = state =>({
+    bc: state.BCTL.bc,
+    team: state.BCTL.team,
+})
+
+export default connect(mapStateToProps,{ getBCTL,getBCTeam,Assign })(AllCases)

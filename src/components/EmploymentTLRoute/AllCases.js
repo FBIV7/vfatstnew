@@ -1,8 +1,19 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAddressTL, getAddressTeam, Assign } from "../../actions/addressTL";
-const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
+import {
+  getEmploymentTL,
+  getEmploymentTeam,
+  Assign,
+} from "../../actions/employmentTL";
+
+const AllCases = ({
+  getEmploymentTL,
+  getEmploymentTeam,
+  employment,
+  team,
+  Assign,
+}) => {
   const [showModal, setShowModal] = React.useState(false);
   const [formData, setFormData] = React.useState({
     operationID: "",
@@ -21,18 +32,14 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-     console.log(formData);
-   Assign(formData);
+    console.log(formData);
+    Assign(formData);
     setShowModal(false);
   };
 
-  // if(address){
-  //     console.log(address);
-  // }
-
   useEffect(() => {
-    getAddressTL();
-    getAddressTeam();
+    getEmploymentTL();
+    getEmploymentTeam();
   }, []);
   return (
     <div>
@@ -53,8 +60,8 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
           className="flex flex-col items-center  overflow-y-scroll w-full "
           style={{ height: "50vh" }}
         >
-          {address &&
-            address.map((e) => {
+          {employment &&
+            employment.map((e) => {
               return (
                 // <button className="flex  mx-auto w-full" onClick={(f) => onClick(e)}>
 
@@ -69,8 +76,8 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
                 >
                   <td className="w-1/6 flex justify-center">{count++}</td>
                   {/* <td className="w-1/6 flex justify-center">
-                    {e.caseID  ? e.caseID : "N/A"}
-                  </td> */}
+                      {e.caseID  ? e.caseID : "N/A"}
+                    </td> */}
                   <td className="w-1/5 flex justify-center">
                     {" "}
                     {e.ReportID ? e.ReportID : "N/A"}{" "}
@@ -88,13 +95,13 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
                     {e.email ? e.email : "N/A"}{" "}
                   </td>
                   {/* <td className="w-1/5 flex justify-center">
-                    {" "}
-                    {e.info && e.info.state ? e.info.state : "N/A"}{" "}
-                  </td>
-                  <td className="w-1/5 flex justify-center">
-                    {" "}
-                    {e.info && e.info.contact ? e.info.contact : "N/A"}{" "}
-                  </td> */}
+                      {" "}
+                      {e.info && e.info.state ? e.info.state : "N/A"}{" "}
+                    </td>
+                    <td className="w-1/5 flex justify-center">
+                      {" "}
+                      {e.info && e.info.contact ? e.info.contact : "N/A"}{" "}
+                    </td> */}
                   <td className="w-1/5 flex justify-center">
                     <button
                       className="bg-green-500 rounded-full text-white font-bold py-2 px-4"
@@ -158,7 +165,6 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
                           })}
                       </select>
                     </div>
-
                   </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
@@ -190,17 +196,18 @@ const AllCases = ({ getAddressTL, address, getAddressTeam, team, Assign }) => {
 };
 
 AllCases.propTypes = {
-  getAddressTL: PropTypes.func.isRequired,
-  getAddressTeam: PropTypes.func.isRequired,
+  getEmploymentTL: PropTypes.func.isRequired,
+  getEmploymentTeam: PropTypes.func.isRequired,
   Assign: PropTypes.func.isRequired,
 };
+
 const mapStateToProps = (state) => ({
-  address: state.addressTL.address,
-  team: state.addressTL.team,
+  employment: state.employmentTL.employment,
+  team: state.employmentTL.team,
 });
 
 export default connect(mapStateToProps, {
-  getAddressTL,
-  getAddressTeam,
+  getEmploymentTL,
+  getEmploymentTeam,
   Assign,
 })(AllCases);
