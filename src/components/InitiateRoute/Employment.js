@@ -114,7 +114,7 @@ useEffect(() => {
     ReportID:
       employment && employment.ReportID
         ? employment.ReportID
-        : `${reportId}edu-${Math.floor(Math.random() * 100)}`,
+        : `${reportId}emp-${Math.floor(Math.random() * 100)}`,
     mobile: employment && employment.mobile ? employment.mobile : "",
     alternateMobile:
       employment && employment.alternateMobile ? employment.alternateMobile : "",

@@ -14,6 +14,8 @@ import referanceTL from "./referanceTL";
 import educationTL from "./educationTL";
 import employmentTL from "./employmentTL";
 import BCTL from "./BCTL";
+import employmentOperation from "./employmentOperation";
+
 export default combineReducers({
   auth,
   profile,
@@ -29,5 +31,6 @@ export default combineReducers({
   referanceTL,
   educationTL,
   employmentTL,
-  BCTL
+  BCTL,
+  employmentOperation,
 });

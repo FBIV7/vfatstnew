@@ -16,19 +16,13 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
   console.log(cases);
 
   useEffect(() => {
-    console.log(
-      (packages && packages.educationCheck) - (cases && cases.educationSubmit),
-      "helllo"
-    );
-  }, [packages, cases]);
-  useEffect(() => {
     var pack = location.state.clientName.package.filter((e) => {
       return e._id === location.state.pack;
     });
-
+    console.log(pack);
     pack.map((e) => setPackages(e));
     // getPackagebyID(location.state.pack);
-    // getCasebyID(location.state._id);
+    getCasebyID(location.state._id);
   }, []);
   return (
     <div>
@@ -61,9 +55,10 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       </div>
       Education form
       {packages &&
-        packages.educationCheck &&cases&&cases.educationSubmit&&
+        packages.educationCheck &&
+        cases &&
         _.times(
-          packages.educationCheck - (cases ? cases.educationSubmit : 0),
+          packages.educationCheck - ( cases.educationSubmit),
           (i, index) => {
             return (
               <div key={index}>
@@ -80,7 +75,8 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       Address Form
       <div>
         {packages &&
-          packages.addressCheck && cases && cases.addressSubmit &&
+          packages.addressCheck &&
+          cases &&
           _.times(
             packages.addressCheck - (cases ? cases.addressSubmit : 0),
             (i, index) => {
@@ -99,9 +95,10 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       <div>
         Employment Form
         {packages &&
-          packages.employmentCheck &&cases&&cases.employmentSubmit&&
+          packages.employmentCheck &&
+          cases &&
           _.times(
-            packages.employmentCheck - (cases ? cases.employmentSubmit : 0),
+            packages.employmentCheck - ( cases.employmentSubmit),
             (i, index) => {
               return (
                 <div key={index}>
@@ -118,7 +115,8 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
       <div>
         Reference Form
         {packages &&
-          packages.referanceCheck &&cases&&cases.referenceSubmit&&
+          packages.referanceCheck &&
+          cases &&
           _.times(
             packages.referanceCheck - (cases ? cases.referenceSubmit : 0),
             (i, index) => {
@@ -135,7 +133,8 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
           )}
         <div>BC referance</div>
         {packages &&
-          packages.blueCollarReferanceCheck &&cases&&cases.blueCollarReferenceSubmit&&
+          packages.blueCollarReferanceCheck &&
+          cases &&
           _.times(
             packages.blueCollarReferanceCheck -
               (cases ? cases.blueCollarReferenceSubmit : 0),

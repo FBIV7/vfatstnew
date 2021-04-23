@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {  RegionDropdown, } from 'react-country-region-selector';
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { createVendor } from "../../actions/admin";
@@ -10,11 +11,12 @@ const CreateVendor = ({ createVendor }) => {
     agreement: "",
     startDate: "",
     endDate: "",
+    state:""
   });
 
   const [count, setCount] = useState(1);
 
-  let { name, agreement, startDate, endDate } = formData;
+  let { name, agreement, startDate, endDate,state } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +29,7 @@ const CreateVendor = ({ createVendor }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    createVendor(formData);
+   createVendor(formData);
   };
   return (
     <div class="flex flex-col h-screen bg-gray-100">
@@ -83,6 +85,41 @@ const CreateVendor = ({ createVendor }) => {
                 Not
               </div>
             </div>
+            <div className="block w-full mx-auto">
+              <label className="  tracking-wide text-grey-darker text-xs  mb-2">
+                State
+              </label>
+              <RegionDropdown
+                id="startDate"
+                type="text"
+                name="State"
+                country="India"
+                value={state}
+                class="w-1/2 ml-10 py-3 px-1 mt-1 mb-4
+                              text-gray-800 appearance-none 
+                              border-b-2 border-gray-100
+                              focus:text-gray-500 focus:outline-none focus:border-gray-200"
+                required
+                onChange={(e) => setFormData({...formData,state:e})}
+              />
+            </div>
+            {/* <div className="block w-full mx-auto">
+              <label className="  tracking-wide text-grey-darker text-xs  mb-2">
+                State
+              </label>
+              <CountryRegionData
+               // id="startDate"
+                type="text"
+                name="State"
+               // country="India"
+                class="w-1/2 ml-10 py-3 px-1 mt-1 mb-4
+                              text-gray-800 appearance-none 
+                              border-b-2 border-gray-100
+                              focus:text-gray-500 focus:outline-none focus:border-gray-200"
+                required
+               // onChange={(e) => setFormData({...formData,state:e})}
+              />
+            </div> */}
             <div className="block w-full mx-auto">
               <label className="  tracking-wide text-grey-darker text-xs  mb-2">
                 Start Date

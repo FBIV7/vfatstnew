@@ -3,6 +3,7 @@ import {
   GET_PACKAGE,
   GETS_CLIENTS,
   GET_INSUFF,
+  GET_INSUFFL2
 } from "../actions/types.js";
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   address: null,
   bluecollar: null,
   employment: null,
-  referance:null
+  referance:null,
+  insuffL2:null
 };
 
 export default function (state = initialState, action) {
@@ -38,6 +40,11 @@ export default function (state = initialState, action) {
         employment: payload.employment,
         referance:payload.referance.length > 0 ?payload.referance:null,
       };
+      case GET_INSUFFL2:
+        return{
+          ...state,
+          insuffL2:payload
+        }
     default:
       return state;
   }

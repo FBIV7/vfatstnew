@@ -5,6 +5,7 @@ import {
   ADD_CASE,
   GETS_CLIENTS,
   GET_INSUFF,
+  GET_INSUFFL2
 } from "./types.js";
 import { setAlert } from "./alert";
 import {apiurl} from "./constant"
@@ -101,10 +102,23 @@ export const getClient = () => async (dispatch) => {
 export const getInsuff = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/case/getallinsuff`
+      `${apiurl}api/v1/case/getallinsuff/insuffL1`
     );
     dispatch({
       type: GET_INSUFF,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+export const getInsuffL2 = () => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `${apiurl}api/v1/case/getallinsuff/insuffL2`
+    );
+    dispatch({
+      type: GET_INSUFFL2,
       payload: res.data,
     });
   } catch (err) {
@@ -197,6 +211,25 @@ export const clearEmploymentInsuff = (formData) => async (dispatch) => {
     );
     
     dispatch(getInsuff());
+    console.log(res);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const clearEmploymentInsuffL2 = (formData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${apiurl}api/v1/operation/insuffemploymentclearl2`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    
+    dispatch(getInsuffL2());
     console.log(res);
   } catch (err) {
     console.error(err);

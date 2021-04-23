@@ -57,6 +57,7 @@ export const GETS_CLIENTS = "GETS_CLIENTS";
 export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const GET_INSUFF = "GET_INSUFF";
+export const GET_INSUFFL2 = "GET_INSUFFL2";
 export const EDUCATIONBY_ID = "EDUCATIONBY_ID";
 export const ADDRESSBY_ID = "ADDRESSBY_ID";
 export const REFERANCEBY_ID = "REFERANCEBY_ID";
@@ -74,3 +75,8 @@ export const GET_EMPLOYMENTTL = "GET_EMPLOYMENTTL";
 export const GET_EMPLOYMENTTEAM = "GET_EMPLOYMENTTEAM";
 export const GET_BCREFERANCETL = "GET_BCREFERANCETL";
 export const GET_BCREFERANCETEAM = "GET_BCREFERANCETEAM";
+
+
+//Operation action
+export const GET_EMP_OPERATION = "GET_EMP_OPERATION";
+export const GET_EMP_SAVE = "GET_EMP_SAVE";
