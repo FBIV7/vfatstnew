@@ -95,6 +95,7 @@ const CreateVendor = ({ createVendor }) => {
                 name="State"
                 country="India"
                 value={state}
+                blacklist={{IN:["AN","DD"]}}
                 class="w-1/2 ml-10 py-3 px-1 mt-1 mb-4
                               text-gray-800 appearance-none 
                               border-b-2 border-gray-100

@@ -44,6 +44,7 @@ export const getEmploymentTeam = () => async (dispatch) => {
         }
       );
       dispatch(getEmploymentTL());
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }

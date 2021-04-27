@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPrice, getVendor } from "../../actions/admin";
+import { State } from "../../utils/data";
 const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
   const [display, setDisplay] = useState(null);
+  const [temp, setTemp] = useState(null);
+
   const [showModal, setShowModal] = React.useState(false);
   const [formData, setFormData] = useState({
     locationName: "",
@@ -17,15 +20,23 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
     setShowModal(true);
   };
 
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     addPrice(formData);
     setShowModal(false);
   };
+  useEffect(() => {
+    if (display && display.state) {
+      let data = State.filter((e) => e.state === display.state);
+
+      setTemp(data);
+    }
+  }, [display]);
 
   useEffect(() => {
     getVendor();
@@ -94,7 +105,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                 <form class="mt-7 " onSubmit={(e) => onSubmit(e)}>
                   <div className="relative p-6 flex-auto">
                     <div className=" block gap-1  md:flex">
-                      <input
+                      {/* <input
                         id="locationName"
                         type="text"
                         name="locationName"
@@ -105,7 +116,32 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                             focus:text-gray-500 focus:outline-none focus:border-gray-200"
                         required
                         onChange={(e) => onChange(e)}
-                      />
+                      /> */}
+                      <div className="flex flex-col mt-4 mb-4">
+                      <select
+                        id="check"
+                        name="check"
+                        class=""
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            locationName: document.getElementById("check").value,
+                          })
+                        }
+                      >
+                        <option value="">select district</option>
+
+                        {temp &&
+                          temp[0].districts.map((e) => {
+                            return (
+                              <option key={e} value={e}>
+                                {e}
+                              </option>
+                            );
+                          })}
+                      </select>
+                    </div>
+                    <div className="flex flex-col mt-4 mb-4">
                       <select
                         id="areaType"
                         name="areaType"
@@ -123,7 +159,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                         <option value="Urban">Urban</option>
                         <option value="City">City</option>
                       </select>
-
+                      </div>
                       <input
                         id="cost"
                         type="text"

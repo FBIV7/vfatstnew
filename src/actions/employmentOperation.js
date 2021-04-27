@@ -1,4 +1,4 @@
-import { GET_EMP_OPERATION,GET_EMP_SAVE } from "./types";
+import { GET_EMP_OPERATION,GET_EMP_SAVE,GET_EMP_INSUFFCLEAR,GET_VENDORBYSTATE } from "./types";
 import { apiurl } from "./constant";
 import { setAlert } from "./alert";
 import axios from "axios";
@@ -26,6 +26,20 @@ export const getEMPSavedCases = () => async (dispatch) => {
     );
     dispatch({
       type: GET_EMP_SAVE,
+      payload: res.data.employment,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+//GET initiation cases
+export const getEMPInsuffClearCases = () => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `${apiurl}api/v1/operation/getemployment/insuffL2Clear`
+    );
+    dispatch({
+      type: GET_EMP_INSUFFCLEAR,
       payload: res.data.employment,
     });
   } catch (err) {
@@ -75,3 +89,18 @@ export const saveInsuffEmployment = (formData,history) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getVendorState = (state) => async (dispatch) => {
+try {
+  const res = await axios.get(
+    `${apiurl}api/v1/vendor/getbystate?state=${state}`
+  );
+  dispatch({
+    type: GET_VENDORBYSTATE,
+    payload: res.data.vendor,
+  });
+
+} catch (err) {
+  console.log(err);
+}
+}

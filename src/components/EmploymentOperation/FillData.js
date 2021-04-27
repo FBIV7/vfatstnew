@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { saveEmployment,saveInsuffEmployment } from "../../actions/employmentOperation";
+import {
+  saveEmployment,
+  saveInsuffEmployment,
+  getVendorState,
+} from "../../actions/employmentOperation";
 import { withRouter } from "react-router-dom";
-const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => {
-  const [showModal, setShowModal] = React.useState(false);
+import { State } from "../../utils/data";
+import {
+  RegionDropdown,
+  CountryRegionData,
+} from "react-country-region-selector";
 
-  // console.log(location.state)
+const FillData = ({
+  location,
+  saveEmployment,
+  history,
+  saveInsuffEmployment,
+  vendor,
+  getVendorState,
+}) => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [showInsuffModal, setShowInsuffModal] = React.useState(false);
+
   const [formData, setFormData] = useState({
     id: "",
     caseID: "caseId",
@@ -40,13 +57,18 @@ const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => 
     verificationMode: "",
     verifierContact: "",
     verifierDesignation: "",
-    remarkInsuffL2:"",
+    remarkInsuffL2: "",
+    states: "",
+    district: "",
+    vendorId:"",
     isnew: true,
   });
 
   const {
     id,
     caseID,
+    states,
+    district,
     verifierDesignation,
     verifierContact,
     verificationMode,
@@ -79,25 +101,73 @@ const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => 
     remark,
     remarkInsuffL2,
     isnew,
+    vendorId
   } = formData;
   const [documents, setDocument] = useState(null);
-
+  const [temp, setTemp] = useState(null);
+  const [temp2, setTemp2] = useState(null);
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
-    saveEmployment(formData,history);
+    saveEmployment(formData, history);
   };
 
   const onSubmitinsuff = (e) => {
     e.preventDefault();
     console.log(formData);
-    saveInsuffEmployment(formData,history);
+    saveInsuffEmployment(formData, history);
     setShowModal(false);
   };
 
+  useEffect(() => {
+    if (states) {
+      // let data = State.filter((e) => e.state === states);
+
+      // setTemp(data);
+      getVendorState(states);
+    }
+  }, [states]);
+  function uniq(a) {
+    return Array.from(new Set(a));
+  }
+  useEffect(() => {
+    if (vendor) {
+      // vendor = vendor.flat(1)
+      let data = vendor.map((e) => {
+        return Array.from(e.price);
+      });
+      let data1 = data.flat(1);
+      let data2 = data1.map((e) => {
+        return e.locationName;
+      });
+
+      setTemp(uniq(data2));
+    }
+  }, [vendor]);
+  useEffect(() => {
+    if (district) {
+      let data = vendor.map((e) => {
+        let aa = e;
+      return ( e.price.map((f) => {
+          if (f.locationName === district) {
+            return aa;
+          }
+        })
+          )    });
+      data = data.flat().filter(function( element ) {
+        return element !== undefined;
+     });
+    //  console.log(data);
+     setTemp2(data)
+    }
+  }, [district]);
+  // console.log(temp2);
+  const onSubmitVendor = () =>{
+
+  }
   useEffect(() => {
     setFormData({
       name: location.state && location.state.name ? location.state.name : "",
@@ -162,39 +232,39 @@ const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => 
         location.state && location.state.employeeCode
           ? location.state.employeeCode
           : "",
-          verifierDesignation:
+      verifierDesignation:
         location.state && location.state.verifierDesignation
           ? location.state.verifierDesignation
           : "",
-          verifierContact:
+      verifierContact:
         location.state && location.state.verifierContact
           ? location.state.verifierContact
           : "",
-          verificationMode:
+      verificationMode:
         location.state && location.state.verificationMode
           ? location.state.verificationMode
           : "",
-          verifiedBy:
+      verifiedBy:
         location.state && location.state.verifiedBy
           ? location.state.verifiedBy
           : "",
-          additionalComments:
+      additionalComments:
         location.state && location.state.additionalComments
           ? location.state.additionalComments
           : "",
-          companyRegistered:
+      companyRegistered:
         location.state && location.state.companyRegistered
           ? location.state.companyRegistered
           : "",
-          exitFormality:
+      exitFormality:
         location.state && location.state.exitFormality
           ? location.state.exitFormality
           : "",
-          eligibilityForRehire:
+      eligibilityForRehire:
         location.state && location.state.eligibilityForRehire
           ? location.state.eligibilityForRehire
           : "",
-          disciplinaryIssue:
+      disciplinaryIssue:
         location.state && location.state.disciplinaryIssue
           ? location.state.disciplinaryIssue
           : "",
@@ -642,7 +712,13 @@ const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => 
           >
             Save
           </button>
-          <button className="bg-yellow-500 ml-3 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+          <button
+            className="bg-yellow-500 ml-3 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            onClick={(e) => {
+              setShowInsuffModal(true);
+            }}
+            type="button"
+          >
             Assign Vendor
           </button>
           <button
@@ -652,69 +728,192 @@ const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => 
           >
             Insufficent
           </button>
-          <button className="bg-green-500 ml-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          <button
+            className="bg-green-500 ml-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-not-allowed "
+            type="button"
+          >
             Close
           </button>
         </form>
         {showModal ? (
-        <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-1/2 my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-                  <h3 className="text-3xl font-semibold">Insufficent</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
-                </div>
-                {/*body*/}
-                <form
-                  id="myForm"
-                  class="mt-7 "
-                  onSubmit={(e) => onSubmitinsuff(e)}
-                >
-                  <div className="flex flex-col mt-4 mb-4">
-                    <input
-                      id="remarkInsuffL2"
-                      type="text"
-                      className="flex-grow h-8 px-2 rounded border border-grey-400"
-                      name="remarkInsuffL2"
-                      placeholder="Remark"
-                      onChange={(e) => onChange(e)}
-                    />
-                  </div>
-                  {/*footer*/}
-                  <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+          <>
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-1/2 my-6 mx-auto max-w-3xl">
+                {/*content*/}
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  {/*header*/}
+                  <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                    <h3 className="text-3xl font-semibold">Insufficent</h3>
                     <button
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                      type="button"
-                      style={{ transition: "all .15s ease" }}
+                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                       onClick={() => setShowModal(false)}
                     >
-                      Close
-                    </button>
-                    <button
-                      className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                      type="submit"
-                      style={{ transition: "all .15s ease" }}
-                    >
-                      Save
+                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
                     </button>
                   </div>
-                </form>
+                  {/*body*/}
+                  <form
+                    id="myForm"
+                    class="mt-7 "
+                    onSubmit={(e) => onSubmitinsuff(e)}
+                  >
+                    <div className="flex flex-col mt-4 mb-4">
+                      <input
+                        id="remarkInsuffL2"
+                        type="text"
+                        className="flex-grow h-8 px-2 rounded border border-grey-400"
+                        name="remarkInsuffL2"
+                        placeholder="Remark"
+                        onChange={(e) => onChange(e)}
+                      />
+                    </div>
+                    {/*footer*/}
+                    <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                      <button
+                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                        style={{ transition: "all .15s ease" }}
+                        onClick={() => setShowModal(false)}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                        type="submit"
+                        style={{ transition: "all .15s ease" }}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
-      ) : null}
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          </>
+        ) : null}
+
+        {showInsuffModal ? (
+          <>
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-1/2 my-6 mx-auto max-w-3xl">
+                {/*content*/}
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  {/*header*/}
+                  <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
+                    <h3 className="text-3xl font-semibold">Insufficent</h3>
+                    <button
+                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      onClick={() => setShowInsuffModal(false)}
+                    >
+                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
+                    </button>
+                  </div>
+                  {/*body*/}
+                  <form
+                    id="myForm"
+                    class="mt-7 "
+                    onSubmit={(e) => onSubmitVendor(e)}
+                  >
+                    <div className="flex flex-col mt-4 mb-4">
+                      <RegionDropdown
+                        type="text"
+                        name="State"
+                        country="India"
+                        value={states}
+                        blacklist={{ IN: ["AN", "DD"] }}
+                        className="flex-grow h-8 px-2 rounded border border-grey-400"
+                        required
+                        onChange={(e) =>
+                          setFormData({ ...formData, states: e })
+                        }
+                      />
+                    </div>
+                    <div className="flex flex-col mt-4 mb-4">
+                      <select
+                        id="check"
+                        name="check"
+                        class=""
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            district: document.getElementById("check").value,
+                          })
+                        }
+                      >
+                        <option value="">select Avaliable district</option>
+
+                       
+                        {temp &&
+                          temp.map((e) => {
+                            return (
+                              <option key={e} value={e}>
+                                {e}
+                              </option>
+                            );
+                          })}
+                      </select>
+                     
+                    </div>
+                    <div className="flex flex-col mt-4 mb-4">
+                      <select
+                        id="check1"
+                        name="check1"
+                        class=""
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            vendorId: document.getElementById("check1").value,
+                          })
+                        }
+                      >
+                        <option value="">select vendor for selected district</option>
+
+                       
+                        {temp2 &&
+                          temp2.map((e) => {
+                            return (
+                              <option key={e._id} value={e._id}>
+                                {e.name} ,{e.price.map(f =>{
+                                  if(f.locationName === district){
+                                    return f.cost
+                                  }
+                                })}
+                              </option>
+                            );
+                          })}
+                      </select>
+                     
+                    </div>
+                    {/*footer*/}
+                    <div className="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
+                      <button
+                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                        style={{ transition: "all .15s ease" }}
+                        onClick={() => setShowInsuffModal(false)}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                        type="submit"
+                        style={{ transition: "all .15s ease" }}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          </>
+        ) : null}
       </div>
     </div>
   );
@@ -722,7 +921,16 @@ const FillData = ({ location, saveEmployment,history ,saveInsuffEmployment}) => 
 
 FillData.propTypes = {
   saveEmployment: PropTypes.func.isRequired,
-  saveInsuffEmployment:PropTypes.func.isRequired,
+  saveInsuffEmployment: PropTypes.func.isRequired,
+  getVendorState: PropTypes.func.isRequired,
 };
 
-export default connect(null, { saveEmployment,saveInsuffEmployment })(withRouter(FillData));
+const mapStateToProps = (state) => ({
+  vendor: state.employmentOperation.vendor,
+});
+
+export default connect(mapStateToProps, {
+  saveEmployment,
+  saveInsuffEmployment,
+  getVendorState,
+})(withRouter(FillData));
