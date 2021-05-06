@@ -47,6 +47,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
         <thead className="bg-black flex text-white w-full">
           <tr class="flex w-full mb-4">
             <th class="mx-auto ...">Vendor Name</th>
+            <th class="mx-auto ...">Email</th>
             <th class="mx-auto ...">State</th>
             <th class="mx-auto ...">Aggrement </th>
             <th class="mx-auto ...">Start Date</th>
@@ -67,6 +68,7 @@ const GetAllVendor = ({ vendor, addPrice, getVendor }) => {
                   onClick={(f) => setDisplay(e)}
                 >
                   <td className="mx-auto">{e.name}</td>
+                  <td className="mx-auto">{e.email&&e.email}</td>
                   <td className="mx-auto"> {e.state&&e.state} </td>
                   <td className="mx-auto"> {e.agreement} </td>
                   <td className="mx-auto"> {e.startDate} </td>

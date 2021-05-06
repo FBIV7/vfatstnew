@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React,{useEffect} from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getEMPOperationCases } from "../../actions/employmentOperation";
-import Moment from 'react-moment';
-import {Link} from 'react-router-dom'
-const ShowData = ({ getEMPOperationCases,employment }) => {
-  useEffect(() => {
-    getEMPOperationCases();
-    console.log("hello");
-  }, []);
+import { getEDUSavedCases } from "../../actions/educationOperation";
+import Moment from "react-moment";
+import { Link } from "react-router-dom";
+const SaveCheck = ({ getEDUSavedCases,education }) => {
+    useEffect(() => {
+        getEDUSavedCases()
+     }, [])
   return (
-    <table className="table-fixed w-full">
+<table className="table-fixed w-full">
     <thead>
     <tr className="flex w-full ">
       <th className="w-1/5 flex justify-center...">CaseId</th>
@@ -25,12 +24,12 @@ const ShowData = ({ getEMPOperationCases,employment }) => {
     </thead>
    
     <tbody>
-    {employment && employment.map(e=>{
+    {education && education.map(e=>{
       return(
         <Link to={{
           pathname:'/filldata',
           state:e,
-          isSave:false
+          isSave:true
         }} key={e.ReportID}>
     <tr className='flex w-full' >
       <th className="w-1/5 flex justify-center...">{e.ReportID}</th>
@@ -50,12 +49,12 @@ const ShowData = ({ getEMPOperationCases,employment }) => {
   );
 };
 
-ShowData.propTypes = {
-  getEMPOperationCases: PropTypes.func.isRequired,
+SaveCheck.propTypes = { 
+    getEDUSavedCases: PropTypes.func.isRequired 
 };
 
 const mapStateToProps = state =>({
-employment: state.employmentOperation.employment
+    education: state.educationOperation.eduSave
 })
 
-export default connect(mapStateToProps, { getEMPOperationCases })(ShowData);
+export default connect(mapStateToProps, { getEDUSavedCases })(SaveCheck);

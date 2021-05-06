@@ -1,15 +1,14 @@
 import {
-  GET_EMP_OPERATION,
-  GET_EMP_SAVE,
-  GET_EMP_INSUFFCLEAR,
-  GET_VENDORBYSTATE,
-  GET_EMP_ASSIGNVENDOR,
+    GET_EDU_OPERATION,
+    GET_EDU_SAVE,
+    GET_EDU_INSUFFCLEAR,
+    GET_EDU_ASSIGNVENDOR,
+    GET_VENDORBYSTATE
 } from "../actions/types";
-
 const initialState = {
-  employment: null,
-  empSave: null,
-  empInsuff: null,
+  education: null,
+  eduSave: null,
+  eduInsuff: null,
   vendor: null,
   assignVendor: null,
 };
@@ -18,27 +17,27 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_EMP_OPERATION:
+    case GET_EDU_OPERATION:
       return {
         ...state,
-        employment: payload,
+        education: payload,
       };
-    case GET_EMP_SAVE:
+    case GET_EDU_SAVE:
       return {
         ...state,
-        empSave: payload,
+        eduSave: payload,
       };
-    case GET_EMP_INSUFFCLEAR:
+    case GET_EDU_INSUFFCLEAR:
       return {
         ...state,
-        empInsuff: payload,
+        eduInsuff: payload,
       };
     case GET_VENDORBYSTATE:
       return {
         ...state,
         vendor: payload,
       };
-    case GET_EMP_ASSIGNVENDOR:
+    case GET_EDU_ASSIGNVENDOR:
       return {
         ...state,
         assignVendor: payload,

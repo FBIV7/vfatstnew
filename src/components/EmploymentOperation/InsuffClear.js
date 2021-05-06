@@ -31,7 +31,8 @@ const InsuffClear = ({insuff,getEMPInsuffClearCases}) => {
         <tr className='flex w-full' key={e.ReportID} >
             <Link to={{
               pathname:'/filldata',
-              state:e 
+              state:e ,
+              isSave:false
             }} 
             className = "flex w-full">
           <th className="w-1/5 flex justify-center...">{e.ReportID}</th>

@@ -15,6 +15,7 @@ import SideBarBluecollarTL from "./SideBarBluecollarTL";
 import SideBarReferanceTL from "./SideBarReferanceTL";
 import SideBarClientRegistration from "./SideBarClientRegistration";
 import SideBarEmploymentOperation from "./SideBarEmploymentOperation";
+import SideBarEducationOperation from "./SideBarEducationOperation";
 
 const Main = ({ isAuthenticated, role }) => {
   // (isAuthenticated)?(<div><SideBar/></div>):(<div><Navbar/></div>)
@@ -91,7 +92,14 @@ const Main = ({ isAuthenticated, role }) => {
           <SideBarEmploymentOperation />
         </div>
       );
-    } else if (role == "clientRegistration") {
+    }else if (role == "education") {
+      return (
+        <div>
+          <SideBarEducationOperation/>
+        </div>
+      );
+    }
+     else if (role == "clientRegistration") {
       return (
         <div>
           <SideBarClientRegistration />

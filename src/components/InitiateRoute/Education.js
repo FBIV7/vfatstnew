@@ -86,7 +86,6 @@ const Education = ({
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  console.log(isnew);
   const onSubmit = (e) => {
     e.preventDefault();
     if (isnew === true) {

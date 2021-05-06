@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React,{useEffect} from 'react'
+import PropTypes from 'prop-types'
 import { connect } from "react-redux";
-import { getEMPOperationCases } from "../../actions/employmentOperation";
-import Moment from 'react-moment';
-import {Link} from 'react-router-dom'
-const ShowData = ({ getEMPOperationCases,employment }) => {
-  useEffect(() => {
-    getEMPOperationCases();
-    console.log("hello");
-  }, []);
-  return (
-    <table className="table-fixed w-full">
+import {getEDUInsuffClearCases } from "../../actions/educationOperation";
+import Moment from "react-moment";
+import { Link } from "react-router-dom";
+const InsuffClear = ({getEDUInsuffClearCases,education}) => {
+    useEffect(() => {
+        getEDUInsuffClearCases();
+       
+    }, [])
+    return (
+        <>
+        <table className="table-fixed w-full">
     <thead>
     <tr className="flex w-full ">
       <th className="w-1/5 flex justify-center...">CaseId</th>
@@ -25,7 +26,7 @@ const ShowData = ({ getEMPOperationCases,employment }) => {
     </thead>
    
     <tbody>
-    {employment && employment.map(e=>{
+    {education && education.map(e=>{
       return(
         <Link to={{
           pathname:'/filldata',
@@ -47,15 +48,16 @@ const ShowData = ({ getEMPOperationCases,employment }) => {
     </tbody>
     
     </table>
-  );
-};
+        </>
+    )
+}
 
-ShowData.propTypes = {
-  getEMPOperationCases: PropTypes.func.isRequired,
-};
+InsuffClear.propTypes = {
+    getEDUInsuffClearCases:PropTypes.func.isRequired,
+}
 
-const mapStateToProps = state =>({
-employment: state.employmentOperation.employment
+const mapStateToProps = state=>({
+    education: state.educationOperation.eduInsuff
 })
 
-export default connect(mapStateToProps, { getEMPOperationCases })(ShowData);
+export default connect(mapStateToProps,{getEDUInsuffClearCases})(InsuffClear)

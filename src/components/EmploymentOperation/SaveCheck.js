@@ -28,7 +28,8 @@ const SaveCheck = ({getEMPSavedCases,employment}) => {
       return(
         <Link to={{
           pathname:'/filldata',
-          state:e
+          state:e,
+          isSave:true
         }} key={e.ReportID}>
     <tr className='flex w-full' >
       <th className="w-1/5 flex justify-center...">{e.ReportID}</th>

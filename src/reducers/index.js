@@ -15,6 +15,7 @@ import educationTL from "./educationTL";
 import employmentTL from "./employmentTL";
 import BCTL from "./BCTL";
 import employmentOperation from "./employmentOperation";
+import educationOperation from "./educationOperation";
 
 export default combineReducers({
   auth,
@@ -33,4 +34,5 @@ export default combineReducers({
   employmentTL,
   BCTL,
   employmentOperation,
+  educationOperation
 });

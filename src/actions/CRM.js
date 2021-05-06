@@ -235,3 +235,21 @@ export const clearEmploymentInsuffL2 = (formData) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const clearEducationInsuffL2 = (formData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${apiurl}api/v1/operation/insuff-education-clearL2`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    
+    dispatch(getInsuffL2());
+  } catch (err) {
+    console.error(err);
+  }
+};

@@ -1,4 +1,4 @@
-import { GET_EMP_OPERATION,GET_EMP_SAVE,GET_EMP_INSUFFCLEAR,GET_VENDORBYSTATE } from "./types";
+import { GET_EMP_OPERATION,GET_EMP_SAVE,GET_EMP_INSUFFCLEAR,GET_VENDORBYSTATE ,GET_EMP_ASSIGNVENDOR} from "./types";
 import { apiurl } from "./constant";
 import { setAlert } from "./alert";
 import axios from "axios";
@@ -40,6 +40,21 @@ export const getEMPInsuffClearCases = () => async (dispatch) => {
     );
     dispatch({
       type: GET_EMP_INSUFFCLEAR,
+      payload: res.data.employment,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//GET initiation cases
+export const getEMPAssignVendorCases = () => async (dispatch) => {
+  try {
+    const res = await axios.get(
+      `${apiurl}api/v1/operation/getemployment/assignVendor`
+    );
+    dispatch({
+      type: GET_EMP_ASSIGNVENDOR,
       payload: res.data.employment,
     });
   } catch (err) {
@@ -103,4 +118,43 @@ try {
 } catch (err) {
   console.log(err);
 }
+}
+
+
+export const assignVendor = (data,history) => async dispatch =>{
+  try {
+    const res = await axios.put(
+      `${apiurl}api/v1/operation/assign-vendor`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+    dispatch(setAlert("Email Send"))
+    history.goBack()
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const saveCheck = (data,history) => async dispatch =>{
+  try {
+    const res = await axios.put(
+      `${apiurl}api/v1/operation/close-check`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+    dispatch(setAlert("Save Employment Check"))
+    dispatch(getEMPSavedCases())
+    dispatch(getEMPAssignVendorCases())
+    history.goBack()
+  } catch (err) {
+    dispatch(setAlert("Error in saving Employment Check"))
+  }
 }

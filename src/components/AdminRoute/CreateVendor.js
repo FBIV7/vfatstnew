@@ -11,12 +11,13 @@ const CreateVendor = ({ createVendor }) => {
     agreement: "",
     startDate: "",
     endDate: "",
-    state:""
+    state:"",
+    email:""
   });
 
   const [count, setCount] = useState(1);
 
-  let { name, agreement, startDate, endDate,state } = formData;
+  let { name, agreement, startDate, endDate,state ,email} = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,6 +54,23 @@ const CreateVendor = ({ createVendor }) => {
                 type="taxt"
                 name="name"
                 placeholder="Name"
+                class=" ml-10 py-3 px-1 mt-1 
+                              text-gray-800 appearance-none 
+                              border-b-2 border-gray-100
+                              focus:text-gray-500 focus:outline-none focus:border-gray-200"
+                required
+                onChange={(e) => onChange(e)}
+              />
+            </div>
+            <div className="block w-full mx-auto">
+              <label className="  mx-auto tracking-wide text-grey-darker text-xs  mb-2">
+                Email
+              </label>
+              <input
+                id="email"
+                type="taxt"
+                name="email"
+                placeholder="Email"
                 class=" ml-10 py-3 px-1 mt-1 
                               text-gray-800 appearance-none 
                               border-b-2 border-gray-100
