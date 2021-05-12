@@ -87,7 +87,7 @@ const BlueCollarReferance = ({
   const onSubmitinsuff = (e) => {
     e.preventDefault();
     console.log(formData);
-    BCReferenceInsuff(formData);
+    BCReferenceInsuff(formData,documents);
     setShowModal(false);
   };
   useEffect(() => {

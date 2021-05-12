@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getPackagebyID, getCasebyID } from "../../actions/initiation";
+import {  getCasebyID } from "../../actions/initiation";
 import _ from "lodash";
 import Education from "./Education";
 import Address from "./Address";
 import Employment from "./Employment";
 import Reference from "./Reference";
 import BlueCollarReferance from "./BlueCollarReferance";
-import axios from "axios";
 
-const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
+const CDFform = ({ location,  cases, getCasebyID }) => {
   const [packages, setPackages] = useState(null);
-
-  console.log(cases);
 
   useEffect(() => {
     var pack = location.state.clientName.package.filter((e) => {
       return e._id === location.state.pack;
     });
-    console.log(pack);
     pack.map((e) => setPackages(e));
-    // getPackagebyID(location.state.pack);
     getCasebyID(location.state._id);
   }, []);
   return (
@@ -155,13 +150,12 @@ const CDFform = ({ getPackagebyID, location, pack, cases, getCasebyID }) => {
 };
 
 CDFform.propTypes = {
-  getPackagebyID: PropTypes.func.isRequired,
   getCasebyID: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   pack: state.initiation.package,
   cases: state.initiation.onecase,
 });
-export default connect(mapStateToProps, { getPackagebyID, getCasebyID })(
+export default connect(mapStateToProps, { getCasebyID })(
   CDFform
 );

@@ -58,7 +58,7 @@ export const addCase = (formData, documents,history) => async (dispatch) => {
   console.log(data);
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/case/register`,
+      `${apiurl}api/v1/crm/register`,
       body,
       {
         headers: {
@@ -67,7 +67,7 @@ export const addCase = (formData, documents,history) => async (dispatch) => {
       }
     );
     const res1 = await axios.post(
-      `${apiurl}api/v1/case/updatedocument/${res.data.cases._id}`,
+      `${apiurl}api/v1/crm/update-document/${res.data.cases._id}`,
       data,
       {
         headers: {
@@ -88,7 +88,7 @@ export const addCase = (formData, documents,history) => async (dispatch) => {
 export const getClient = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/client/getclients`
+      `${apiurl}api/v1/crm/get-client`
     );
     dispatch({
       type: GETS_CLIENTS,
@@ -102,7 +102,7 @@ export const getClient = () => async (dispatch) => {
 export const getInsuff = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/case/getallinsuff/insuffL1`
+      `${apiurl}api/v1/crm/get-insuff/insuffL1`
     );
     dispatch({
       type: GET_INSUFF,
@@ -115,7 +115,7 @@ export const getInsuff = () => async (dispatch) => {
 export const getInsuffL2 = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/case/getallinsuff/insuffL2`
+      `${apiurl}api/v1/crm/get-insuff/insuffL2`
     );
     dispatch({
       type: GET_INSUFFL2,
@@ -129,7 +129,7 @@ export const getInsuffL2 = () => async (dispatch) => {
 export const clearEducationInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/case/insuffeducationclear`,
+      `${apiurl}api/v1/crm/clear/education-insuffL1`,
       formData,
       {
         headers: {
@@ -147,7 +147,7 @@ export const clearEducationInsuff = (formData) => async (dispatch) => {
 export const clearAddressInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/case/insuffaddressclear`,
+      `${apiurl}api/v1/crm/clear/address-insuffL1`,
       formData,
       {
         headers: {
@@ -165,7 +165,7 @@ export const clearAddressInsuff = (formData) => async (dispatch) => {
 export const clearReferanceInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/case/insuffreferanceclear`,
+      `${apiurl}api/v1/crm/clear/referance-insuffL1`,
       formData,
       {
         headers: {
@@ -183,7 +183,7 @@ export const clearReferanceInsuff = (formData) => async (dispatch) => {
 export const clearBluecollarInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/case/insuffbluecollarclear`,
+      `${apiurl}api/v1/crm/clear/bluecollar-insuffL1`,
       formData,
       {
         headers: {
@@ -201,7 +201,7 @@ export const clearBluecollarInsuff = (formData) => async (dispatch) => {
 export const clearEmploymentInsuff = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/case/insuffemploymentclear`,
+      `${apiurl}api/v1/crm/clear/employment-insuffL1`,
       formData,
       {
         headers: {
@@ -220,7 +220,7 @@ export const clearEmploymentInsuff = (formData) => async (dispatch) => {
 export const clearEmploymentInsuffL2 = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/operation/insuffemploymentclearl2`,
+      `${apiurl}api/v1/crm/clear/employment-insuffL2`,
       formData,
       {
         headers: {
@@ -239,7 +239,7 @@ export const clearEmploymentInsuffL2 = (formData) => async (dispatch) => {
 export const clearEducationInsuffL2 = (formData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${apiurl}api/v1/operation/insuff-education-clearL2`,
+      `${apiurl}api/v1/crm/clear/education-insuffL2`,
       formData,
       {
         headers: {

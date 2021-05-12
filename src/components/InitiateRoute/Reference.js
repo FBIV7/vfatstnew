@@ -96,7 +96,7 @@ const Reference = ({
   const onSubmitinsuff = (e) => {
     e.preventDefault();
     console.log(formData);
-    referanceInsuff(formData);
+    referanceInsuff(formData,documents);
     setShowModal(false);
   };
   useEffect(() => {

@@ -7,7 +7,7 @@ import axios from "axios";
 export const getEMPOperationCases = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/operation/getemployment/Operation`
+      `${apiurl}api/v1/employment/get-employment/Operation`
     );
     dispatch({
       type: GET_EMP_OPERATION,
@@ -22,7 +22,7 @@ export const getEMPOperationCases = () => async (dispatch) => {
 export const getEMPSavedCases = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/operation/getemployment/save`
+      `${apiurl}api/v1/employment/get-employment/save`
     );
     dispatch({
       type: GET_EMP_SAVE,
@@ -36,7 +36,7 @@ export const getEMPSavedCases = () => async (dispatch) => {
 export const getEMPInsuffClearCases = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/operation/getemployment/insuffL2Clear`
+      `${apiurl}api/v1/employment/get-employment/insuffL2Clear`
     );
     dispatch({
       type: GET_EMP_INSUFFCLEAR,
@@ -51,7 +51,7 @@ export const getEMPInsuffClearCases = () => async (dispatch) => {
 export const getEMPAssignVendorCases = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/operation/getemployment/assignVendor`
+      `${apiurl}api/v1/employment/get-employment/assignVendor`
     );
     dispatch({
       type: GET_EMP_ASSIGNVENDOR,
@@ -66,7 +66,7 @@ export const saveEmployment = (formData,history) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
     const res = await axios.post(
-      `${apiurl}api/v1/operation/saveemployment`,
+      `${apiurl}api/v1/employment/save/employment`,
       body,
       {
         headers: {
@@ -87,7 +87,7 @@ export const saveInsuffEmployment = (formData,history) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
     const res = await axios.post(
-      `${apiurl}api/v1/operation/saveinsuffemployment`,
+      `${apiurl}api/v1/employment/save/insuff-employment`,
       body,
       {
         headers: {
@@ -124,7 +124,7 @@ try {
 export const assignVendor = (data,history) => async dispatch =>{
   try {
     const res = await axios.put(
-      `${apiurl}api/v1/operation/assign-vendor`,
+      `${apiurl}api/v1/employment/assign-vendor`,
       data,
       {
         headers: {
@@ -142,7 +142,7 @@ export const assignVendor = (data,history) => async dispatch =>{
 export const saveCheck = (data,history) => async dispatch =>{
   try {
     const res = await axios.put(
-      `${apiurl}api/v1/operation/close-check`,
+      `${apiurl}api/v1/employment/close-check`,
       data,
       {
         headers: {

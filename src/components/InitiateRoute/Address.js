@@ -90,7 +90,7 @@ const Address = ({
   const onSubmitinsuff = (e) => {
     e.preventDefault();
     console.log(formData);
-    addressInsuff(formData);
+    addressInsuff(formData, documents);
     setShowModal(false);
   };
   useEffect(() => {

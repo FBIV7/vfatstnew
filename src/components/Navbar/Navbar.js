@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 const Navbar = ({ fixed }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [onHover, setonHover] = useState(false);
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -16,6 +17,10 @@ const Navbar = ({ fixed }) => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+  // console.log(window);
+  // const Homecss = () =>{
+
+  // }
   return (
     <div>
       <nav className="fixed flex items-center justify-between flex-wrap p-6 font-sans shadow-md z-50 w-full px-5 py-4">
@@ -50,12 +55,15 @@ const Navbar = ({ fixed }) => {
           className={`w-full ${isMenuOpen ? "block" : "hidden"
             } lg:block flex-grow justify-baseline lg:flex lg:items-baseline lg:w-auto pt-1 text-white-900`}
         >
-          <div className=" lg:flex-grow text-white-900 fontNav		">
+          <div className=" lg:flex-grow text-white-900 fontNav 		">
             <Link
               to="/"
               className="block mt-4 lg:inline-block lg:mt-0 text-white-600 rounded hover:text-3xl	 hover:text-white mr-4"
             >
-              <span className="px-2"> HOME </span>
+              <button onMouseEnter={() => setonHover(true)}
+        onMouseLeave={() => setonHover(false)}>
+              <span className={onHover?"px-2 bg-yellow-600 text-5xl ":"px-2 "}  > HOME </span>
+        </button>
             </Link>
             <Link
               to="/about"

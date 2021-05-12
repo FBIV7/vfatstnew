@@ -1,12 +1,12 @@
 import axios from "axios";
 import {GET_EMPLOYMENTTL,GET_EMPLOYMENTTEAM } from "./types.js";
-
+import {apiurl} from "./constant"
 
 // get address by status Teamleader
 export const getEmploymentTL = () => async (dispatch) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/form/employment/TL"
+        `${apiurl}api/v1/employment/employment/TL`
       );
       dispatch({
         type: GET_EMPLOYMENTTL,
@@ -20,7 +20,7 @@ export const getEmploymentTL = () => async (dispatch) => {
   // get
 export const getEmploymentTeam = () => async (dispatch) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/auth/employment");
+      const res = await axios.get(`${apiurl}api/v1/employment/employment`);
       dispatch({
         type: GET_EMPLOYMENTTEAM,
         payload: res.data.user,
@@ -35,7 +35,7 @@ export const getEmploymentTeam = () => async (dispatch) => {
     try {
       const body = JSON.stringify(formData);
       const res = await axios.post(
-        "http://localhost:5000/api/v1/case/employmentbyid",
+        `${apiurl}api/v1/employment/employment-by-id`,
         body,
         {
           headers: {

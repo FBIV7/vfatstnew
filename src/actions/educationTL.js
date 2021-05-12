@@ -1,12 +1,12 @@
 import axios from "axios";
 import { GET_EDUCATIONTL,GET_EDUCATIONTEAM } from "./types.js";
-
+import {apiurl} from "./constant"
 
 // get address by status Teamleader
 export const getEducationTL = () => async (dispatch) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/form/education/TL"
+        `${apiurl}api/v1/education/education/TL`
       );
       dispatch({
         type: GET_EDUCATIONTL,
@@ -20,7 +20,7 @@ export const getEducationTL = () => async (dispatch) => {
   // get
 export const getEducationTeam = () => async (dispatch) => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/auth/education");
+      const res = await axios.get(`${apiurl}api/v1/education/get-education`);
       dispatch({
         type: GET_EDUCATIONTEAM,
         payload: res.data.user,
@@ -34,7 +34,7 @@ export const getEducationTeam = () => async (dispatch) => {
     try {
       const body = JSON.stringify(formData);
       const res = await axios.post(
-        "http://localhost:5000/api/v1/case/educationbyid",
+        `${apiurl}api/v1/education/education-by-id`,
         body,
         {
           headers: {
