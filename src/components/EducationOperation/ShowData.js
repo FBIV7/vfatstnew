@@ -29,7 +29,7 @@ const ShowData = ({ getEDUOperationCases, education }) => {
                 to={{
                   pathname: "/filldata",
                   state: e,
-                  isSave: false,
+                  link: "showdata",
                 }}
                 key={e.ReportID}
               >

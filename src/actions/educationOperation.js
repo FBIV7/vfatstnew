@@ -140,8 +140,10 @@ export const assignVendorEDU = (data, history) => async (dispatch) => {
   }
 };
 
-export const closeCheck = (data, history) => async (dispatch) => {
+export const saveCheck = (data, history) => async (dispatch) => {
   try {
+console.log("helloooo");
+
     const res = await axios.put(
       `${apiurl}api/v1/education/close-check`,
       data,

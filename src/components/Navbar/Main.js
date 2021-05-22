@@ -16,6 +16,9 @@ import SideBarReferanceTL from "./SideBarReferanceTL";
 import SideBarClientRegistration from "./SideBarClientRegistration";
 import SideBarEmploymentOperation from "./SideBarEmploymentOperation";
 import SideBarEducationOperation from "./SideBarEducationOperation";
+import SideBarEmpQualityCheck from "./SideBarEmpQualityCheck";
+import SideBarEduQualityCheck from "./SideBarEduQualityCheck";
+import SideBarReportWriting from "./SideBarReportWriting";
 
 const Main = ({ isAuthenticated, role }) => {
   // (isAuthenticated)?(<div><SideBar/></div>):(<div><Navbar/></div>)
@@ -103,6 +106,27 @@ const Main = ({ isAuthenticated, role }) => {
       return (
         <div>
           <SideBarClientRegistration />
+        </div>
+      );
+    }
+    else if (role == "EMPQUALITYCHECK") {
+      return (
+        <div>
+          <SideBarEmpQualityCheck/>
+        </div>
+      );
+    }
+    else if (role == "EDUQUALITYCHECK") {
+      return (
+        <div>
+          <SideBarEduQualityCheck/>
+        </div>
+      );
+    }
+    else if (role == "REPORTWRITING") {
+      return (
+        <div>
+          <SideBarReportWriting/>
         </div>
       );
     }

@@ -50,7 +50,7 @@ export const educationSubmit = (formData, documents) => async (dispatch) => {
     var data = new FormData();
     data.append("form", body);
     data.append("documents", documents);
-    const res = await axios.post(`${apiurl}api/v1/intiation/education`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/education`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -69,7 +69,7 @@ export const addressSubmit = (formData, documents) => async (dispatch) => {
     var data = new FormData();
     data.append("form", body);
     data.append("documents", documents);
-    const res = await axios.post(`${apiurl}api/v1/intiation/address`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/address`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -89,7 +89,7 @@ export const employmentSubmit = (formData,documents) => async (dispatch) => {
     var data = new FormData();
     data.append("form",body)
     data.append("documents",documents)
-    const res = await axios.post(`${apiurl}api/v1/intiation/employment`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/employment`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -110,7 +110,7 @@ export const referenceSubmit = (formData, documents) => async (dispatch) => {
     data.append("form", body);
     data.append("documents", documents);
 
-    const res = await axios.post(`${apiurl}api/v1/intiation/reference`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/reference`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -132,7 +132,7 @@ export const BCReferenceSubmit = (formData, documents) => async (dispatch) => {
     data.append("form", body);
     data.append("documents", documents);
     const res = await axios.post(
-      `${apiurl}api/v1/intiation/bluecollar-reference`,
+      `${apiurl}api/v1/initiation/bluecollar-reference`,
       data,
       {
         headers: {
@@ -156,7 +156,7 @@ export const BCReferenceInsuff = (formData,documents) => async (dispatch) => {
     data.append("form", body);
     data.append("documents", documents);
     const res = await axios.post(
-      `${apiurl}api/v1/intiation/bluecollarreference-insuff`,
+      `${apiurl}api/v1/initiation/bluecollarreference-insuff`,
       data,
       {
         headers: {
@@ -177,7 +177,7 @@ export const educationInsuff = (formData,documents) => async (dispatch) => {
     var data = new FormData();
     data.append("form", body);
     data.append("documents", documents);
-    const res = await axios.post(`${apiurl}api/v1/intiation/education-insuff`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/education-insuff`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -195,7 +195,7 @@ export const addressInsuff = (formData,documents) => async (dispatch) => {
     var data = new FormData();
     data.append("form", body);
     data.append("documents", documents);
-    const res = await axios.post(`${apiurl}api/v1/intiation/address-insuff`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/address-insuff`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -214,7 +214,7 @@ export const employmentInsuff = (formData,documents) => async (dispatch) => {
     data.append("form",body)
     data.append("documents",documents)
     const res = await axios.post(
-      `${apiurl}api/v1/intiation/employment-insuff`,
+      `${apiurl}api/v1/initiation/employment-insuff`,
       data,
       {
         headers: {
@@ -236,7 +236,7 @@ export const referanceInsuff = (formData,documents) => async (dispatch) => {
     data.append("form",body)
     data.append("documents",documents)
 
-    const res = await axios.post(`${apiurl}api/v1/intiation/referance-insuff`, data, {
+    const res = await axios.post(`${apiurl}api/v1/initiation/referance-insuff`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -252,7 +252,7 @@ export const referanceInsuff = (formData,documents) => async (dispatch) => {
 export const getEducationbyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/intiation/education/reportid?id=${id}`
+      `${apiurl}api/v1/initiation/education/reportid?id=${id}`
     );
     dispatch({
       type: EDUCATIONBY_ID,
@@ -267,7 +267,7 @@ export const getEducationbyID = (id) => async (dispatch) => {
 export const getAddressbyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/intiation/address/reportid?id=${id}`
+      `${apiurl}api/v1/initiation/address/reportid?id=${id}`
     );
     dispatch({
       type: ADDRESSBY_ID,
@@ -282,7 +282,7 @@ export const getAddressbyID = (id) => async (dispatch) => {
 export const getReferancebyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/intiation/referance/reportid?id=${id}`
+      `${apiurl}api/v1/initiation/referance/reportid?id=${id}`
     );
     dispatch({
       type: REFERANCEBY_ID,
@@ -297,7 +297,7 @@ export const getReferancebyID = (id) => async (dispatch) => {
 export const getBluecollarbyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/intiation/bluecollar/reportid?id=${id}`
+      `${apiurl}api/v1/initiation/bluecollar/reportid?id=${id}`
     );
     dispatch({
       type: BLUECOLLARBY_ID,
@@ -312,7 +312,7 @@ export const getBluecollarbyID = (id) => async (dispatch) => {
 export const getEmploymentbyID = (id) => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${apiurl}api/v1/intiation/employment/reportid?id=${id}`
+      `${apiurl}api/v1/initiation/employment/reportid?id=${id}`
     );
     dispatch({
       type: EMPLOYMENTBY_ID,
@@ -342,7 +342,7 @@ export const getInsuffClear = () => async (dispatch) => {
 
 export const educationUpdate = (formData, history) => async (dispatch) => {
   try {
-    const res = await axios.post( `${apiurl}api/v1/intiation/education-update`,
+    const res = await axios.post( `${apiurl}api/v1/initiation/education-update`,
     formData,
     {
       headers: {
@@ -360,7 +360,7 @@ export const educationUpdate = (formData, history) => async (dispatch) => {
 
 export const addressUpdate = (formData, history) => async (dispatch) => {
   try {
-    const res = await axios.post( `${apiurl}api/v1/intiation/address-update`,
+    const res = await axios.post( `${apiurl}api/v1/initiation/address-update`,
     formData,
     {
       headers: {
@@ -378,7 +378,7 @@ export const addressUpdate = (formData, history) => async (dispatch) => {
 
 export const referanceUpdate = (formData,history) => async (dispatch) =>{
   try {
-    const res = await axios.post( `${apiurl}api/v1/intiation/referance-update`,
+    const res = await axios.post( `${apiurl}api/v1/initiation/referance-update`,
     formData,
     {
       headers: {
@@ -397,7 +397,7 @@ export const referanceUpdate = (formData,history) => async (dispatch) =>{
 
 export const BCreferanceUpdate = (formData,history) => async (dispatch) =>{
   try {
-    const res = await axios.post( `${apiurl}api/v1/intiation/BCreferance-update`,
+    const res = await axios.post( `${apiurl}api/v1/initiation/BCreferance-update`,
     formData,
     {
       headers: {
@@ -416,7 +416,7 @@ export const BCreferanceUpdate = (formData,history) => async (dispatch) =>{
 
 export const employmentUpdate = (formData,history) => async (dispatch) =>{
   try {
-    const res = await axios.post( `${apiurl}api/v1/intiation/employment-update`,
+    const res = await axios.post( `${apiurl}api/v1/initiation/employment-update`,
     formData,
     {
       headers: {

@@ -16,6 +16,8 @@ import employmentTL from "./employmentTL";
 import BCTL from "./BCTL";
 import employmentOperation from "./employmentOperation";
 import educationOperation from "./educationOperation";
+import quality from "./quality";
+import reportWriting from "./reportWriting";
 
 export default combineReducers({
   auth,
@@ -34,5 +36,7 @@ export default combineReducers({
   employmentTL,
   BCTL,
   employmentOperation,
-  educationOperation
+  educationOperation,
+  quality,
+  reportWriting
 });

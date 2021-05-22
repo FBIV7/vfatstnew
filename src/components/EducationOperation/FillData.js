@@ -6,7 +6,7 @@ import {
   saveInsuffEducation,
   getVendorState,
   assignVendorEDU,
-  closeCheck
+  saveCheck
 } from "../../actions/educationOperation";
 import { withRouter } from "react-router-dom";
 import { RegionDropdown } from "react-country-region-selector";
@@ -18,7 +18,7 @@ const FillData = ({
   getVendorState,
   vendor,
   assignVendorEDU,
-  closeCheck
+  saveCheck
 }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [showInsuffModal, setShowInsuffModal] = React.useState(false);
@@ -139,8 +139,9 @@ const FillData = ({
     data.append("remark", remark);
     data.append("colourCode", colourCode);
     data.append("documents", documents);
-
-    closeCheck(data, history);
+console.log("helloooo");
+    saveCheck(data, history);
+    setShowCloseModal(false)
   };
   useEffect(() => {
     if (states) {
@@ -830,7 +831,6 @@ const FillData = ({
           <button
             className="bg-green-500 ml-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded  "
             type="button"
-            disabled={!location.isSave}
             onClick={(e) => setShowCloseModal(true)}
           >
             Close
@@ -1173,7 +1173,7 @@ FillData.propTypes = {
   saveInsuffEducation: PropTypes.func.isRequired,
   getVendorState: PropTypes.func.isRequired,
   assignVendorEDU: PropTypes.func.isRequired,
-  closeCheck:PropTypes.func.isRequired,
+  saveCheck:PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   vendor: state.employmentOperation.vendor,
@@ -1183,5 +1183,5 @@ export default connect(mapStateToProps, {
   saveInsuffEducation,
   getVendorState,
   assignVendorEDU,
-  closeCheck
+  saveCheck
 })(withRouter(FillData));
