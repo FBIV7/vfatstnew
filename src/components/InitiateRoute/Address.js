@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {  RegionDropdown, } from 'react-country-region-selector';
 import { withRouter } from "react-router-dom";
 import {
   addressSubmit,
@@ -353,15 +354,20 @@ const Address = ({
             <label className="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
               State
             </label>
-            <input
-              className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-1 px-2 mb-3"
-              id=""
-              name="state"
-              type="text"
-              placeholder=""
-              value={state}
-              onChange={(e) => onChange(e)}
-            />
+            <RegionDropdown
+                id="startDate"
+                type="text"
+                name="State"
+                country="India"
+                value={state}
+                blacklist={{IN:["AN","DD"]}}
+                class="w-1/2 ml-10 py-3 px-1 mt-1 mb-4
+                              text-gray-800 appearance-none 
+                              border-b-2 border-gray-100
+                              focus:text-gray-500 focus:outline-none focus:border-gray-200"
+                required
+                onChange={(e) => setFormData({...formData,state:e})}
+              />
           </div>
         </div>
         <div className="-mx-3 md:flex mb-6">

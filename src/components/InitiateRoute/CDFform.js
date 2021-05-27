@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {  getCasebyID } from "../../actions/initiation";
+import { getCasebyID } from "../../actions/initiation";
 import _ from "lodash";
 import Education from "./Education";
 import Address from "./Address";
 import Employment from "./Employment";
 import Reference from "./Reference";
 import BlueCollarReferance from "./BlueCollarReferance";
+import SocialMedia from "./SocialMedia";
+import Passport from "./Passport";
+import Pancard from "./Pancard";
+import DrivingLicene from "./DrivingLicene";
+import Aadhar from "./Aadhar";
+import CriminalThroughLawFirm from "./CriminalThroughLawFirm";
+import CriminalThroughEcourt from "./CriminalThroughEcourt";
 
-const CDFform = ({ location,  cases, getCasebyID }) => {
+const CDFform = ({ location, cases, getCasebyID }) => {
   const [packages, setPackages] = useState(null);
+  console.log(location.state, cases);
 
   useEffect(() => {
     var pack = location.state.clientName.package.filter((e) => {
@@ -18,6 +26,7 @@ const CDFform = ({ location,  cases, getCasebyID }) => {
     });
     pack.map((e) => setPackages(e));
     getCasebyID(location.state._id);
+    return () => {};
   }, []);
   return (
     <div>
@@ -48,26 +57,35 @@ const CDFform = ({ location,  cases, getCasebyID }) => {
       <div className="grid grid-cols-3 gap-3 mt-10">
         <div>Package selected : {packages && packages.name}</div>
       </div>
-      Education form
+      <div class="bg-gray">
+        <nav class="flex ">
+          {" "}
+          <span className="mt-2 mb-2 ml-3">Education form </span>
+        </nav>
+      </div>
       {packages &&
         packages.educationCheck &&
         cases &&
-        _.times(
-          packages.educationCheck - ( cases.educationSubmit),
-          (i, index) => {
-            return (
-              <div key={index}>
-                {" "}
-                <Education
-                  caseId={location.state._id}
-                  reportId={location.state.reportId}
-                  index={index}
-                ></Education>
-              </div>
-            );
-          }
-        )}
-      Address Form
+        _.times(packages.educationCheck - cases.educationSubmit, (i, index) => {
+          return (
+            <div key={index}>
+              {" "}
+              <Education
+                caseId={location.state._id}
+                reportId={location.state.reportId}
+                index={index}
+              ></Education>
+            </div>
+          );
+        })}
+
+      <div class="bg-gray">
+        <nav class="flex ">
+          {" "}
+          <span className="mt-2 mb-2 ml-3">Address Form</span>
+        </nav>
+      </div>
+
       <div>
         {packages &&
           packages.addressCheck &&
@@ -88,12 +106,18 @@ const CDFform = ({ location,  cases, getCasebyID }) => {
           )}
       </div>
       <div>
-        Employment Form
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Employment Form </span>
+          </nav>
+        </div>
+
         {packages &&
           packages.employmentCheck &&
           cases &&
           _.times(
-            packages.employmentCheck - ( cases.employmentSubmit),
+            packages.employmentCheck - cases.employmentSubmit,
             (i, index) => {
               return (
                 <div key={index}>
@@ -108,7 +132,13 @@ const CDFform = ({ location,  cases, getCasebyID }) => {
           )}
       </div>
       <div>
-        Reference Form
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Reference Form </span>
+          </nav>
+        </div>
+
         {packages &&
           packages.referanceCheck &&
           cases &&
@@ -126,7 +156,12 @@ const CDFform = ({ location,  cases, getCasebyID }) => {
               );
             }
           )}
-        <div>BC referance</div>
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Background Referance form </span>
+          </nav>
+        </div>
         {packages &&
           packages.blueCollarReferanceCheck &&
           cases &&
@@ -144,6 +179,180 @@ const CDFform = ({ location,  cases, getCasebyID }) => {
               );
             }
           )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">
+              Criminal Through E-Court Form
+            </span>
+          </nav>
+        </div>
+
+        {packages &&
+          packages.criminalThroughECourtCheck &&
+          cases &&
+          _.times(
+            packages.criminalThroughECourtCheck -
+              (cases ? cases.criminalThroughECourtSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <CriminalThroughEcourt
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">
+              Criminal Through Law Firm Form{" "}
+            </span>
+          </nav>
+        </div>
+        {packages &&
+          packages.criminalThroughLawFirmCheck &&
+          cases &&
+          _.times(
+            packages.criminalThroughLawFirmCheck -
+              (cases ? cases.criminalThroughLawFirmSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <CriminalThroughLawFirm
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Aadhar Form </span>
+          </nav>
+        </div>
+        {packages &&
+          packages.aadharCheck &&
+          cases &&
+          _.times(
+            packages.aadharCheck - (cases ? cases.aadharSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <Aadhar
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Driving Lience Form </span>
+          </nav>
+        </div>
+
+        {packages &&
+          packages.drivingLienceCheck &&
+          cases &&
+          _.times(
+            packages.drivingLienceCheck -
+              (cases ? cases.drivingLienceSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <DrivingLicene
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Pancard Form </span>
+          </nav>
+        </div>
+
+        {packages &&
+          packages.pancardCheck &&
+          cases &&
+          _.times(
+            packages.pancardCheck - (cases ? cases.pancardSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <Pancard
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Passport Form </span>
+          </nav>
+        </div>
+
+        {packages &&
+          packages.passportCheck &&
+          cases &&
+          _.times(
+            packages.passportCheck - (cases ? cases.passportSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <Passport
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
+        <div class="bg-gray">
+          <nav class="flex ">
+            {" "}
+            <span className="mt-2 mb-2 ml-3">Social Media Form </span>
+          </nav>
+        </div>
+
+        {packages &&
+          packages.socialMediaCheck &&
+          cases &&
+          _.times(
+            packages.socialMediaCheck - (cases ? cases.socialMediaSubmit : 0),
+            (i, index) => {
+              return (
+                <div key={index}>
+                  <SocialMedia
+                    caseId={location.state._id}
+                    reportId={location.state.reportId}
+                  />
+                </div>
+              );
+            }
+          )}
+
       </div>
     </div>
   );
@@ -156,6 +365,4 @@ const mapStateToProps = (state) => ({
   pack: state.initiation.package,
   cases: state.initiation.onecase,
 });
-export default connect(mapStateToProps, { getCasebyID })(
-  CDFform
-);
+export default connect(mapStateToProps, { getCasebyID })(CDFform);

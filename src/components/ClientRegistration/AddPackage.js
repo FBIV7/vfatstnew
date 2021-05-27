@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getClient, addPackage } from "../../actions/clientRegistration";
 import { withRouter } from "react-router-dom";
 
-const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
+const AddPackage = ({ client, getClient, addPackage, CRM, history }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [display, setDisplay] = useState(null);
   const [formData, setFormData] = useState({
@@ -30,8 +30,36 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
     referanceCost: 0,
     referanceTAT: 0,
     blueCollarReferanceCheck: "",
-    blueCollarReferanceCost: "",
-    blueCollarReferanceTAT: "",
+    blueCollarReferanceCost: 0,
+    blueCollarReferanceTAT: 0,
+
+    criminalThroughECourtCheck: "",
+    criminalThroughECourtCost: 0,
+    criminalThroughECourtTAT: 0,
+
+    criminalThroughLawFirmCheck: "",
+    criminalThroughLawFirmCost: 0,
+    criminalThroughLawFirmTAT: 0,
+
+    aadharCheck: "",
+    aadharCost: 0,
+    aadharTAT: 0,
+
+    drivingLienceCheck: "",
+    drivingLienceCost: 0,
+    drivingLienceTAT: 0,
+
+    pancardCheck: "",
+    pancardCost: 0,
+    pancardTAT: 0,
+
+    passportCheck: "",
+    passportCost: 0,
+    passportTAT: 0,
+
+    socialMediaCheck: "",
+    socialMediaCost: 0,
+    socialMediaTAT: 0,
     cost: 0,
   });
   const {
@@ -58,6 +86,33 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
     blueCollarReferanceCheck,
     blueCollarReferanceCost,
     blueCollarReferanceTAT,
+
+    criminalThroughECourtCheck,
+    criminalThroughECourtCost,
+    criminalThroughECourtTAT,
+
+    criminalThroughLawFirmCheck,
+    criminalThroughLawFirmCost,
+    criminalThroughLawFirmTAT,
+
+    aadharCheck,
+    aadharCost,
+    aadharTAT,
+
+    drivingLienceCheck,
+    drivingLienceCost,
+    drivingLienceTAT,
+
+    pancardCheck,
+    pancardCost,
+    pancardTAT,
+
+    passportCheck,
+    passportCost,
+    passportTAT,
+    socialMediaCheck,
+    socialMediaCost,
+    socialMediaTAT,
     cost,
     id,
   } = formData;
@@ -68,7 +123,7 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    addPackage(formData,history);
+    addPackage(formData, history);
 
     console.log(formData);
     setShowModal(false);
@@ -86,7 +141,14 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
       referanceCost: 0,
       criminalCost: 0,
       blueCollarReferanceCost: 0,
-      employmentCost:0
+      employmentCost: 0,
+      criminalThroughECourtCost:0,
+      criminalThroughLawFirmCost:0,
+      aadharCost:0,
+      drivingLienceCost:0,
+      pancardCost:0,
+      passportCost:0,
+      socialMediaCost:0,
     });
     setShowModal(true);
   };
@@ -102,8 +164,15 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
         Number(addressCost) +
         Number(criminalCost) +
         Number(drugCost) +
-        Number(blueCollarReferanceCost)+
-        Number(employmentCost)
+        Number(blueCollarReferanceCost) +
+        Number(employmentCost)+
+        Number(criminalThroughECourtCost)+
+        Number(criminalThroughLawFirmCost)+
+        Number(aadharCost)+
+        Number(drivingLienceCost)+
+        Number(pancardCost)+
+        Number(passportCost)+
+        Number(socialMediaCost),
     });
   }, [
     educationCost,
@@ -112,7 +181,14 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
     drugCost,
     criminalCost,
     blueCollarReferanceCost,
-    employmentCost
+    employmentCost,
+    criminalThroughECourtCost,
+    criminalThroughLawFirmCost,
+    aadharCost,
+    drivingLienceCost,
+    pancardCost,
+    passportCost,
+    socialMediaCost
   ]);
   return (
     <div>
@@ -306,7 +382,6 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
                     />
                   </div>
 
-
                   <div className="grid grid-cols-3 gap-2 mt-4">
                     <input
                       id="drugCheck"
@@ -411,6 +486,199 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
                       onChange={(e) => onChange(e)}
                     />
                   </div>
+
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="criminalThroughECourtCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalThroughECourtCheck"
+                      placeholder="Criminal Through E-court Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="criminalThroughECourtCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalThroughECourtCost"
+                      placeholder="Criminal Through E-court Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="criminalThroughECourtTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalThroughECourtTAT"
+                      placeholder="Criminal Through E-court TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="criminalThroughLawFirmCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalThroughLawFirmCheck"
+                      placeholder="Criminal Through Law Firm Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="criminalThroughLawFirmCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalThroughLawFirmCost"
+                      placeholder="Criminal Through Law Firm Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="criminalThroughLawFirmTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="criminalThroughLawFirmTAT"
+                      placeholder="Criminal Through Law Firm TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="aadharCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="aadharCheck"
+                      placeholder="Aadhar Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="aadharCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="aadharCost"
+                      placeholder="Aadhar Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="aadharTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="aadharTAT"
+                      placeholder="Aadhar TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="drivingLienceCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="drivingLienceCheck"
+                      placeholder="Driving Lience Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="drivingLienceCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="drivingLienceCost"
+                      placeholder="Driving Lience Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="drivingLienceTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="drivingLienceTAT"
+                      placeholder="Driving Lience TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="pancardCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="pancardCheck"
+                      placeholder="PanCard Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="pancardCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="pancardCost"
+                      placeholder="PanCard Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="pancardTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="pancardTAT"
+                      placeholder="PanCard TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="passportCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="passportCheck"
+                      placeholder="Passport Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="passportCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="passportCost"
+                      placeholder="Passport Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="passportTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="passportTAT"
+                      placeholder="Passport TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <input
+                      id="socialMediaCheck"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="socialMediaCheck"
+                      placeholder="Social Media Check"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="socialMediaCost"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="socialMediaCost"
+                      placeholder="Social Media Cost"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      id="socialMediaTAT"
+                      type="number"
+                      className="flex-grow h-8 px-2 rounded border border-grey-400"
+                      name="socialMediaTAT"
+                      placeholder="Social Media TAT"
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+
+
+
+
                   <div className="flex flex-col mt-4">
                     <input
                       id="cost"
@@ -482,8 +750,14 @@ const AddPackage = ({ client, getClient, addPackage, CRM ,history}) => {
                       <td className="mx-auto"> {e.drugCheck} </td>
                       <td className="mx-auto"> {e.criminalCheck} </td>
                       <td className="mx-auto"> {e.referanceCheck} </td>
-                      <td className="mx-auto"> {e.blueCollarReferanceCheck} </td>
-                      <td className="mx-auto"> {e.employmentCheck &&e.employmentCheck} </td>
+                      <td className="mx-auto">
+                        {" "}
+                        {e.blueCollarReferanceCheck}{" "}
+                      </td>
+                      <td className="mx-auto">
+                        {" "}
+                        {e.employmentCheck && e.employmentCheck}{" "}
+                      </td>
 
                       <td className="mx-auto"> {e.cost} </td>
                     </tr>
@@ -506,4 +780,6 @@ const mapStateToProps = (state) => ({
   CRM: state.clientRegistration.CRM,
 });
 
-export default connect(mapStateToProps, { getClient, addPackage })(withRouter(AddPackage));
+export default connect(mapStateToProps, { getClient, addPackage })(
+  withRouter(AddPackage)
+);
